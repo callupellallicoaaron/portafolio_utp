@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portada Universitaria</title>
+    <style>
+        body {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+            background: white;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .portada-section {
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .portada {
+            background: white;
+            border: 2px solid black;
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 1100px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+            background: #1e40af;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        .info-institucional {
+            flex: 1;
+        }
+
+        .info-institucional h2 {
+            margin: 0 0 10px 0;
+            color: #333;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .info-institucional p {
+            margin: 5px 0;
+            color: #666;
+            font-size: 16px;
+            line-height: 1.4;
+        }
+
+        .info-estudiante {
+            text-align: right;
+            flex-shrink: 0;
+        }
+
+        .info-estudiante p {
+            margin: 5px 0;
+            color: #333;
+            font-size: 16px;
+            line-height: 1.4;
+        }
+
+        .info-estudiante p strong {
+            color: black;
+        }
+
+        @media (max-width: 768px) {
+            .portada {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+                gap: 20px;
+            }
+            
+            .info-estudiante {
+                text-align: center;
+            }
+            
+            .info-institucional h2 {
+                font-size: 20px;
+            }
+            
+            .info-institucional p,
+            .info-estudiante p {
+                font-size: 14px;
+            }
+            
+            .logo {
+                width: 80px;
+                height: 80px;
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .portada {
+                padding: 15px;
+            }
+            
+            .info-institucional h2 {
+                font-size: 18px;
+            }
+            
+            .info-institucional p,
+            .info-estudiante p {
+                font-size: 12px;
+            }
+        }
+
+        /* Estilos para las tarjetas */
+        .tarjetas-container {
+            width: 100%;
+            max-width: 1240px;
+            margin: 5px auto 0;
+            padding: 0 20px;
+        }
+
+        .tarjetas-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .tarjeta {
+            perspective: 1000px;
+            height: 390px;
+            aspect-ratio: 3/4;
+        }
+
+        .tarjeta-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+
+        .tarjeta.flipped .tarjeta-inner {
+            transform: rotateY(180deg);
+        }
+
+        .tarjeta-front, .tarjeta-back {
+            position: absolute;
+            width: 100%;
+            height: 110%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            box-sizing: border-box;
+        }
+
+        .tarjeta-front {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .tarjeta-back {
+            background: white;
+            color: #333;
+            transform: rotateY(180deg);
+            border: 2px solid #e5e7eb;
+            overflow: hidden;
+            justify-content: flex-start;
+        }
+
+        .tarjeta-front h3 {
+            font-size: 18px;
+            margin: 15px 0 10px 0;
+            font-weight: bold;
+        }
+
+        .tarjeta-front .icono {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        .tarjeta-imagen {
+            width: 250px;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+
+        }
+
+        .tarjeta-back h4 {
+            font-size: 16px;
+            margin: 0 0 8px 0;
+            color: #1f2937;
+            font-weight: bold;
+            line-height: 1.1;
+        }
+
+        .tarjeta-back p {
+            font-size: 14px;
+            line-height: 1.2;
+            margin: 4px 0;
+            text-align: left;
+        }
+
+        .tarjeta-back .actividades {
+            background: #f3f4f6;
+            padding: 6px;
+            border-radius: 4px;
+            margin-top: 6px;
+        }
+
+        .tarjeta-back .actividades strong {
+            color: #374151;
+            font-size: 14px;
+        }
+
+        /* Colores específicos para cada tarjeta */
+        .tarjeta:nth-child(1) .tarjeta-front {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+        }
+
+        .tarjeta:nth-child(2) .tarjeta-front {
+            background: linear-gradient(135deg, #fb923c 0%, #ea580c 100%);
+        }
+
+        .tarjeta:nth-child(3) .tarjeta-front {
+            background: linear-gradient(135deg, #34d399 0%, #059669 100%);
+        }
+
+        .tarjeta:nth-child(4) .tarjeta-front {
+            background: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%);
+        }
+
+        @media (max-width: 1024px) {
+            .tarjetas-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .tarjetas-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .tarjeta {
+                height: 450px;
+                aspect-ratio: 3/4;
+            }
+            
+            .tarjeta-front h3 {
+                font-size: 16px;
+            }
+            
+            .tarjeta-front .icono {
+                font-size: 36px;
+            }
+            
+            .tarjeta-back h4 {
+                font-size: 14px;
+            }
+            
+            .tarjeta-back p {
+                font-size: 12px;
+            }
+        }
+
+        /* Estilos para la información adicional */
+        .informacion-adicional {
+            width: 100%;
+            max-width: 1200px;
+            margin: 60px auto 40px;
+            padding: 0 20px;
+        }
+
+        .columnas-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            background: #f8fafc;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .columna h3 {
+            color: #1f2937;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 0 0 20px 0;
+            border-bottom: 3px solid #3b82f6;
+            padding-bottom: 10px;
+        }
+
+        .columna ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .columna li {
+            background: white;
+            margin: 12px 0;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-left: 4px solid #10b981;
+            font-size: 14px;
+            line-height: 1.5;
+            color: #374151;
+        }
+
+        .capacidad {
+            background: white;
+            margin: 15px 0;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-left: 4px solid #f59e0b;
+        }
+
+        .capacidad h4 {
+            color: #1f2937;
+            font-size: 16px;
+            font-weight: bold;
+            margin: 0 0 8px 0;
+        }
+
+        .capacidad p {
+            color: #374151;
+            font-size: 14px;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .columnas-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                padding: 20px;
+            }
+            
+            .columna h3 {
+                font-size: 18px;
+            }
+            
+            .columna li {
+                font-size: 13px;
+                padding: 12px;
+            }
+            
+            .capacidad h4 {
+                font-size: 15px;
+            }
+            
+            .capacidad p {
+                font-size: 13px;
+            }
+        }
+
+    .titulo-caja {
+    text-align: center;
+    font-size: 24px;
+    color: #374151;
+    background-color: #f3f4f6;
+    padding: 15px 30px;
+    border-radius: 8px;
+    display: inline-block;
+    margin: 20px auto 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="portada-section">
+            <div class="portada">
+                <img src="https://www.carreras.pe/userfiles/images/Logos%20y%20fachadas/Logo%20UTP%202.png" alt="Logo UTP" onerror="this.outerHTML='<div class=\'logo\'>UTP</div>';" style="width: 100px; height: 100px; object-fit: contain; background: transparent; flex-shrink: 0;">
+                
+                <div class="info-institucional">
+                    <h2>Universidad Tecnológica del Perú</h2>
+                    <p>Facultad de Educación</p>
+                    <p>Práctica Educativa I: Psicomotricidad para Educación Primaria</p>
+                    <p>Sección 31960</p>
+                </div>
+                
+                <div class="info-estudiante">
+                    <p><strong>Aaron Sixto Callupe Llallico</strong></p>
+                    <p>Estudiante de Educación Primaria</p>
+                    <p>Semana 5 - Actividad 1</p>
+                </div>
+            </div>
+        </div>
+        <h2 class="titulo-caja">✨ Diseño de línea del desarrollo motor ✨</h2>
+    <div class="tarjetas-container">
+        <div class="tarjetas-grid">
+            <!-- Tarjeta 1: Inicio -->
+            <div class="tarjeta" onclick="flipCard(this)">
+                <div class="tarjeta-inner">
+                    <div class="tarjeta-front">
+                        <img src="sonidos/inicio.png" alt="Desarrollo del equilibrio" class="tarjeta-imagen" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <div class="icono" style="display: none;">🟡</div>
+
+                    </div>
+                    <div class="tarjeta-back">
+                        <h4>🟡 Desarrollo del equilibrio → puede caminar en superficies angostas</h4>
+                        <p>El niño comienza a controlar mejor su cuerpo en desplazamientos lineales.</p>
+                        <p>Puede caminar sobre superficies rectas y estrechas (como una línea dibujada en el suelo o una viga baja).</p>
+                        <p>Este logro fortalece la coordinación estática y dinámica, necesaria para futuros movimientos más complejos.</p>
+                        <p>También desarrolla la confianza en sí mismo, al comprobar que es capaz de mantener la estabilidad.</p>
+                        <div class="actividades">
+                            <strong>Actividades recomendadas:</strong> caminar sobre una cuerda en el piso, juegos de equilibrio con un pie, pasar sobre bancos o tablones.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjeta 2: Medio -->
+            <div class="tarjeta" onclick="flipCard(this)">
+                <div class="tarjeta-inner">
+                    <div class="tarjeta-front">
+                        <img src="sonidos/medio.png" alt="Perfecciona saltos y carreras" class="tarjeta-imagen" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <div class="icono" style="display: none;">🟠</div>
+
+                    </div>
+                    <div class="tarjeta-back">
+                        <h4>🟠 Perfecciona saltos y carreras → participa en juegos de persecución</h4>
+                        <p>Los saltos se vuelven más controlados y coordinados: puede saltar en un pie, dar pequeños brincos y alternar los pies al correr.</p>
+                        <p>La carrera se hace más rápida y estable, con giros y cambios de dirección.</p>
+                        <p>Comienza a participar en juegos de persecución (como "la chapada" o "la lleva"), lo cual combina velocidad, agilidad y reacción rápida.</p>
+                        <p>Estas habilidades contribuyen al desarrollo de la resistencia física y la capacidad de reacción motriz.</p>
+                        <div class="actividades">
+                            <strong>Actividades recomendadas:</strong> carreras cortas con obstáculos, juegos de atrapar, saltos en aros, brincos con cuerda.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjeta 3: Avance -->
+            <div class="tarjeta" onclick="flipCard(this)">
+                <div class="tarjeta-inner">
+                    <div class="tarjeta-front">
+                        <img src="sonidos/avance.png" alt="Mejora la motricidad fina" class="tarjeta-imagen" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <div class="icono" style="display: none;">🟢</div>
+
+                    </div>
+                    <div class="tarjeta-back">
+                        <h4>🟢 Mejora la motricidad fina → traza figuras, usa tijeras</h4>
+                        <p>Se perfecciona la coordinación óculo-manual, fundamental para actividades escolares.</p>
+                        <p>Puede sostener un lápiz con mayor precisión (pinza trípode) y trazar líneas rectas, círculos y figuras geométricas simples.</p>
+                        <p>Aprende a usar tijeras para cortar en línea recta o alrededor de formas sencillas.</p>
+                        <p>Estas habilidades son cruciales para la escritura, el dibujo y la creatividad artística.</p>
+                        <div class="actividades">
+                            <strong>Actividades recomendadas:</strong> colorear dentro de un área definida, recortar siluetas, ensartar cuentas, armar rompecabezas simples.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjeta 4: Consolidación -->
+            <div class="tarjeta" onclick="flipCard(this)">
+                <div class="tarjeta-inner">
+                    <div class="tarjeta-front">
+                        <img src="sonidos/consolidacion.png" alt="Habilidades avanzadas" class="tarjeta-imagen" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <div class="icono" style="display: none;">🔵</div>
+
+                    </div>
+                    <div class="tarjeta-back">
+                        <h4>🔵 Habilidades motoras avanzadas</h4>
+                        <p>En esta etapa, el niño consolida todas las habilidades motoras previamente desarrolladas.</p>
+                        <p>Integra movimientos complejos que combinan equilibrio, coordinación y precisión.</p>
+                        <p>Demuestra mayor control corporal en actividades que requieren planificación motora.</p>
+                        <p>Desarrolla patrones de movimiento más sofisticados y eficientes.</p>
+                        <div class="actividades">
+                            <strong>Actividades recomendadas:</strong> circuitos de obstáculos complejos, deportes básicos, actividades de coordinación bilateral, juegos de precisión.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="informacion-adicional">
+        <div class="columnas-container">
+            <div class="columna">
+                <h3>Características principales:</h3>
+                <ul>
+                    <li>Mayor control postural y coordinación de movimientos.</li>
+                    <li>Desarrollo del equilibrio dinámico (puede caminar en línea recta o sobre superficies estrechas).</li>
+                    <li>Gusto por los juegos de movimiento, saltos y carreras.</li>
+                    <li>Iniciativa para imitar movimientos y crear juegos propios.</li>
+                    <li>Se fortalece la motricidad fina (dibujar formas básicas, recortar con tijeras).</li>
+                </ul>
+            </div>
+            
+            <div class="columna">
+                <h3>Capacidades motrices:</h3>
+                <div class="capacidad">
+                    <h4>Motricidad gruesa:</h4>
+                    <p>Saltar en un pie, correr con mayor control, subir y bajar escaleras alternando los pies, lanzar y atrapar una pelota.</p>
+                </div>
+                <div class="capacidad">
+                    <h4>Motricidad fina:</h4>
+                    <p>Abotonar prendas, sostener el lápiz con pinza trípode, copiar círculos, cuadrados y algunas letras.</p>
+                </div>
+                <div class="capacidad">
+                    <h4>Coordinación y equilibrio:</h4>
+                    <p>Caminar hacia atrás, hacer giros simples, mantener equilibrio sobre un pie algunos segundos.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function flipCard(card) {
+            card.classList.toggle('flipped');
+        }
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'986f99df6499952a',t:'MTc1OTE5MjExNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

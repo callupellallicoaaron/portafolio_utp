@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análisis Psicomotor - Niño Bailando Contradanza</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #9ca3af 0%, #ec4899 100%);
+        }
+        
+        .analysis-card {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .section-header {
+            background: linear-gradient(90deg, #6b7280, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .video-container {
+            position: relative;
+            width: 100%;
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .skill-badge {
+            background: linear-gradient(45deg, #9ca3af, #ec4899);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            display: inline-block;
+            margin: 0.25rem;
+        }
+
+        @media (max-width: 1024px) {
+            .video-container {
+                min-height: 400px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .video-container {
+                min-height: 350px;
+            }
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-6">
+        <!-- Cover Page -->
+        <div class="analysis-card rounded-2xl p-6 md:p-8 shadow-2xl mb-8 max-w-7xl mx-auto">
+          <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+            <div class="flex items-center gap-4">
+              <img src="https://www.carreras.pe/userfiles/images/Logos%20y%20fachadas/Logo%20UTP%202.png" alt="Logo UTP" class="w-20 h-20 md:w-24 md:h-24 object-contain" onerror="this.src=''; this.alt='Image failed to load'; this.style.display='none';">
+              <div>
+                <h2 class="text-xl font-bold text-gray-800">Universidad Tecnológica del Perú</h2>
+                <p class="text-gray-600">Facultad de Educación</p>
+                <p class="text-sm text-gray-500">Práctica Educativa I: Psicomotricidad para Educación Primaria</p>
+                <p class="text-xs text-gray-400">Sección 31960</p>
+              </div>
+            </div>
+            <div class="text-left md:text-right">
+              <p class="text-lg font-semibold text-gray-800">Aaron Sixto Callupe Llallico</p>
+              <p class="text-gray-600">Estudiante de Educación Primaria</p>
+              <p class="text-gray-600">Semana 1 - Actividad 1</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-white mb-4">
+                Análisis Psicomotor
+            </h1>
+            <p class="text-lg md:text-xl text-white opacity-90">
+                Niño Bailando Contradanza - Evaluación del Desarrollo Motor
+            </p>
+        </div>
+
+        <!-- Main Content Grid -->
+        <div class="grid lg:grid-cols-5 gap-6 max-w-7xl mx-auto">
+            <!-- Video Section -->
+            <div class="lg:col-span-2 analysis-card rounded-2xl p-4 md:p-6 shadow-2xl">
+                <h2 class="text-xl md:text-2xl font-bold section-header mb-4">
+                    📹 Video Contradanza
+                </h2>
+                
+                <!-- Video Local -->
+                <div class="video-container mb-4">
+                    <video 
+                        controls 
+                        class="w-full h-full rounded-lg shadow-lg"
+                        style="max-height: 500px; object-fit: contain;"
+                        poster=""
+                        preload="metadata">
+                        <source src="sonidos/contradanzatiktok.mp4" type="video/mp4">
+                        <source src="sonidos/contradanzatiktok.mov" type="video/quicktime">
+                        <source src="sonidos/contradanzatiktok.webm" type="video/webm">
+                        <source src="sonidos/contradanzatiktok" type="video/mp4">
+                        <p class="text-gray-600 p-4">
+                            Tu navegador no soporta la reproducción de video. 
+                            <br>Archivo: contradanzatiktok
+                        </p>
+                    </video>
+                </div>
+
+                <div class="bg-gradient-to-r from-gray-400 to-pink-500 text-white p-4 rounded-lg">
+                    <h3 class="font-semibold mb-2">🎯 Aspectos Observados</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-white bg-opacity-20 px-3 py-1 rounded-full text-sm">Postura</span>
+                        <span class="bg-white bg-opacity-20 px-3 py-1 rounded-full text-sm">Coordinación</span>
+                        <span class="bg-white bg-opacity-20 px-3 py-1 rounded-full text-sm">Equilibrio</span>
+                        <span class="bg-white bg-opacity-20 px-3 py-1 rounded-full text-sm">Lateralidad</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analysis Section -->
+            <div class="lg:col-span-3 analysis-card rounded-2xl p-4 md:p-6 shadow-2xl">
+                <h2 class="text-xl md:text-2xl font-bold section-header mb-6">
+                    📊 Análisis Detallado
+                </h2>
+
+                <div class="space-y-6 max-h-96 lg:max-h-none overflow-y-auto lg:overflow-visible">
+                    <!-- Esquema Corporal -->
+                    <div class="p-4 bg-blue-50 rounded-lg border-l-4 border-blue-500">
+                        <h3 class="text-base md:text-lg font-semibold text-blue-800 mb-3 flex items-center gap-2">
+                            <span class="text-xl md:text-2xl">🧍</span>
+                            1. Esquema Corporal
+                        </h3>
+                        <p class="text-sm md:text-base text-gray-700 leading-relaxed">
+                            El niño muestra buena conciencia de su cuerpo: mantiene postura recta y se desplaza con pasos bien definidos propios de la contradanza. Utiliza gran parte de su espacio al moverse hacia adelante, atrás y en diagonales. Las piernas son las que más se destacan, porque marcan el ritmo de la danza, aunque los brazos acompañan con movimientos firmes y coordinados.
+                        </p>
+                    </div>
+
+                    <!-- Coordinación -->
+                    <div class="p-4 bg-green-50 rounded-lg border-l-4 border-green-500">
+                        <h3 class="text-base md:text-lg font-semibold text-green-800 mb-3 flex items-center gap-2">
+                            <span class="text-xl md:text-2xl">🤸</span>
+                            2. Coordinación (fina y gruesa)
+                        </h3>
+                        <div class="space-y-3">
+                            <div>
+                                <h4 class="font-medium text-green-700 text-sm md:text-base">Movimientos gruesos:</h4>
+                                <p class="text-sm md:text-base text-gray-700">pasos laterales, giros, desplazamientos en bloque y pequeños saltos.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-green-700 text-sm md:text-base">Movimientos finos:</h4>
+                                <p class="text-sm md:text-base text-gray-700">gestos con las manos (acompañando el ritmo), mirada dirigida hacia el público, expresiones faciales que transmiten seguridad y alegría.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-green-700 text-sm md:text-base">Combinación:</h4>
+                                <p class="text-sm md:text-base text-gray-700">los pasos fuertes de piernas se coordinan con el movimiento de brazos y gestos, lo que refleja un control armónico entre lo grueso y lo fino.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Equilibrio -->
+                    <div class="p-4 bg-purple-50 rounded-lg border-l-4 border-purple-500">
+                        <h3 class="text-base md:text-lg font-semibold text-purple-800 mb-3 flex items-center gap-2">
+                            <span class="text-xl md:text-2xl">⚖️</span>
+                            3. Equilibrio
+                        </h3>
+                        <p class="text-sm md:text-base text-gray-700 leading-relaxed">
+                            En ciertos momentos debe mantener el equilibrio al girar o al apoyarse brevemente en un pie. Lo logra con el tronco recto, mirada fija al frente y brazos que sirven de contrapeso, mostrando control postural.
+                        </p>
+                    </div>
+
+                    <!-- Lateralidad -->
+                    <div class="p-4 bg-orange-50 rounded-lg border-l-4 border-orange-500">
+                        <h3 class="text-base md:text-lg font-semibold text-orange-800 mb-3 flex items-center gap-2">
+                            <span class="text-xl md:text-2xl">↔️</span>
+                            4. Lateralidad
+                        </h3>
+                        <p class="text-sm md:text-base text-gray-700 leading-relaxed">
+                            Se observa predominancia del lado derecho, pues varios movimientos de entrada y giros inician con esa pierna. Sin embargo, en algunas secuencias hay alternancia, lo que aporta simetría al baile.
+                        </p>
+                    </div>
+
+                    <!-- Conclusión -->
+                    <div class="p-4 bg-gradient-to-r from-gray-50 to-pink-50 rounded-lg border border-gray-200">
+                        <h3 class="text-base md:text-lg font-semibold text-gray-700 mb-3 flex items-center gap-2">
+                            <span class="text-xl md:text-2xl">✨</span>
+                            Conclusión
+                        </h3>
+                        <p class="text-sm md:text-base text-gray-700 leading-relaxed">
+                            El niño demuestra dominio psicomotor acorde a su edad: combina desplazamientos amplios con gestos expresivos, mantiene el equilibrio y utiliza la lateralidad de manera funcional. La contradanza le permite desarrollar coordinación, conciencia corporal y seguridad al presentarse frente a un público.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center mt-8">
+        </div>
+    </div>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'983b8035b70b6dfd',t:'MTc1ODY0NTgwNC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

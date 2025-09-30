@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio Digital - Práctica Educativa I</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@300;400;700&family=Fredoka:wght@300;400;500;600&display=swap');
+        
+        body {
+            font-family: 'Fredoka', sans-serif;
+            background: linear-gradient(135deg, #d76483 0%, #ffc2bb 100%);
+            min-height: 100vh;
+        }
+        
+        .portfolio-card {
+            background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+            box-shadow: 0 20px 40px rgba(215, 100, 131, 0.2);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        @media (max-width: 768px) {
+            .portfolio-card {
+                border-radius: 15px;
+                box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            }
+        }
+        
+        .week-card {
+            background: linear-gradient(135deg, #ffc2bb 0%, #d1d1d1 100%);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid rgba(215, 100, 131, 0.3);
+        }
+        
+        .week-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(215, 100, 131, 0.3);
+            border-color: #d76483;
+        }
+        
+        .activity-item {
+            background: linear-gradient(135deg, #ffc2bb 0%, #d1d1d1 100%);
+            border-radius: 10px;
+            transition: all 0.2s ease;
+            border: 1px solid rgba(215, 100, 131, 0.2);
+        }
+        
+        .activity-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        
+        .decorative-element {
+            position: absolute;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+        
+        @media (max-width: 768px) {
+            .decorative-element {
+                display: none;
+            }
+        }
+        
+        .floating-icon {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .nav-button {
+            background:  #d76483;/*linear-gradient(145deg, #d76483, #ffc2bb);*/
+            box-shadow: 
+                inset 0 2px 4px rgba(255, 255, 255, 0.3),
+                inset 0 -2px 4px rgba(0, 0, 0, 0.2),
+                0 4px 8px rgba(215, 100, 131, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 
+                inset 0 2px 4px rgba(255, 255, 255, 0.4),
+                inset 0 -2px 4px rgba(0, 0, 0, 0.3),
+                0 6px 12px rgba(215, 100, 131, 0.4);
+        }
+        
+        .nav-button:active {
+            transform: translateY(0px);
+            box-shadow: 
+                inset 0 2px 4px rgba(0, 0, 0, 0.3),
+                inset 0 -1px 2px rgba(255, 255, 255, 0.2),
+                0 2px 4px rgba(215, 100, 131, 0.2);
+        }
+        
+        .modal {
+            backdrop-filter: blur(10px);
+            background: rgba(0,0,0,0.5);
+        }
+        
+        .modal-content {
+            background: linear-gradient(145deg, #ffffff 0%, #f1f5f9 100%);
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+        }
+        
+        @media (max-width: 768px) {
+            .modal-content {
+                margin: 1rem;
+                max-height: calc(100vh - 2rem);
+                border-radius: 15px;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen p-2 sm:p-4">
+    <!-- Elementos decorativos flotantes -->
+    <div class="decorative-element top-10 left-10 text-6xl floating-icon">🎨</div>
+    <div class="decorative-element top-20 right-20 text-5xl floating-icon" style="animation-delay: 1s;">📚</div>
+    <div class="decorative-element bottom-20 left-20 text-4xl floating-icon" style="animation-delay: 2s;">✏️</div>
+    <div class="decorative-element bottom-10 right-10 text-5xl floating-icon" style="animation-delay: 0.5s;">🌟</div>
+
+    <div class="max-w-7xl mx-auto">
+        <!-- Header del Portafolio -->
+        <div class="portfolio-card p-4 sm:p-6 md:p-8 mb-6 sm:mb-8">
+            <div class="flex flex-col md:flex-row items-center gap-4 sm:gap-6">
+                <div class="flex-shrink-0">
+                    <img src="https://www.carreras.pe/userfiles/images/Logos%20y%20fachadas/Logo%20UTP%202.png" 
+                         alt="Logo UTP" 
+                         class="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 object-contain rounded-lg shadow-lg"
+                         onerror="this.src=''; this.alt='Logo UTP'; this.style.display='none';">
+                </div>
+                <div class="text-center md:text-left flex-grow">
+                    <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-2">📖 Portafolio Digital</h1>
+                    <h2 class="text-lg sm:text-xl font-bold text-gray-800">Universidad Tecnológica del Perú</h2>
+                    <p class="text-sm sm:text-base text-gray-600">Facultad de Educación - Educacion primaria</p>
+                    <p class="text-sm sm:text-lg font-semibold text-gray-500">Aaron Sixto Callupe Llallico</p>
+                    <p class="text-sm sm:text-sm text-gray-500">Práctica Educativa I: Psicomotricidad para Educación Primaria</p>
+                    <p class="text-sm text-gray-400">Sección 31960</p>
+                </div>
+                </div>
+        </div>
+
+        <!-- Navegación por semanas -->
+        <div class="portfolio-card p-4 sm:p-6 mb-6 sm:mb-8">
+            <h3 class="text-xl sm:text-2xl font-bold text-gray-800 mb-4 text-center">🗓️ Semanas académicas</h3>
+            <div class="grid grid-cols-6 sm:grid-cols-9 lg:grid-cols-9 gap-1 sm:gap-2">
+                <button onclick="scrollToWeek(1)" class="nav-button text-white px-2 sm:px-3 py-1 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all">S1</button>
+                <button onclick="scrollToWeek(2)" class="nav-button text-white px-2 sm:px-3 py-1 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all">S2</button>
+                <button onclick="scrollToWeek(3)" class="nav-button text-white px-2 sm:px-3 py-1 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all">S3</button>
+                <button onclick="scrollToWeek(4)" class="nav-button text-white px-2 sm:px-3 py-1 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all">S4</button>
+                <button onclick="scrollToWeek(5)" class="nav-button text-white px-2 sm:px-3 py-1 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all">S5</button>
+                <button onclick="scrollToWeek(6)" class="nav-button text-white px-2 sm:px-3 py-1 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all">S6</button>
+                <button onclick="scrollToWeek(7)" class="nav-button text-white px-2 sm:px-3 py-1 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all">S7</button>
+                <button onclick="scrollToWeek(8)" class="nav-button text-white px-2 sm:px-3 py-1 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all">S8</button>
+                <!--<button onclick="scrollToWeek(9)" class="nav-button text-white px-2 sm:px-3 py-1 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all">S9</button>
+                <button onclick="scrollToWeek(10)" class="nav-button text-white px-2 sm:px-3 py-1 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all">S10</button>
+                <button onclick="scrollToWeek(11)" class="nav-button text-white px-2 sm:px-3 py-1 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all">S11</button>
+                <button onclick="scrollToWeek(12)" class="nav-button text-white px-2 sm:px-3 py-1 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all">S12</button>
+                <button onclick="scrollToWeek(13)" class="nav-button text-white px-2 sm:px-3 py-1 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all">S13</button>
+                <button onclick="scrollToWeek(14)" class="nav-button text-white px-2 sm:px-3 py-1 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all">S14</button>
+                <button onclick="scrollToWeek(15)" class="nav-button text-white px-2 sm:px-3 py-1 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all">S15</button>
+                <button onclick="scrollToWeek(16)" class="nav-button text-white px-2 sm:px-3 py-1 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all">S16</button>
+                <button onclick="scrollToWeek(17)" class="nav-button text-white px-2 sm:px-3 py-1 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all">S17</button>
+                <button onclick="scrollToWeek(18)" class="nav-button text-white px-2 sm:px-3 py-1 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all">S18</button>-->
+            </div>
+        </div>
+
+        <!-- Grid de Semanas -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6" id="weeks-container">
+            <!-- Las semanas se generarán con JavaScript -->
+        </div>
+    </div>
+
+
+
+    <script>
+        // Datos de las semanas y actividades
+        const weeksData = [
+            {
+                week: 1,
+                title: "Definición de Psicomotricidad - Teorías de la Psicomotricidad",
+                icon: "🏃‍♂️",
+                activities: [
+                    { name: "Analizando un TikTok sobre baile", type: "Actividad 1", icon: "📱" },
+                    { name: "Mi cuerpo, mi tambor", type: "Actividad 2", icon: "🥁" }
+                ]
+            },
+            {
+                week: 2,
+                title: "La Psicomotricidad y el proceso de Aprendizaje - La Psicomotricidad en el Currículo Nacional y Educación Física",
+                icon: "🤸‍♀️",
+                activities: [
+                    { name: "Creando el Juego Peruano - del aula al patio", type: "Actividad 1", icon: "🧮" },
+                    { name: "Creando el personaje ¿Quién soy yo?", type: "Actividad 2", icon: "🦸‍♂️ " }
+                ]
+            },
+            {
+                week: 3,
+                title: "Desarrollo psicomotor: Definición, inicio y características de los niños. - Principales hitos, beneficios y espacios educativos.",
+                icon: "✂️",
+                activities: [
+                    { name: "El laboratorio psicomotor (Taller Práctico)", type: "Actividad 1", icon: "⚙️" },
+                    { name: "Diseñando el patio de mis sueños", type: "Actividad 2", icon: "🛝" }
+                ]
+            },
+            {
+                week: 4,
+                title: "Esquema corporal: Definición y características. Trastornos del esquema corporal. La expresión corporal. - ",
+                icon: "🧍‍♂️",
+                activities: [
+                    
+                    { name: "El avatar de la autoestima", type: "Actividad 1", icon: "🧙🏻‍♂️" },
+                    { name: "Cuadro comparativo", type: "TAREA ACADEMICA (TA1)", icon: "📝" }
+                ]
+            },
+            {
+                week: 5,
+                title: "Desarrollo motor por edades desde la concepción. Fases del desarrollo motor. Categorización del desarrollo motor. - Habilidades motrices generales y específicas. Capacidades motrices condicionales y coordinativas.",
+                icon: "👈👉",
+                activities: [
+                    { name: "Diseño de línea del desarrollo motor", type: "Actividad 1", icon: "📈" },
+                    { name: "Diseño de tarjetas motrices", type: "Actividad 2", icon: "🃏" }
+                ]
+            },
+            {
+                week: 6,
+                title: "Habilidades y capacidades motoras: Habilidades motrices generales. - Capacidades físicas condicionales y coordinativas.",
+                icon: "🤹‍♂️",
+                activities: [
+                    { name: "Ejecición de la propuesta motriz", type: "Actividad 1", icon: "🤹" },
+                    { name: "Circuito de la ejecución dde la propuesta motriz", type: "Actividad 2", icon: "🧘" }
+                ]
+            },
+            {
+                week: 7,
+                title: "Relación entre desarrollo motor y cognitivo: Neurociencia y educación física. - Patrones del movimiento. Patrones de perfeccionamiento.",
+                icon: "👁️✋",
+                activities: [
+                    { name: "Mi etapa, mi reto", type: "Actividad 1", icon: "💪" },
+                    { name: "Diseñando una mini propuesta pedagógica", type: "Actividad 2", icon: "✏️" }
+                ]
+            },
+            {
+                week: 8,
+                title: "Evaluación del desarrollo motor.",
+                icon: "🧠",
+                activities: [
+                    { name: "Análisis técnico de pruebas de evaluación del desarrollo motor", type: "Actividad 1", icon: "📋" },
+                    { name: "Avance de Portafolio 1 (AP1)", type: "Infografia ", icon: "💼" }
+                ]
+            },
+            /*{
+                week: 9,
+                title: "Orientación Espacial",
+                icon: "🧭",
+                activities: [
+                    { name: "Conceptos espaciales", type: "Actividad 1", icon: "📐" },
+                    { name: "Juegos de orientación", type: "Actividad 2", icon: "🗺️" }
+                ]
+            },
+            {
+                week: 10,
+                title: "Expresión Corporal",
+                icon: "💃",
+                activities: [
+                    { name: "Danza y movimiento", type: "Actividad 1", icon: "🎭" },
+                    { name: "Comunicación no verbal", type: "Actividad 2", icon: "🤲" }
+                ]
+            },
+            {
+                week: 11,
+                title: "Juegos Psicomotrices",
+                icon: "🎮",
+                activities: [
+                    { name: "Diseño de juegos", type: "Actividad 1", icon: "🎨" },
+                    { name: "Implementación práctica", type: "Actividad 2", icon: "🏃" }
+                ]
+            },
+            {
+                week: 12,
+                title: "Evaluación Psicomotriz",
+                icon: "📏",
+                activities: [
+                    { name: "Instrumentos de evaluación", type: "Actividad 1", icon: "📋" },
+                    { name: "Casos prácticos", type: "Actividad 2", icon: "👥" }
+                ]
+            },
+            {
+                week: 13,
+                title: "Adaptaciones Curriculares",
+                icon: "🔧",
+                activities: [
+                    { name: "Necesidades especiales", type: "Actividad 1", icon: "♿" },
+                    { name: "Estrategias adaptativas", type: "Actividad 2", icon: "🛠️" }
+                ]
+            },
+            {
+                week: 14,
+                title: "Tecnología y Psicomotricidad",
+                icon: "💻",
+                activities: [
+                    { name: "Recursos digitales", type: "Actividad 1", icon: "📱" },
+                    { name: "Apps educativas", type: "Actividad 2", icon: "🖥️" }
+                ]
+            },
+            {
+                week: 15,
+                title: "Trabajo con Familias",
+                icon: "👨‍👩‍👧‍👦",
+                activities: [
+                    { name: "Orientación familiar", type: "Actividad 1", icon: "💬" },
+                    { name: "Actividades en casa", type: "Actividad 2", icon: "🏠" }
+                ]
+            },
+            {
+                week: 16,
+                title: "Proyecto Final - Planificación",
+                icon: "📋",
+                activities: [
+                    { name: "Diseño del proyecto", type: "Actividad 1", icon: "📝" },
+                    { name: "Recursos necesarios", type: "Actividad 2", icon: "📦" }
+                ]
+            },
+            {
+                week: 17,
+                title: "Proyecto Final - Implementación",
+                icon: "🚀",
+                activities: [
+                    { name: "Ejecución del proyecto", type: "Actividad 1", icon: "⚡" },
+                    { name: "Registro de evidencias", type: "Actividad 2", icon: "📸" }
+                ]
+            },
+            {
+                week: 18,
+                title: "Evaluación Final y Reflexión",
+                icon: "🎓",
+                activities: [
+                    { name: "Presentación final", type: "Actividad 1", icon: "🎤" },
+                    { name: "Autoevaluación", type: "Actividad 2", icon: "🤔" }
+                ]
+            }*/
+        ];
+
+        // Generar las tarjetas de semanas
+        function generateWeeks() {
+            const container = document.getElementById('weeks-container');
+            
+            weeksData.forEach(weekData => {
+                const weekCard = document.createElement('div');
+                weekCard.className = 'week-card p-4 sm:p-6 mb-4';
+                weekCard.id = `week-${weekData.week}`;
+                // Removido onclick del weekCard para evitar modal
+                
+                weekCard.innerHTML = `
+                    <div class="text-center mb-4">
+                        <div class="text-3xl sm:text-4xl mb-2">${weekData.icon}</div>
+                        <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-1">Semana ${weekData.week}</h3>
+                        <p class="text-gray-600 text-xs sm:text-sm">${weekData.title}</p>
+                    </div>
+                    <div class="space-y-2">
+                        ${weekData.activities.map((activity, index) => `
+                            <a href="semana${weekData.week}-${index + 1}.html" target="_blank" rel="noopener noreferrer" class="activity-item p-2 sm:p-3 flex items-center gap-2 sm:gap-3 cursor-pointer hover:bg-opacity-80 block no-underline">
+                                <span class="text-xl sm:text-2xl flex-shrink-0">${activity.icon}</span>
+                                <div class="flex-grow min-w-0">
+                                    <p class="font-semibold text-gray-800 text-xs sm:text-sm truncate">${activity.name}</p>
+                                    <p class="text-xs text-gray-600">${activity.type}</p>
+                                </div>
+                                <span class="bg-white bg-opacity-50 px-2 py-1 rounded-full text-xs font-semibold flex-shrink-0">
+                                    ${index + 1}
+                                </span>
+                            </a>
+                        `).join('')}
+                    </div>
+                `;
+                
+                container.appendChild(weekCard);
+            });
+        }
+
+
+
+
+
+        // Scroll a semana específica
+        function scrollToWeek(weekNumber) {
+            const weekElement = document.getElementById(`week-${weekNumber}`);
+            if (weekElement) {
+                weekElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                weekElement.style.transform = 'scale(1.05)';
+                setTimeout(() => {
+                    weekElement.style.transform = 'scale(1)';
+                }, 300);
+            }
+        }
+
+
+
+        // Generar las semanas al cargar la página
+        document.addEventListener('DOMContentLoaded', generateWeeks);
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98350949c0ab9542',t:'MTc1ODU3ODAxOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

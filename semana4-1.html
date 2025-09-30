@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portada Universitaria</title>
+    <style>
+        body {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+            background: white;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .portada-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: white;
+        }
+
+        .portada {
+            background: white;
+            border: 2px solid black;
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 1200px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+            background: #1e40af;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        .info-institucional {
+            flex: 1;
+        }
+
+        .info-institucional h2 {
+            margin: 0 0 10px 0;
+            color: #333;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .info-institucional p {
+            margin: 5px 0;
+            color: #666;
+            font-size: 16px;
+            line-height: 1.4;
+        }
+
+        .info-estudiante {
+            text-align: right;
+            flex-shrink: 0;
+        }
+
+        .info-estudiante p {
+            margin: 5px 0;
+            color: #333;
+            font-size: 16px;
+            line-height: 1.4;
+        }
+
+        .info-estudiante p strong {
+            color: black;
+        }
+
+        @media (max-width: 768px) {
+            .portada {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+                gap: 20px;
+            }
+            
+            .info-estudiante {
+                text-align: center;
+            }
+            
+            .info-institucional h2 {
+                font-size: 20px;
+            }
+            
+            .info-institucional p,
+            .info-estudiante p {
+                font-size: 14px;
+            }
+            
+            .logo {
+                width: 80px;
+                height: 80px;
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .portada {
+                padding: 15px;
+            }
+            
+            .info-institucional h2 {
+                font-size: 18px;
+            }
+            
+            .info-institucional p,
+            .info-estudiante p {
+                font-size: 12px;
+            }
+        }
+
+        .contenido-principal {
+            flex: 1;
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .titulo-taller {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            color: white;
+        }
+
+        .titulo-taller h1 {
+            margin: 0 0 15px 0;
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+        .avatar-elegido {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 500;
+            opacity: 0.9;
+        }
+
+        .contenido-dos-columnas {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 100px;
+            margin-bottom: 40px;
+            align-items: stretch;
+        }
+
+        .columna-imagen {
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+        }
+
+        .columna-imagen img {
+            width: 145%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            margin-left: 160px;
+        }
+
+        .placeholder-imagen {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            line-height: 1.4;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .columna-texto {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            margin-left: 70px;
+        }
+
+        .seccion {
+            margin-bottom: 30px;
+        }
+
+        .seccion:last-child {
+            margin-bottom: 0;
+        }
+
+        .seccion h3 {
+            margin: 0 0 15px 0;
+            color: #333;
+            font-size: 20px;
+            font-weight: bold;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 8px;
+        }
+
+        .seccion p {
+            margin: 8px 0;
+            color: #555;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .aplicacion-reflexion {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 40px;
+        }
+
+        .aplicacion-reflexion h2 {
+            margin: 0 0 20px 0;
+            color: #333;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .aplicacion-reflexion p {
+            margin: 12px 0;
+            color: #444;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .aplicacion-reflexion p strong {
+            color: #222;
+        }
+
+        @media (max-width: 768px) {
+            .contenido-dos-columnas {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .titulo-taller h1 {
+                font-size: 24px;
+            }
+            
+            .avatar-elegido {
+                font-size: 16px;
+            }
+            
+            .columna-texto {
+                padding: 20px;
+            }
+            
+            .seccion h3 {
+                font-size: 18px;
+            }
+            
+            .seccion p {
+                font-size: 14px;
+            }
+            
+            .aplicacion-reflexion {
+                padding: 20px;
+            }
+            
+            .aplicacion-reflexion h2 {
+                font-size: 20px;
+            }
+            
+            .aplicacion-reflexion p {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .contenido-principal {
+                padding: 0 15px;
+            }
+            
+            .titulo-taller {
+                padding: 20px;
+            }
+            
+            .titulo-taller h1 {
+                font-size: 20px;
+            }
+            
+            .avatar-elegido {
+                font-size: 14px;
+            }
+            
+            .columna-texto {
+                padding: 15px;
+            }
+            
+            .seccion h3 {
+                font-size: 16px;
+            }
+            
+            .seccion p {
+                font-size: 13px;
+            }
+            
+            .aplicacion-reflexion {
+                padding: 15px;
+            }
+            
+            .aplicacion-reflexion h2 {
+                font-size: 18px;
+            }
+            
+            .aplicacion-reflexion p {
+                font-size: 13px;
+            }
+            
+            .placeholder-imagen {
+                width: 200px;
+                height: 240px;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="portada-section">
+            <div class="portada">
+                <img src="https://www.carreras.pe/userfiles/images/Logos%20y%20fachadas/Logo%20UTP%202.png" alt="Logo UTP" onerror="this.outerHTML='<div class=\'logo\'>UTP</div>';" style="width: 100px; height: 100px; object-fit: contain; background: transparent; flex-shrink: 0;">
+                
+                <div class="info-institucional">
+                    <h2>Universidad Tecnológica del Perú</h2>
+                    <p>Facultad de Educación</p>
+                    <p>Práctica Educativa I: Psicomotricidad para Educación Primaria</p>
+                    <p>Sección 31960</p>
+                </div>
+                
+                <div class="info-estudiante">
+                    <p><strong>Aaron Sixto Callupe Llallico</strong></p>
+                    <p>Estudiante de Educación Primaria</p>
+                    <p>Semana 4 - Actividad 1</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="contenido-principal">
+        <div class="titulo-taller">
+            <h1>🧙‍♂️ Taller de diseño: "El Avatar de la Autoestima"</h1>
+            <p class="avatar-elegido">✅ Avatar elegido: Mago ágil</p>
+        </div>
+
+        <div class="contenido-dos-columnas">
+
+            <div class="columna-imagen">
+
+                <img src="sonidos/mago.png" alt="Avatar del Mago Ágil" onerror="this.outerHTML='<div class=\'placeholder-imagen\'>🧙‍♂️<br>Imagen del Mago<br>(sonidos/mago.png)</div>';">
+            </div>
+            
+            <div class="columna-texto">
+                <div class="seccion">
+                    <h3>🔶 Segmentación y Proporciones</h3>
+                    <p>El avatar tiene una cabeza grande y expresiva, lo que refleja atención y concentración.</p>
+                    <p>Sus brazos son largos, y especialmente su mano derecha es más grande y prominente, lo que representa agilidad y destreza mágica.</p>
+                    <p>Las piernas son delgadas y flexibles, ideales para moverse con rapidez.</p>
+                    <p>El cuerpo en general tiene proporciones estilizadas que refuerzan su personalidad ágil e inteligente, más que fuerte físicamente.</p>
+                </div>
+
+                <div class="seccion">
+                    <h3>🔄 Lateralidad</h3>
+                    <p>El mago es diestro.</p>
+                    <p>Utiliza su mano derecha dominante para sostener la varita mágica, lanzar hechizos y ejecutar movimientos de precisión.</p>
+                    <p>Esto se refleja en la animación o postura: la mano derecha está activa, adelantada, con los dedos abiertos y listos para la acción.</p>
+                    <p>Su pierna derecha también se ve un poco más adelantada, apoyando el movimiento.</p>
+                </div>
+
+                <div class="seccion">
+                    <h3>📏 Relación Espacial</h3>
+                    <p>Este personaje se mueve con rapidez y precisión en el espacio.</p>
+                    <p>Tiene una postura activa, siempre en movimiento, con la vista al frente.</p>
+                    <p>Es muy consciente de los obstáculos: puede esquivarlos con facilidad gracias a su agilidad y buena percepción.</p>
+                    <p>Este tipo de desplazamiento es propio de un personaje que depende de reflejos rápidos y concentración.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="aplicacion-reflexion">
+            <h2>✨ Aplicación y Reflexión</h2>
+            <p><strong>Este avatar representa cómo el esquema corporal se manifiesta en un personaje:</strong></p>
+            <p>Cada decisión de diseño (como una mano dominante más grande, o una postura dinámica) expresa cómo el personaje conoce, usa y confía en su cuerpo.</p>
+            
+            <p><strong>Conexión con los niños:</strong></p>
+            <p>Cuando los niños representan su cuerpo de manera precisa (sabiendo qué lado dominan, cómo se mueven, etc.), desarrollan una imagen corporal más saludable. Eso fortalece su autoestima y autoconcepto, porque entienden sus capacidades, aceptan sus diferencias y valoran sus habilidades únicas.</p>
+        </div>
+        </div>
+    </div>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'986763acd0549540',t:'MTc1OTEwNjAwOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

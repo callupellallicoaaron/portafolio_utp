@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi etapa, mi reto - Desarrollo Motor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .bounce-animation {
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+        
+        .age-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-green-50 min-h-screen">
+    <!-- University Information -->
+    <div class="container mx-auto px-4 py-8">
+      <div class="bg-white border-2 border-black rounded-2xl p-6 shadow-lg max-w-7xl mx-auto">
+        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+          <div class="flex items-center gap-4">
+            <img src="https://www.carreras.pe/userfiles/images/Logos%20y%20fachadas/Logo%20UTP%202.png" alt="Logo UTP" class="w-28 h-28 md:w-32 md:h-32 object-contain" onerror="this.src=''; this.alt='Image failed to load'; this.style.display='none';">
+            <div>
+              <h2 class="text-xl font-bold text-gray-700">Universidad Tecnológica del Perú</h2>
+              <p class="text-gray-600">Facultad de Educación</p>
+              <p class="text-sm text-gray-500">Práctica Educativa I: Psicomotricidad para Educación Primaria</p>
+              <p class="text-xs text-gray-400">Sección 31960</p>
+            </div>
+          </div>
+          <div class="text-left md:text-right">
+            <p class="text-lg font-semibold text-gray-700">Aaron Sixto Callupe Llallico</p>
+            <p class="text-gray-600">Estudiante de Educación Primaria</p>
+            <p class="text-gray-600">Semana 7 - Actividad 1</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Header -->
+    <header class="py-3 px-4">
+        <div class="container mx-auto text-center">
+            <div class="flex items-center justify-center gap-3">
+                <div class="bounce-animation text-4xl sm:text-5xl md:text-6xl">🎯</div>
+                <h1 class="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800">Mi etapa, mi reto</h1>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-12">
+
+
+
+        <!-- Age Cards Grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6 max-w-7xl mx-auto">
+            
+            <!-- Age 6 -->
+            <div class="card-hover bg-white rounded-xl p-4 shadow-lg border-l-4 border-blue-400 cursor-pointer" onclick="openModal(6)">
+                <div class="text-center">
+                    <div class="text-4xl mb-3">⚖️</div>
+                    <div class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full inline-block font-bold text-sm mb-3">6 años</div>
+                    <h4 class="text-sm font-bold text-gray-800">Reto identificado: Falta de equilibrio</h4>
+
+                </div>
+            </div>
+
+            <!-- Age 7 -->
+            <div class="card-hover bg-white rounded-xl p-4 shadow-lg border-l-4 border-green-400 cursor-pointer" onclick="openModal(7)">
+                <div class="text-center">
+                    <div class="text-4xl mb-3">🎯</div>
+                    <div class="bg-green-100 text-green-800 px-3 py-1 rounded-full inline-block font-bold text-sm mb-3">7 años</div>
+                    <h4 class="text-sm font-bold text-gray-800 leading-tight">Reto identificado: Coordinación ojo-mano deficiente</h4>
+
+                </div>
+            </div>
+
+            <!-- Age 8 -->
+            <div class="card-hover bg-white rounded-xl p-4 shadow-lg border-l-4 border-orange-400 cursor-pointer" onclick="openModal(8)">
+                <div class="text-center">
+                    <div class="text-4xl mb-3">✋</div>
+                    <div class="bg-orange-100 text-orange-800 px-3 py-1 rounded-full inline-block font-bold text-sm mb-3">8 años</div>
+                    <h4 class="text-sm font-bold text-gray-800">Reto identificado: Dificultad en la motricidad fina</h4>
+
+                </div>
+            </div>
+
+            <!-- Age 9 -->
+            <div class="card-hover bg-white rounded-xl p-4 shadow-lg border-l-4 border-purple-400 cursor-pointer" onclick="openModal(9)">
+                <div class="text-center">
+                    <div class="text-4xl mb-3">🏃‍♂️</div>
+                    <div class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full inline-block font-bold text-sm mb-3">9 años</div>
+                    <h4 class="text-sm font-bold text-gray-800">Reto identificado: Fatiga rápida en actividades físicas</h4>
+
+                </div>
+            </div>
+
+            <!-- Age 10 -->
+            <div class="card-hover bg-white rounded-xl p-4 shadow-lg border-l-4 border-teal-400 cursor-pointer" onclick="openModal(10)">
+                <div class="text-center">
+                    <div class="text-4xl mb-3">🤝</div>
+                    <div class="bg-teal-100 text-teal-800 px-3 py-1 rounded-full inline-block font-bold text-sm mb-3">10 años</div>
+                    <h4 class="text-sm font-bold text-gray-800">Reto identificado: Dificultad en actividades grupales de coordinación</h4>
+
+                </div>
+            </div>
+
+            <!-- Age 11 -->
+            <div class="card-hover bg-white rounded-xl p-4 shadow-lg border-l-4 border-indigo-400 cursor-pointer" onclick="openModal(11)">
+                <div class="text-center">
+                    <div class="text-4xl mb-3">🎪</div>
+                    <div class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full inline-block font-bold text-sm mb-3">11 años</div>
+                    <h4 class="text-sm font-bold text-gray-800">Reto identificado: Problemas de lateralidad (no definida o poco consolidada)</h4>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center p-4">
+            <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <div id="modal-header" class="flex items-center gap-4">
+                            <!-- Content will be filled by JavaScript -->
+                        </div>
+                        <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700 text-2xl font-bold">×</button>
+                    </div>
+                    <div id="modal-content">
+                        <!-- Content will be filled by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Section -->
+        <div class="mt-16 bg-white rounded-2xl p-6 shadow-lg max-w-6xl mx-auto">
+            <div class="flex items-center justify-center gap-6">
+                <div class="pulse-animation text-4xl">🌟</div>
+                <div class="flex-1">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">¡Recuerda!</h3>
+                    <p class="text-base text-gray-600 leading-relaxed">
+                        Como futuros docentes, debemos realizar estas actividades de forma progresiva, adaptando la dificultad según las necesidades individuales de cada estudiante. Es fundamental que creemos un ambiente seguro y motivador donde los niños puedan experimentar sin miedo al error, celebrando cada pequeño logro para fortalecer su autoestima y confianza motriz.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+
+    <script>
+        // Data for each age
+        const ageData = {
+            6: {
+                icon: '⚖️',
+                age: '6 años',
+                challenge: 'Falta de equilibrio',
+                borderColor: 'border-blue-400',
+                bgColor: 'bg-blue-100',
+                textColor: 'text-blue-800',
+                why: 'El estudiante no ha practicado suficientes juegos de balance ni actividades que fortalezcan su postura',
+                activity: 'Camino de equilibrio',
+                materials: 'Cinta adhesiva, cojines y bancos bajos',
+                steps: [
+                    'El niño debe caminar sobre la línea recta sin salirse',
+                    'Repetir llevando un objeto pequeño en la mano',
+                    'Avanzar sobre cojines o bancos bajos como un puente'
+                ],
+                purpose: 'Para mejorar la estabilidad y seguridad del estudiante al moverse',
+                result: 'El estudiante habrá fortalecido su capacidad de mantener el equilibrio y mejorará su confianza al caminar en diferentes superficies'
+            },
+            7: {
+                icon: '🎯',
+                age: '7 años',
+                challenge: 'Coordinación ojo-mano deficiente',
+                borderColor: 'border-green-400',
+                bgColor: 'bg-green-100',
+                textColor: 'text-green-800',
+                why: 'El estudiante ha tenido poca participación en juegos que integren la vista y el movimiento de las manos',
+                activity: 'Pelota viajera',
+                materials: 'Pelotas de diferentes tamaños',
+                steps: [
+                    'El niño debe lanzar la pelota contra una pared y atraparla',
+                    'Hacer pases con un compañero a diferentes distancias',
+                    'Variar la altura y la velocidad de los lanzamientos'
+                ],
+                purpose: 'Para favorecer la coordinación entre la vista y las manos del estudiante',
+                result: 'El estudiante mejorará su precisión al atrapar y lanzar objetos, aumentando su coordinación en juegos y tareas escolares como la escritura'
+            },
+            8: {
+                icon: '✋',
+                age: '8 años',
+                challenge: 'Dificultad en la motricidad fina',
+                borderColor: 'border-orange-400',
+                bgColor: 'bg-orange-100',
+                textColor: 'text-orange-800',
+                why: 'El estudiante ha recibido poco estímulo en actividades manuales y presenta uso excesivo de dispositivos electrónicos',
+                activity: 'Circuito de manos creativas',
+                materials: 'Plastilina, pinzas de ropa, lápices, hojas y tijeras',
+                steps: [
+                    'El niño debe moldear figuras con plastilina',
+                    'Trasladar bolitas de papel con pinzas de ropa',
+                    'Colorear un dibujo con trazos precisos',
+                    'Recortar figuras simples con tijeras de punta roma'
+                ],
+                purpose: 'Para mejorar la destreza manual y la coordinación óculo-manual del estudiante',
+                result: 'El estudiante habrá fortalecido los músculos de sus manos, mejorará su escritura y tendrá mayor control en trabajos de arte y manualidades'
+            },
+            9: {
+                icon: '🏃‍♂️',
+                age: '9 años',
+                challenge: 'Fatiga rápida en actividades físicas',
+                borderColor: 'border-purple-400',
+                bgColor: 'bg-purple-100',
+                textColor: 'text-purple-800',
+                why: 'El estudiante presenta bajo control tónico-postural y poca práctica en juegos de resistencia',
+                activity: 'Carreras con pausas activas',
+                materials: 'Conos y silbato',
+                steps: [
+                    'El niño debe realizar carreras cortas de ida y vuelta entre conos',
+                    'Al sonar el silbato, detenerse y hacer un estiramiento',
+                    'Aumentar progresivamente la distancia o la velocidad'
+                ],
+                purpose: 'Para incrementar la resistencia física y el control corporal del estudiante',
+                result: 'El estudiante tendrá mayor resistencia física, se cansará menos al realizar juegos prolongados y mejorará su postura general'
+            },
+            10: {
+                icon: '🤝',
+                age: '10 años',
+                challenge: 'Dificultad en actividades grupales de coordinación',
+                borderColor: 'border-teal-400',
+                bgColor: 'bg-teal-100',
+                textColor: 'text-teal-800',
+                why: 'El estudiante tiene escasa experiencia en deportes colectivos',
+                activity: 'Mini voleibol adaptado',
+                materials: 'Pelota grande y ligera, red baja (o cuerda)',
+                steps: [
+                    'Dividir al grupo en dos equipos',
+                    'Los niños deben pasar la pelota por encima de la cuerda con ambas manos',
+                    'Establecer reglas sencillas (máx. 3 toques por equipo)'
+                ],
+                purpose: 'Para desarrollar la coordinación grupal y el sentido de cooperación del estudiante',
+                result: 'El estudiante aprenderá a trabajar en equipo, desarrollará coordinación colectiva y fortalecerá sus habilidades sociales'
+            },
+            11: {
+                icon: '🎪',
+                age: '11 años',
+                challenge: 'Problemas de lateralidad (no definida o poco consolidada)',
+                borderColor: 'border-indigo-400',
+                bgColor: 'bg-indigo-100',
+                textColor: 'text-indigo-800',
+                why: 'El estudiante no ha trabajado suficiente la dominancia de mano y pie',
+                activity: 'Reto de dominancia cruzada',
+                materials: 'Pelotas pequeñas, aros y conos',
+                steps: [
+                    'El niño debe lanzar pelotas con la mano no dominante hacia un aro',
+                    'Patear conos usando alternativamente pie derecho e izquierdo',
+                    'Completar un circuito combinando ambas tareas'
+                ],
+                purpose: 'Para consolidar la lateralidad y el dominio corporal del estudiante',
+                result: 'El estudiante habrá mejorado su coordinación cruzada, definirá mejor su lateralidad y tendrá mayor control en deportes y aprendizajes académicos'
+            }
+        };
+
+        function openModal(age) {
+            const data = ageData[age];
+            const modal = document.getElementById('modal');
+            const modalHeader = document.getElementById('modal-header');
+            const modalContent = document.getElementById('modal-content');
+
+            // Fill header
+            modalHeader.innerHTML = `
+                <div class="text-4xl">${data.icon}</div>
+                <div>
+                    <div class="${data.bgColor} ${data.textColor} px-4 py-2 rounded-full inline-block font-bold text-lg">${data.age}</div>
+                    <h3 class="text-xl font-bold text-gray-800 mt-2">Reto identificado: ${data.challenge}</h3>
+                </div>
+            `;
+
+            // Fill content
+            modalContent.innerHTML = `
+                <div class="space-y-4 text-gray-600">
+                    <p><strong class="text-orange-600">¿Por qué pasa?</strong> ${data.why}</p>
+                    
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <p><strong class="text-green-700">🎯 Actividad: "${data.activity}"</strong></p>
+                        <p><strong class="text-purple-600">Materiales:</strong> ${data.materials}</p>
+                        <p><strong class="text-blue-600">¿Cómo lo hago?</strong></p>
+                        <ul class="list-disc list-inside text-sm space-y-1 ml-2 mt-2">
+                            ${data.steps.map(step => `<li>${step}</li>`).join('')}
+                        </ul>
+                    </div>
+                    
+                    <p><strong class="text-blue-600">¿Para qué sirve?</strong> ${data.purpose}</p>
+                    <div class="bg-blue-50 p-3 rounded text-sm">
+                        <p><strong class="text-green-600">✅ Al terminar:</strong> ${data.result}</p>
+                    </div>
+                </div>
+            `;
+
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Add smooth scrolling and interactive effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add scroll reveal animation
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Initially hide cards for animation
+            const cards = document.querySelectorAll('.card-hover');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+                observer.observe(card);
+            });
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9836ea10051b9542',t:'MTc1ODU5NzcxMS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

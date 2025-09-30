@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portada Universitaria</title>
+    <style>
+        body {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+            background: #f8fafc;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .portada {
+            background: white;
+            border: 2px solid black;
+            border-radius: 15px;
+            padding: 30px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 1140px; /* <-- NUEVO */
+            margin: 5 auto;    /* <-- NUEVO: centra la portada */
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+            background: #1e40af;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        .info-institucional {
+            flex: 1;
+        }
+
+        .info-institucional h2 {
+            margin: 0 0 10px 0;
+            color: #333;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .info-institucional p {
+            margin: 5px 0;
+            color: #666;
+            font-size: 16px;
+            line-height: 1.4;
+        }
+
+        .info-estudiante {
+            text-align: right;
+            flex-shrink: 0;
+        }
+
+        .info-estudiante p {
+            margin: 5px 0;
+            color: #333;
+            font-size: 16px;
+            line-height: 1.4;
+        }
+
+        .info-estudiante p strong {
+            color: black;
+        }
+
+        .content-area {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            min-height: 400px;
+        }
+
+        .content-area h3 {
+            color: #1e40af;
+            font-size: 28px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .content-area p {
+            color: #666;
+            font-size: 18px;
+            line-height: 1.6;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .portada {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+                gap: 20px;
+            }
+            
+            .info-estudiante {
+                text-align: center;
+            }
+            
+            .info-institucional h2 {
+                font-size: 20px;
+            }
+            
+            .info-institucional p,
+            .info-estudiante p {
+                font-size: 14px;
+            }
+            
+            .logo {
+                width: 80px;
+                height: 80px;
+                font-size: 18px;
+            }
+
+            .content-area {
+                padding: 25px;
+            }
+
+            .content-area h3 {
+                font-size: 24px;
+            }
+
+            .content-area p {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .portada {
+                padding: 15px;
+            }
+            
+            .info-institucional h2 {
+                font-size: 18px;
+            }
+            
+            .info-institucional p,
+            .info-estudiante p {
+                font-size: 12px;
+            }
+
+            .content-area {
+                padding: 20px;
+            }
+
+            .content-area h3 {
+                font-size: 20px;
+            }
+
+            .content-area p {
+                font-size: 14px;
+            }
+        }
+
+        /* Estilos para la Infografía */
+        .infografia {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Botón PDF */
+        .pdf-download-container {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .pdf-download-btn {
+            background: linear-gradient(135deg, #e53e3e, #c53030);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(229, 62, 62, 0.3);
+        }
+
+        .pdf-download-btn:hover {
+            background: linear-gradient(135deg, #c53030, #9c2626);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(229, 62, 62, 0.4);
+        }
+
+        .pdf-download-btn:active {
+            transform: translateY(0);
+        }
+
+        .titulo-principal {
+            text-align: center;
+            margin-bottom: 10px;
+            padding: 30px;
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
+            border-radius: 15px;
+            color: white;
+        }
+
+        .titulo-principal h1 {
+            font-size: 32px;
+            margin: 0 0 15px 0;
+            font-weight: bold;
+        }
+
+        .titulo-principal h2 {
+            font-size: 20px;
+            margin: 0;
+            opacity: 0.9;
+            font-weight: normal;
+        }
+
+        /* Componentes */
+        .seccion-componentes {
+            margin-bottom: 20px;
+        }
+
+        .seccion-componentes h3 {
+            color: #059669;
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 3px solid #059669;
+            padding-bottom: 10px;
+        }
+
+        .componentes-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+        }
+
+        .componente {
+            background: #f0fdf4;
+            border: 2px solid #059669;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .componente:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(5, 150, 105, 0.2);
+        }
+
+        .icono-componente {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .componente h4 {
+            color: #059669;
+            font-size: 18px;
+            margin: 0 0 10px 0;
+        }
+
+        .componente p {
+            color: #374151;
+            font-size: 16px;
+            margin: 0 0 12px 0;
+        }
+
+        .ejemplo {
+            background: white;
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 12px;
+        }
+
+        .ejemplo-tag {
+            color: #f59e0b;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .ejemplo p {
+            margin: 5px 0 0 0;
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        /* Problemáticas */
+        .seccion-problemas {
+            margin-bottom: 20px;
+        }
+
+        .seccion-problemas h3 {
+            color: #dc2626;
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 3px solid #dc2626;
+            padding-bottom: 10px;
+        }
+
+        .problemas-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .problema-item {
+            background: #fef2f2;
+            border: 2px solid #dc2626;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .problema-icono {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .problema-item h4 {
+            color: #dc2626;
+            font-size: 16px;
+            margin: 0 0 10px 0;
+        }
+
+        .problema-item p {
+            color: #6b7280;
+            font-size: 14px;
+            margin: 0;
+        }
+
+        .contexto-negativo {
+            background: #fee2e2;
+            border: 2px solid #dc2626;
+            border-radius: 15px;
+            padding: 25px;
+        }
+
+        .contexto-negativo h4 {
+            color: #dc2626;
+            font-size: 18px;
+            margin: 0 0 15px 0;
+        }
+
+        .contexto-items {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .contexto-item {
+            color: #6b7280;
+            font-size: 14px;
+            margin-bottom: 20px;
+            padding-left: 15px;
+            position: relative;
+        }
+
+        .contexto-item::before {
+            content: "•";
+            color: #dc2626;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Estrategias */
+        .seccion-estrategias {
+            margin-bottom: 20px;
+        }
+
+        .seccion-estrategias h3 {
+            color: #f59e0b;
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 3px solid #f59e0b;
+            padding-bottom: 10px;
+        }
+
+        .estrategias-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+        }
+
+        .estrategia {
+            background: #fffbeb;
+            border: 2px solid #f59e0b;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .estrategia:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.2);
+        }
+
+        .estrategia-icono {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .estrategia h4 {
+            color: #f59e0b;
+            font-size: 14px;
+            margin: 0 0 10px 0;
+        }
+
+        .estrategia p {
+            color: #6b7280;
+            font-size: 12px;
+            margin: 0;
+        }
+
+        /* Reflexión Final */
+        .reflexion-final {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            padding: 30px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .reflexion-final h3 {
+            font-size: 28px;
+            margin: 0 0 25px 0;
+            text-align: center;
+            border-bottom: 3px solid rgba(255, 255, 255, 0.8);
+            padding-bottom: 15px;
+            position: relative;
+            z-index: 2;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .reflexion-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .reflexion-item {
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            padding: 18px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .reflexion-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .reflexion-item h4 {
+            font-size: 16px;
+            margin: 0 0 10px 0;
+            color: #fde68a;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .reflexion-item p {
+            font-size: 14px;
+            margin: 0 0 8px 0;
+            line-height: 1.4;
+            text-align: justify;
+        }
+
+        .reflexion-item p:last-child {
+            margin-bottom: 0;
+        }
+
+        .cita-personal {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(253, 230, 138, 0.5);
+            border-radius: 15px;
+            padding: 18px;
+            text-align: center;
+            margin-top: 15px;
+            grid-column: 1 / -1;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 2;
+        }
+
+        .cita-personal blockquote {
+            font-size: 15px;
+            font-style: italic;
+            margin: 0 0 10px 0;
+            line-height: 1.4;
+            font-weight: 300;
+            position: relative;
+            z-index: 3;
+        }
+
+        .cita-personal cite {
+            font-size: 13px;
+            color: #fde68a;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 3;
+        }
+
+        /* Responsive para infografía */
+        @media (max-width: 768px) {
+            .infografia {
+                padding: 25px;
+            }
+
+            .titulo-principal {
+                padding: 20px;
+            }
+
+            .titulo-principal h1 {
+                font-size: 24px;
+            }
+
+            .titulo-principal h2 {
+                font-size: 16px;
+            }
+
+            .componentes-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            
+            .estrategias-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+
+            .problemas-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+
+            .seccion-componentes h3,
+            .seccion-problemas h3,
+            .seccion-estrategias h3,
+            .reflexion-final h3 {
+                font-size: 20px;
+            }
+
+            .componente,
+            .estrategia {
+                padding: 15px;
+            }
+
+            .reflexion-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .reflexion-final {
+                padding: 25px;
+            }
+
+            .cita-personal {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .infografia {
+                padding: 15px;
+            }
+
+            .titulo-principal {
+                padding: 15px;
+            }
+
+            .titulo-principal h1 {
+                font-size: 20px;
+            }
+
+            .titulo-principal h2 {
+                font-size: 14px;
+            }
+
+            .componente,
+            .estrategia,
+            .problema-item,
+            .contexto-negativo {
+                padding: 15px;
+            }
+
+            .componentes-grid,
+            .estrategias-grid,
+            .problemas-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .icono-componente,
+            .estrategia-icono,
+            .problema-icono {
+                font-size: 24px;
+            }
+
+            .reflexion-final {
+                padding: 20px;
+            }
+
+            .reflexion-content {
+                grid-template-columns: 1fr;
+            }
+
+            .reflexion-item {
+                padding: 15px;
+            }
+
+            .cita-personal {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="portada">
+            <img src="https://www.carreras.pe/userfiles/images/Logos%20y%20fachadas/Logo%20UTP%202.png" alt="Logo UTP" onerror="this.outerHTML='<div class=\'logo\'>UTP</div>';" style="width: 100px; height: 100px; object-fit: contain; background: transparent; flex-shrink: 0;">
+            
+            <div class="info-institucional">
+                <h2>Universidad Tecnológica del Perú</h2>
+                <p>Facultad de Educación</p>
+                <p>Práctica Educativa I: Psicomotricidad para Educación Primaria</p>
+                <p>Sección 31960</p>
+            </div>
+            
+            <div class="info-estudiante">
+                <p><strong>Aaron Sixto Callupe Llallico</strong></p>
+                <p>Estudiante de Educación Primaria</p>
+                <p>Semana 8 - Infografía</p>
+            </div>
+        </div>
+
+        <div class="infografia">
+            <!-- Botón de descarga PDF -->
+            <div class="pdf-download-container">
+                <button id="downloadPDF" class="pdf-download-btn">
+                    📄 Descargar PDF
+                </button>
+            </div>
+
+            <!-- Título Principal -->
+            <div class="titulo-principal">
+                <h1>🧠 Psicomotricidad y desarrollo evolutivo en niños de 6 a 11 años</h1>
+                <h2>Etapas, componentes, problemáticas y estrategias pedagógicas</h2>
+            </div>
+
+            <!-- Componentes de la Psicomotricidad -->
+            <div class="seccion-componentes">
+                <h3>🎯 Componentes de la Psicomotricidad</h3>
+                <div class="componentes-grid">
+                    <div class="componente">
+                        <div class="icono-componente">⚖️</div>
+                        <h4>Tónicos</h4>
+                        <p><strong>Control postural y equilibrio</strong></p>
+                        <div class="ejemplo">
+                            <span class="ejemplo-tag">👉 Ejemplo:</span>
+                            <p>Juegos de equilibrio, caminar en líneas, yoga infantil</p>
+                        </div>
+                    </div>
+
+                    <div class="componente">
+                        <div class="icono-componente">🏃‍♂️</div>
+                        <h4>Motores</h4>
+                        <p><strong>Coordinación gruesa y fina</strong></p>
+                        <div class="ejemplo">
+                            <span class="ejemplo-tag">👉 Ejemplo:</span>
+                            <p>Deportes escolares, manualidades, escribir, recortar</p>
+                        </div>
+                    </div>
+
+                    <div class="componente">
+                        <div class="icono-componente">👁️</div>
+                        <h4>Perceptivos</h4>
+                        <p><strong>Reconocimiento espacial y temporal</strong></p>
+                        <div class="ejemplo">
+                            <span class="ejemplo-tag">👉 Ejemplo:</span>
+                            <p>Circuitos motores, juegos con pelotas, orientación en el aula</p>
+                        </div>
+                    </div>
+
+                    <div class="componente">
+                        <div class="icono-componente">❤️</div>
+                        <h4>Afectivos</h4>
+                        <p><strong>Seguridad, autoestima, interacción</strong></p>
+                        <div class="ejemplo">
+                            <span class="ejemplo-tag">👉 Ejemplo:</span>
+                            <p>Dinámicas cooperativas, juegos en grupo</p>
+                        </div>
+                    </div>
+
+                    <div class="componente">
+                        <div class="icono-componente">💡</div>
+                        <h4>Simbólicos</h4>
+                        <p><strong>Imaginación y creatividad</strong></p>
+                        <div class="ejemplo">
+                            <span class="ejemplo-tag">👉 Ejemplo:</span>
+                            <p>Dramatizaciones, juegos de roles, creación de historias</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Problemáticas Comunes -->
+            <div class="seccion-problemas">
+                <h3>⚠️ Problemáticas Comunes (6-11 años)</h3>
+                <div class="problemas-grid">
+                    <div class="problema-item">
+                        <div class="problema-icono">🤸‍♂️</div>
+                        <h4>Dificultades de coordinación</h4>
+                        <p>Torpeza motriz en actividades básicas</p>
+                    </div>
+
+                    <div class="problema-item">
+                        <div class="problema-icono">↔️</div>
+                        <h4>Problemas de lateralidad</h4>
+                        <p>Confusión entre derecha e izquierda</p>
+                    </div>
+
+                    <div class="problema-item">
+                        <div class="problema-icono">✋</div>
+                        <h4>Déficit de equilibrio y motricidad fina</h4>
+                        <p>Dificultades en tareas precisas</p>
+                    </div>
+
+                    <div class="problema-item">
+                        <div class="problema-icono">📱</div>
+                        <h4>Sedentarismo digital</h4>
+                        <p>Exceso de pantallas y falta de actividad física</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Estrategias Pedagógicas -->
+            <div class="seccion-estrategias">
+                <h3>🎯 Estrategias Pedagógicas de Mejora</h3>
+                <div class="estrategias-grid">
+                    <div class="estrategia">
+                        <div class="estrategia-icono">🏃‍♀️</div>
+                        <h4>Juegos motores en grupo</h4>
+                        <p>Circuitos, competencias lúdicas</p>
+                    </div>
+
+                    <div class="estrategia">
+                        <div class="estrategia-icono">🎨</div>
+                        <h4>Actividades artísticas</h4>
+                        <p>Recorte, pintura, modelado</p>
+                    </div>
+
+                    <div class="estrategia">
+                        <div class="estrategia-icono">⚽</div>
+                        <h4>Deportes escolares</h4>
+                        <p>Fútbol, vóley, natación</p>
+                    </div>
+
+                    <div class="estrategia">
+                        <div class="estrategia-icono">🧘‍♀️</div>
+                        <h4>Técnicas de relajación</h4>
+                        <p>Yoga, respiración, dramatización</p>
+                    </div>
+
+                    <div class="estrategia">
+                        <div class="estrategia-icono">🏠</div>
+                        <h4>Colaboración escuela-familia</h4>
+                        <p>Promover hábitos activos y saludables</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reflexión Final -->
+            <div class="reflexion-final">
+                <h3>💭 Reflexión Final</h3>
+                <div class="reflexion-content">
+                    <div class="reflexion-item">
+                        <h4>👉 ¿Qué desafíos enfrentan los niños?</h4>
+                        <p>Dificultades de coordinación, lateralidad, equilibrio y motricidad fina. Sedentarismo y exceso de pantallas.</p>
+                    </div>
+
+                    <div class="reflexion-item">
+                        <h4>👉 ¿Cómo influye el contexto?</h4>
+                        <p><strong>Escuela:</strong> Educación física activa potencia habilidades.</p>
+                        <p><strong>Familia:</strong> Actividades recreativas fortalecen; sobreprotección limita.</p>
+                        <p><strong>Entorno:</strong> Espacios seguros favorecen práctica motora.</p>
+                    </div>
+
+                    <div class="reflexion-item">
+                        <h4>👉 ¿Qué hacer como docente?</h4>
+                        <p>• Actividades lúdicas para coordinación</p>
+                        <p>• Trabajo cooperativo</p>
+                        <p>• Involucrar familia</p>
+                        <p>• Adaptar a necesidades individuales</p>
+                    </div>
+
+                    <div class="reflexion-item">
+                        <h4>👉 Reflexión personal</h4>
+                        <p>El desarrollo psicomotor es pilar del aprendizaje integral. Mi compromiso: acompañar con actividades dinámicas, trabajando con familia y comunidad educativa.</p>
+                    </div>
+
+                    <div class="cita-personal">
+                        <blockquote>
+                            "Como futuro docente, comprendo que mi compromiso es acompañar y potenciar el desarrollo integral de cada niño, respetando sus ritmos y necesidades."
+                        </blockquote>
+                        <cite>- Aaron Sixto Callupe Llallico</cite>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script para generar PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
+    <script>
+        document.getElementById('downloadPDF').addEventListener('click', function() {
+            const button = this;
+            const originalText = button.textContent;
+            
+            // Cambiar texto del botón mientras procesa
+            button.textContent = '⏳ Generando PDF...';
+            button.disabled = true;
+            
+            // Ocultar el botón durante la captura
+            const pdfContainer = document.querySelector('.pdf-download-container');
+            pdfContainer.style.display = 'none';
+            
+            // Obtener solo la infografía (sin la portada)
+            const infografia = document.querySelector('.infografia');
+            
+            // Configuración para html2canvas
+            const options = {
+                scale: 2, // Mayor calidad
+                useCORS: true,
+                allowTaint: true,
+                backgroundColor: '#ffffff',
+                width: infografia.scrollWidth,
+                height: infografia.scrollHeight
+            };
+            
+            html2canvas(infografia, options).then(function(canvas) {
+                const { jsPDF } = window.jspdf;
+                
+                // Crear nuevo PDF en formato A4
+                const pdf = new jsPDF('p', 'mm', 'a4');
+                
+                // Dimensiones del PDF
+                const pdfWidth = pdf.internal.pageSize.getWidth();
+                const pdfHeight = pdf.internal.pageSize.getHeight();
+                
+                // Dimensiones del canvas
+                const canvasWidth = canvas.width;
+                const canvasHeight = canvas.height;
+                
+                // Calcular escala para ajustar al ancho del PDF
+                const scale = pdfWidth / (canvasWidth * 0.264583); // Conversión px a mm
+                const scaledHeight = (canvasHeight * 0.264583) * scale;
+                
+                // Si la imagen es más alta que una página, dividir en páginas
+                if (scaledHeight > pdfHeight) {
+                    let yPosition = 0;
+                    let pageNumber = 1;
+                    
+                    while (yPosition < scaledHeight) {
+                        if (pageNumber > 1) {
+                            pdf.addPage();
+                        }
+                        
+                        const remainingHeight = scaledHeight - yPosition;
+                        const pageHeight = Math.min(pdfHeight, remainingHeight);
+                        
+                        // Calcular qué parte del canvas mostrar
+                        const sourceY = (yPosition / scale) / 0.264583;
+                        const sourceHeight = (pageHeight / scale) / 0.264583;
+                        
+                        // Crear canvas temporal para esta página
+                        const tempCanvas = document.createElement('canvas');
+                        const tempCtx = tempCanvas.getContext('2d');
+                        tempCanvas.width = canvasWidth;
+                        tempCanvas.height = sourceHeight;
+                        
+                        tempCtx.drawImage(canvas, 0, sourceY, canvasWidth, sourceHeight, 0, 0, canvasWidth, sourceHeight);
+                        
+                        const imgData = tempCanvas.toDataURL('image/jpeg', 0.95);
+                        pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pageHeight);
+                        
+                        yPosition += pdfHeight;
+                        pageNumber++;
+                    }
+                } else {
+                    // Si cabe en una página
+                    const imgData = canvas.toDataURL('image/jpeg', 0.95);
+                    pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, scaledHeight);
+                }
+                
+                // Descargar el PDF
+                pdf.save('Infografia_Psicomotricidad_Aaron_Callupe.pdf');
+                
+                // Mostrar el botón nuevamente y restaurar
+                pdfContainer.style.display = 'block';
+                button.textContent = originalText;
+                button.disabled = false;
+                
+            }).catch(function(error) {
+                console.error('Error al generar PDF:', error);
+                alert('Error al generar el PDF. Por favor, inténtalo de nuevo.');
+                
+                // Mostrar el botón nuevamente y restaurar
+                pdfContainer.style.display = 'block';
+                button.textContent = originalText;
+                button.disabled = false;
+            });
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9870b1791514952a',t:'MTc1OTIwMzU2Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

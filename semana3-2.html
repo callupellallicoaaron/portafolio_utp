@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Zonas de Psicomotricidad</title>
+  <style>
+    :root {
+      --color-fondo: #fff8e5;
+      --color-primario: #f3d9c4;
+      --color-acento: #ffaf64;
+      --color-texto: #333;
+      --color-habilidad: #a0522d;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--color-fondo);
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 20px auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      border: 1px solid #e0e0e0;
+      padding: 20px;
+    }
+
+    .section {
+      padding: 20px;
+    }
+
+    .portada {
+      background: white;
+      border: 2px solid #e0e0e0;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .portada-flex {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .portada-logo {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+    }
+
+    .zona {
+      display: flex;
+      flex-wrap: wrap;
+      background-color: #fff;
+      border-radius: 15px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+      margin-bottom: 40px;
+      overflow: hidden;
+    }
+
+    .zona img {
+      width: 100%;
+      max-width: 200px;
+      object-fit: cover;
+    }
+
+    .texto {
+      flex: 1;
+      padding: 20px;
+    }
+
+    .texto h2 {
+      font-size: 22px;
+      color: var(--color-acento);
+      margin-top: 0;
+      margin-bottom: 15px;
+    }
+
+    .texto ul {
+      padding-left: 20px;
+      margin-top: 0;
+    }
+
+    .texto ul li {
+      margin-bottom: 8px;
+      color: #444;
+    }
+
+    .habilidades {
+      margin-top: 10px;
+      font-weight: bold;
+      color: var(--color-habilidad);
+    }
+
+    @media screen and (max-width: 768px) {
+      .zona {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .texto {
+        padding: 20px 15px;
+      }
+    }
+
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- Portada -->
+    <div class="section" style="margin-bottom: 0; padding-bottom: 0;">
+      <div class="portada">
+        <div class="portada-flex">
+          <img src="https://www.carreras.pe/userfiles/images/Logos%20y%20fachadas/Logo%20UTP%202.png" alt="Logo UTP" class="portada-logo">
+          <div style="flex: 1; min-width: 300px;">
+            <h2 style="font-size: 1.5rem; font-weight: bold; color: #333; margin: 0 0 8px 0;">Universidad Tecnológica del Perú</h2>
+            <p style="color: #666; margin: 4px 0; font-size: 1rem;">Facultad de Educación</p>
+            <p style="color: #888; margin: 4px 0; font-size: 0.9rem;">Práctica Educativa I: Psicomotricidad para Educación Primaria</p>
+            <p style="color: #aaa; margin: 4px 0; font-size: 0.8rem;">Sección 31960</p>
+          </div>
+          <div style="text-align: right; min-width: 250px;">
+            <p style="font-weight: bold; color: #333; margin: 4px 0; font-size: 1.1rem;">Aaron Sixto Callupe Llallico</p>
+            <p style="color: #666; margin: 4px 0; font-size: 0.9rem;">Estudiante de Educación Primaria</p>
+            <p style="color: #666; margin: 4px 0; font-size: 0.9rem;">Semana 3 - Actividad 2</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<div class="section" style="text-align: center; margin-top: 0px;">
+  <h1 style="
+    font-size: 3rem;
+    font-weight: 700;
+    color: #8b5e3c;
+    font-style: italic;
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.15);
+    font-family: 'Georgia', serif;
+    ">
+    Diseñando el patio de mis sueños
+  </h1>
+</div>
+
+
+    <!-- Zona de Motricidad Gruesa -->
+    <div class="zona">
+      <img src="sonidos/motricidadgruesa.png" alt="Motricidad Gruesa">
+      <div class="texto">
+        <h2>Zona de Motricidad Gruesa</h2>
+        <ul>
+          <li>Columpios, barras y resbaladeras.</li>
+          <li>Circuito de equilibrio (líneas en el suelo, troncos de madera o bancos).</li>
+          <li>Espacio abierto para juegos con pelota (fútbol, vóley, básquet).</li>
+        </ul>
+        <div class="habilidades">👉 Habilidades trabajadas: equilibrio dinámico, coordinación, fuerza, velocidad y trabajo en equipo.</div>
+      </div>
+    </div>
+
+    <!-- Zona de Motricidad Fina -->
+    <div class="zona">
+      <img src="sonidos/motricidadfina.png" alt="Motricidad Fina">
+      <div class="texto">
+        <h2>Zona de Motricidad Fina</h2>
+        <ul>
+          <li>Mesas con materiales reciclados (legos, bloques de madera, tapas, palitos).</li>
+          <li>Juegos de mesa gigantes (ajedrez o damas pintadas en el piso).</li>
+        </ul>
+        <div class="habilidades">👉 Habilidades trabajadas: coordinación ojo-mano, precisión, creatividad, concentración.</div>
+      </div>
+    </div>
+
+    <!-- Rincón Sensorial -->
+    <div class="zona">
+      <img src="sonidos/motricidadsensorial.png" alt="Rincón Sensorial">
+      <div class="texto">
+        <h2>Rincón Sensorial</h2>
+        <ul>
+          <li>Jardín escolar para plantar y cuidar flores o vegetales.</li>
+          <li>Caja de arena o mesa sensorial con materiales variados (semillas, piedras, agua).</li>
+        </ul>
+        <div class="habilidades">👉 Habilidades trabajadas: exploración sensorial, motricidad fina, relajación y vínculo con la naturaleza.</div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

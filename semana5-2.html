@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarjetas de Habilidades Motrices</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One:wght@400&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .kid-font {
+            font-family: 'Comic Neue', cursive;
+        }
+        .fun-title {
+            font-family: 'Fredoka One', cursive;
+        }
+        .card-flip {
+            perspective: 1000px;
+        }
+        .card-inner {
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        .card-flip.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+        .card-front, .card-back {
+            backface-visibility: hidden;
+        }
+        .card-back {
+            transform: rotateY(180deg);
+        }
+        .bounce-animation {
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        .run-animation {
+            animation: run 3s infinite linear;
+        }
+        @keyframes run {
+            0% { transform: translateX(-20px); }
+            50% { transform: translateX(20px); }
+            100% { transform: translateX(-20px); }
+        }
+        .balance-animation {
+            animation: balance 4s infinite ease-in-out;
+        }
+        @keyframes balance {
+            0%, 100% { transform: rotate(-2deg); }
+            50% { transform: rotate(2deg); }
+        }
+        .sparkle {
+            animation: sparkle 2s infinite;
+        }
+        @keyframes sparkle {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+        .wiggle {
+            animation: wiggle 1s ease-in-out infinite;
+        }
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-3deg); }
+            50% { transform: rotate(3deg); }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-yellow-100 via-pink-100 to-blue-100 min-h-screen p-6 kid-font" style="background-image: radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%), radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.3) 0%, transparent 50%);">
+    <div class="max-w-5xl mx-auto">
+        <!-- Header Universitario -->
+        <div class="bg-white rounded-2xl shadow-lg p-6 mb-2">
+            <div class="flex items-center justify-between flex-wrap gap-4">
+                <div class="flex items-center gap-4">
+                    <!-- Logo UTP Oficial -->
+                    <img src="https://www.carreras.pe/userfiles/images/Logos%20y%20fachadas/Logo%20UTP%202.png" 
+                         alt="Logo UTP" 
+                         class="h-24 object-contain"
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div class="w-16 h-16 bg-gradient-to-br from-red-600 to-red-800 rounded-full flex items-center justify-center shadow-lg" style="display: none;">
+                        <svg width="40" height="40" viewBox="0 0 100 100" class="fill-white">
+                            <rect x="20" y="30" width="60" height="40" rx="4" />
+                            <rect x="25" y="35" width="50" height="5" />
+                            <rect x="25" y="45" width="50" height="5" />
+                            <rect x="25" y="55" width="50" height="5" />
+                            <circle cx="50" cy="20" r="8" />
+                            <rect x="46" y="75" width="8" height="15" />
+                            <text x="50" y="50" text-anchor="middle" font-size="12" font-weight="bold">UTP</text>
+                        </svg>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-bold text-gray-800">Universidad Tecnológica del Perú</h2>
+                        <p class="text-gray-600">Facultad de Educación</p>
+                        <p class="text-sm text-gray-500">Práctica Educativa I: Psicomotricidad para Educación Primaria</p>
+                        <p class="text-xs text-gray-400">Sección 31960</p>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <p class="text-lg font-semibold text-gray-800">Aaron Sixto Callupe Llallico</p>
+                    <p class="text-gray-600">Estudiante de Educación Primaria</p>
+                    <p>Semana 5 - Actividad 2</p>
+                </div>
+            </div>
+        </div>
+
+        <h1 class="text-4xl font-bold text-center mb-4 text-purple-800 fun-title">
+            🌟 ¡Tarjetas Súper Divertidas! 🌟
+        </h1>
+        <div class="text-center mb-12">
+            <p class="text-2xl text-pink-600 font-bold mb-1 wiggle">🎮 ¡Vamos a Jugar y Aprender! 🎮</p>
+        </div>
+        
+        <div class="grid md:grid-cols-3 gap-8">
+            <!-- Tarjeta 1: Habilidad Motriz Básica -->
+            <div class="card-flip cursor-pointer" onclick="flipCard(this)">
+                <div class="card-inner relative w-full h-96">
+                    <!-- Frente de la tarjeta -->
+                    <div class="card-front absolute inset-0 bg-gradient-to-br from-emerald-300 via-green-400 to-teal-500 rounded-3xl shadow-2xl p-6 flex flex-col items-center justify-center text-white border-4 border-white" style="background: linear-gradient(135deg, #6ee7b7 0%, #34d399 30%, #10b981 60%, #14b8a6 100%);">
+                        <div class="absolute top-2 right-2 sparkle">⭐</div>
+                        <div class="absolute top-2 left-2 sparkle">✨</div>
+                        
+                        <div class="text-8xl mb-4 bounce-animation">
+                          <img src="https://blogger.googleusercontent.com/img/a/AVvXsEh7KJRuWEl-IK2rDh6KRIkpSxGAxrPYRPPn8KaqlRkrPNTZ3-TDtw5qvO5xanVx8sQiLYnUfXaE60jGIM_j_uHl0Oq2Uphyo6hT_z2DpIfp2PCmvYi2KngF5ErWbArXCWk-GJi0FTb98rCod1vhSFFGK0-chdNxbS04QN-GsVY_oITwXbtVrGxl9dv8gA" 
+                               alt="Niño saltando" 
+                               class="w-32 h-32 object-contain mx-auto" />
+                        </div>
+
+                        <h2 class="text-3xl font-bold text-center mb-2 fun-title text-yellow-100">¡SALTAR!</h2>
+                        <h3 class="text-xl font-bold mb-4 text-green-100">Como un Canguro 🦘</h3>
+                        <div class="bg-white bg-opacity-30 rounded-2xl p-4 text-center border-2 border-yellow-200">
+                            <p class="text-xl font-bold text-yellow-100">¡Saltos con los dos pies!</p>
+                        </div>
+                        <div class="mt-4 text-lg font-bold opacity-90 wiggle">
+                            👆 ¡Tócame para más diversión!
+                        </div>
+                    </div>
+                    
+                    <!-- Reverso de la tarjeta -->
+                    <div class="card-back absolute inset-0 bg-gradient-to-br from-emerald-400 via-green-500 to-teal-600 rounded-3xl shadow-2xl p-6 text-white border-4 border-white" style="background: linear-gradient(135deg, #34d399 0%, #10b981 30%, #059669 60%, #0d9488 100%);">
+                        <h3 class="text-2xl font-bold mb-4 text-center fun-title text-yellow-100">🦘 ¡Saltos Divertidos! 🦘</h3>
+                        <div class="space-y-3">
+                            <div class="bg-white bg-opacity-30 rounded-xl p-3 border-2 border-yellow-200">
+                                <h4 class="font-bold mb-1 text-base text-yellow-100">🎈 ¿Qué hacemos?</h4>
+                                <p class="text-sm font-semibold">¡Saltamos con los dos pies juntos como los canguros! 🦘</p>
+                            </div>
+                            <div class="bg-white bg-opacity-30 rounded-xl p-3 border-2 border-yellow-200">
+                                <h4 class="font-bold mb-1 text-base text-yellow-100">🎮 ¡Juego súper genial!</h4>
+                                <p class="text-sm font-bold text-pink-100">"Carrera de Canguros" 🏁</p>
+                                <p class="text-sm">¡Vamos a saltar de un lado al otro como canguros súper rápidos!</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 text-center text-lg font-bold opacity-90 wiggle">
+                            👆 ¡Tócame otra vez!
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjeta 2: Capacidad Motriz Condicional -->
+            <div class="card-flip cursor-pointer" onclick="flipCard(this)">
+                <div class="card-inner relative w-full h-96">
+                    <!-- Frente de la tarjeta -->
+                    <div class="card-front absolute inset-0 bg-gradient-to-br from-pink-400 via-red-400 to-orange-500 rounded-3xl shadow-2xl p-6 flex flex-col items-center justify-center text-white border-4 border-white" style="background: linear-gradient(135deg, #f472b6 0%, #ef4444 30%, #dc2626 60%, #f97316 100%);">
+                        <div class="absolute top-2 right-2 sparkle">💫</div>
+                        <div class="absolute top-2 left-2 sparkle">🔥</div>
+                        <div class="text-8xl mb-4 run-animation">
+
+                            <img src="https://blogger.googleusercontent.com/img/a/AVvXsEhwO-3doCKWbKXlLU60SwbPO_JpXoYyL8D3D4ebO5gjr_dxgcHZmIp6UTj0_2X9zNN0-W0ae-D9nXKzQBuKtMB86FCSw5uLtMIq6JJXL5WMTgewu_OrWk50hIHL5i2D2dmYFOw_K2FzVsbUC0AUnFItCgp9JpwdFdrfQN8JMk-zHuFWYtKxdCqSnXMQyw" 
+                               alt="Niño saltando" 
+                               class="w-32 h-32 object-contain mx-auto" />
+
+                        </div>
+                        <h2 class="text-3xl font-bold text-center mb-2 fun-title text-yellow-100">¡CORRER!</h2>
+                        <h3 class="text-xl font-bold mb-4 text-pink-100">Como un Súper Héroe 🦸‍♂️</h3>
+                        <div class="bg-white bg-opacity-30 rounded-2xl p-4 text-center border-2 border-yellow-200">
+                            <p class="text-xl font-bold text-yellow-100">¡Corazón fuerte! ❤️</p>
+                        </div>
+                        <div class="mt-4 text-lg font-bold opacity-90 wiggle">
+                            👆 ¡Tócame para más diversión!
+                        </div>
+                    </div>
+                    
+                    <!-- Reverso de la tarjeta -->
+                    <div class="card-back absolute inset-0 bg-gradient-to-br from-pink-500 via-red-500 to-orange-600 rounded-3xl shadow-2xl p-6 text-white border-4 border-white" style="background: linear-gradient(135deg, #ec4899 0%, #dc2626 30%, #b91c1c 60%, #ea580c 100%);">
+                        <h3 class="text-2xl font-bold mb-4 text-center fun-title text-yellow-100">🏃‍♂️ ¡Súper Resistencia! 🏃‍♂️</h3>
+                        <div class="space-y-3">
+                            <div class="bg-white bg-opacity-30 rounded-xl p-3 border-2 border-yellow-200">
+                                <h4 class="font-bold mb-1 text-base text-yellow-100">💪 ¿Qué hacemos?</h4>
+                                <p class="text-sm font-semibold">¡Corremos y corremos sin cansarnos como súper héroes! 🦸‍♂️</p>
+                            </div>
+                            <div class="bg-white bg-opacity-30 rounded-xl p-3 border-2 border-yellow-200">
+                                <h4 class="font-bold mb-1 text-base text-yellow-100">🎮 ¡Juego súper genial!</h4>
+                                <p class="text-sm font-bold text-pink-100">"Aventura de Súper Héroes" 🦸‍♀️</p>
+                                <p class="text-sm">¡Caminamos y trotamos por 5 minutos como valientes aventureros!</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 text-center text-lg font-bold opacity-90 wiggle">
+                            👆 ¡Tócame otra vez!
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjeta 3: Capacidad Motriz Coordinativa -->
+            <div class="card-flip cursor-pointer" onclick="flipCard(this)">
+                <div class="card-inner relative w-full h-96">
+                    <!-- Frente de la tarjeta -->
+                    <div class="card-front absolute inset-0 bg-gradient-to-br from-violet-400 via-purple-500 to-indigo-500 rounded-3xl shadow-2xl p-6 flex flex-col items-center justify-center text-white border-4 border-white" style="background: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 30%, #7c3aed 60%, #6366f1 100%);">
+                        <div class="absolute top-2 right-2 sparkle">🌟</div>
+                        <div class="absolute top-2 left-2 sparkle">🎪</div>
+                        <div class="text-8xl mb-4 balance-animation">
+                            
+                            <img src="https://blogger.googleusercontent.com/img/a/AVvXsEjY8dOAGvXWFTb7KjdjdmIaOMvBx9-U5EEkF-A_lNWv2B4IDAfh9wkX8gTRbPdpaU0IgX_RNRuujfOKVJKlG9dalaK3msYT-EURMH5Us23OjEi52PvWVsSCHN-XsPhOIXxo6QslUYa1IdJhIgeyJJVrROodDJEg7w9zNIOQRrPbWl3jjAiWxOiWLxbImQ" 
+                               alt="Niño saltando" 
+                               class="w-32 h-32 object-contain mx-auto" />
+
+                        </div>
+                        <h2 class="text-3xl font-bold text-center mb-2 fun-title text-yellow-100">¡EQUILIBRIO!</h2>
+                        <h3 class="text-xl font-bold mb-4 text-purple-100">Como un Acróbata 🎪</h3>
+                        <div class="bg-white bg-opacity-30 rounded-2xl p-4 text-center border-2 border-yellow-200">
+                            <p class="text-xl font-bold text-yellow-100">¡Sin caerse! ⚖️</p>
+                        </div>
+                        <div class="mt-4 text-lg font-bold opacity-90 wiggle">
+                            👆 ¡Tócame para más diversión!
+                        </div>
+                    </div>
+                    
+                    <!-- Reverso de la tarjeta -->
+                    <div class="card-back absolute inset-0 bg-gradient-to-br from-violet-500 via-purple-600 to-indigo-600 rounded-3xl shadow-2xl p-6 text-white border-4 border-white" style="background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 30%, #6d28d9 60%, #4f46e5 100%);">
+                        <h3 class="text-2xl font-bold mb-4 text-center fun-title text-yellow-100">🤸‍♀️ ¡Equilibrio Mágico! 🤸‍♀️</h3>
+                        <div class="space-y-3">
+                            <div class="bg-white bg-opacity-30 rounded-xl p-3 border-2 border-yellow-200">
+                                <h4 class="font-bold mb-1 text-base text-yellow-100">🎪 ¿Qué hacemos?</h4>
+                                <p class="text-sm font-semibold">¡Nos mantenemos en pie sin caernos como acróbatas del circo! 🎪</p>
+                            </div>
+                            <div class="bg-white bg-opacity-30 rounded-xl p-3 border-2 border-yellow-200">
+                                <h4 class="font-bold mb-1 text-base text-yellow-100">🎮 ¡Juego súper genial!</h4>
+                                <p class="text-sm font-bold text-pink-100">"Camino del Equilibrista" 🌈</p>
+                                <p class="text-sm">¡Caminamos sobre una línea con los brazos abiertos como funambulistas!</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 text-center text-lg font-bold opacity-90 wiggle">
+                            👆 ¡Tócame otra vez!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    <script>
+        function flipCard(card) {
+            card.classList.toggle('flipped');
+        }
+
+        // Agregar efecto de hover sutil
+        document.querySelectorAll('.card-flip').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                if (!this.classList.contains('flipped')) {
+                    this.style.transform = 'translateY(-5px)';
+                    this.style.transition = 'transform 0.3s ease';
+                }
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                if (!this.classList.contains('flipped')) {
+                    this.style.transform = 'translateY(0)';
+                }
+            });
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97d02d24f0436df2',t:'MTc1NzUyMDQyNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

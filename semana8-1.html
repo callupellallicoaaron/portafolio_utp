@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portada Universitaria</title>
+    <style>
+        body {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .portada {
+            background: white;
+            border: 2px solid #1e40af;
+            border-radius: 15px;
+            padding: 30px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            max-width: 1330px; /* <-- NUEVO */
+            margin: 15px auto;    /* <-- NUEVO: centra la portada */
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+            background: #1e40af;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        .info-institucional {
+            flex: 1;
+        }
+
+        .info-institucional h2 {
+            margin: 0 0 10px 0;
+            color: #333;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .info-institucional p {
+            margin: 5px 0;
+            color: #666;
+            font-size: 16px;
+            line-height: 1.4;
+        }
+
+        .info-estudiante {
+            text-align: right;
+            flex-shrink: 0;
+        }
+
+        .info-estudiante p {
+            margin: 5px 0;
+            color: #333;
+            font-size: 16px;
+            line-height: 1.4;
+        }
+
+        .info-estudiante p strong {
+            color: black;
+        }
+
+        @media (max-width: 768px) {
+            .portada {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+                gap: 20px;
+            }
+            
+            .info-estudiante {
+                text-align: center;
+            }
+            
+            .info-institucional h2 {
+                font-size: 20px;
+            }
+            
+            .info-institucional p,
+            .info-estudiante p {
+                font-size: 14px;
+            }
+            
+            .logo {
+                width: 80px;
+                height: 80px;
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .portada {
+                padding: 15px;
+            }
+            
+            .info-institucional h2 {
+                font-size: 18px;
+            }
+            
+            .info-institucional p,
+            .info-estudiante p {
+                font-size: 12px;
+            }
+        }
+
+        /* Estilos para el contenido educativo */
+        .contenido-educativo {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .titulo-seccion {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            padding: 25px;
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            border-radius: 15px;
+            color: white;
+            box-shadow: 0 8px 25px rgba(30, 64, 175, 0.3);
+        }
+
+        .icono-check {
+            font-size: 28px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .titulo-seccion h1 {
+            margin: 0;
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+        .equipos-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .equipo-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .equipo-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+            border-radius: 50%;
+            transform: translate(30px, -30px);
+        }
+
+        .equipo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .equipo-a {
+            border-left-color: #10b981;
+            background: linear-gradient(135deg, #f0fdf4, #ffffff);
+        }
+
+        .equipo-a .equipo-icono::before {
+            content: '📏';
+            font-size: 24px;
+            margin-right: 8px;
+        }
+
+        .equipo-b {
+            border-left-color: #f59e0b;
+            background: linear-gradient(135deg, #fffbeb, #ffffff);
+        }
+
+        .equipo-b .equipo-icono::before {
+            content: '💪';
+            font-size: 24px;
+            margin-right: 8px;
+        }
+
+        .equipo-c {
+            border-left-color: #ef4444;
+            background: linear-gradient(135deg, #fef2f2, #ffffff);
+        }
+
+        .equipo-c .equipo-icono::before {
+            content: '❤️';
+            font-size: 24px;
+            margin-right: 8px;
+        }
+
+        .equipo-d {
+            border-left-color: #8b5cf6;
+            background: linear-gradient(135deg, #f5f3ff, #ffffff);
+        }
+
+        .equipo-d .equipo-icono::before {
+            content: '🏃';
+            font-size: 24px;
+            margin-right: 8px;
+        }
+
+        .equipo-header {
+            margin-bottom: 15px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #f1f5f9;
+        }
+
+        .equipo-icono {
+            font-size: 20px;
+            margin-right: 10px;
+        }
+
+        .equipo-header h2 {
+            margin: 8px 0 4px 0;
+            font-size: 18px;
+            font-weight: bold;
+            color: #1f2937;
+        }
+
+        .subtitulo {
+            font-size: 16px;
+            color: #6b7280;
+            font-style: italic;
+        }
+
+        .test-section {
+            margin-bottom: 12px;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .test-section h3 {
+            margin: 0 0 8px 0;
+            font-size: 14px;
+            font-weight: bold;
+            color: #374151;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .test-section h3::before {
+            content: '📋';
+            font-size: 16px;
+        }
+
+        .test-section:nth-child(2) h3::before { content: '🎯'; }
+        .test-section:nth-child(3) h3::before { content: '⚙️'; }
+        .test-section:nth-child(4) h3::before { content: '✅'; }
+        .test-section.errores h3::before { content: '⚠️'; }
+
+        .test-section p {
+            margin: 0;
+            color: #4b5563;
+            line-height: 1.4;
+            font-size: 12px;
+        }
+
+        .aplicacion-lista {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .aplicacion-item {
+            padding: 10px;
+            background: #f8fafc;
+            border-radius: 6px;
+            border-left: 3px solid #3b82f6;
+            color: #374151;
+            line-height: 1.3;
+            font-size: 12px;
+        }
+
+        .aplicacion-item strong {
+            color: #1f2937;
+        }
+
+        .errores {
+            background: linear-gradient(135deg, #fef2f2, rgba(255, 255, 255, 0.9)) !important;
+            border: 1px solid #fecaca !important;
+        }
+
+        .errores h3::before {
+            content: '⚠️';
+        }
+
+        .errores h3 {
+            color: #dc2626;
+        }
+
+        .errores p {
+            color: #7f1d1d;
+        }
+
+        /* Responsive para contenido educativo */
+        @media (max-width: 1200px) {
+            .equipos-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .equipos-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .equipo-card {
+                padding: 20px;
+            }
+            
+            .titulo-seccion {
+                padding: 20px;
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+            
+            .titulo-seccion h1 {
+                font-size: 24px;
+            }
+            
+            .equipo-header h2 {
+                font-size: 18px;
+            }
+            
+            .test-section {
+                padding: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .titulo-seccion {
+                padding: 15px;
+            }
+            
+            .titulo-seccion h1 {
+                font-size: 20px;
+
+            }
+            
+            .equipo-card {
+                padding: 15px;
+            }
+            
+            .equipo-header h2 {
+                font-size: 16px;
+            }
+            
+            .test-section h3 {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="portada">
+            <img src="https://www.carreras.pe/userfiles/images/Logos%20y%20fachadas/Logo%20UTP%202.png" alt="Logo UTP" onerror="this.outerHTML='<div class=\'logo\'>UTP</div>';" style="width: 100px; height: 100px; object-fit: contain; background: transparent; flex-shrink: 0;">
+            
+            <div class="info-institucional">
+                <h2>Universidad Tecnológica del Perú</h2>
+                <p>Facultad de Educación</p>
+                <p>Práctica Educativa I: Psicomotricidad para Educación Primaria</p>
+                <p>Sección 31960</p>
+            </div>
+            
+            <div class="info-estudiante">
+                <p><strong>Aaron Sixto Callupe Llallico</strong></p>
+                <p>Estudiante de Educación Primaria</p>
+                <p>Semana 8 - Actividad 1</p>
+            </div>
+        </div>
+
+        <!-- Contenido educativo -->
+        <div class="titulo-seccion">
+            <span class="icono-check">✅</span>
+            <h1>Análisis técnico de pruebas de evaluación del desarrollo motor</h1>
+        </div>
+
+        <div class="equipos-container">
+            <!-- Equipo A -->
+            <div class="equipo-card equipo-a">
+                <div class="equipo-header">
+                    <span class="equipo-icono">🔹</span>
+                    <h2>Equipo A: Test anatómicos</h2>
+                    <div class="subtitulo">(talla, peso, envergadura)</div>
+                </div>
+                
+                <div class="test-section">
+                    <h3>¿Qué mide?</h3>
+                    <p>Evalúa el crecimiento físico y la constitución corporal (estatura, peso corporal e índice de masa corporal, así como la amplitud de brazos). Permite identificar el estado nutricional y desarrollo óseo.</p>
+                </div>
+
+                <div class="test-section">
+                    <h3>¿Cómo se aplica?</h3>
+                    <div class="aplicacion-lista">
+                        <div class="aplicacion-item">
+                            <strong>Talla:</strong> con un tallímetro, el estudiante debe estar de pie, descalzo, con la espalda recta.
+                        </div>
+                        <div class="aplicacion-item">
+                            <strong>Peso:</strong> en una balanza calibrada, de pie y sin objetos adicionales.
+                        </div>
+                        <div class="aplicacion-item">
+                            <strong>Envergadura:</strong> con los brazos extendidos en cruz, se mide la distancia entre las puntas de los dedos medios.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="test-section">
+                    <h3>¿Qué condiciones requiere?</h3>
+                    <p>Lugar tranquilo, instrumentos calibrados (balanza, tallímetro, cinta métrica) y registro preciso.</p>
+                </div>
+
+                <div class="test-section errores">
+                    <h3>Errores comunes a evitar:</h3>
+                    <p>Medir con zapatos, posturas inadecuadas, balanza descalibrada o no anotar inmediatamente los valores.</p>
+                </div>
+            </div>
+
+            <!-- Equipo B -->
+            <div class="equipo-card equipo-b">
+                <div class="equipo-header">
+                    <span class="equipo-icono">🔹</span>
+                    <h2>Equipo B: Test fisiológicos</h2>
+                    <div class="subtitulo">(Ruffier-Dickson, Cooper, Burpee)</div>
+                </div>
+                
+                <div class="test-section">
+                    <h3>¿Qué mide?</h3>
+                    <p>La condición física relacionada con la resistencia, la recuperación cardiovascular y la capacidad de esfuerzo.</p>
+                </div>
+
+                <div class="test-section">
+                    <h3>¿Cómo se aplica?</h3>
+                    <div class="aplicacion-lista">
+                        <div class="aplicacion-item">
+                            <strong>Ruffier-Dickson:</strong> se toma el pulso en reposo, luego el niño realiza 30 sentadillas en 45 segundos y se vuelve a tomar el pulso en esfuerzo y en recuperación.
+                        </div>
+                        <div class="aplicacion-item">
+                            <strong>Cooper:</strong> recorrer la mayor distancia posible en 12 minutos (caminar o correr).
+                        </div>
+                        <div class="aplicacion-item">
+                            <strong>Burpee:</strong> realizar la mayor cantidad de repeticiones en un tiempo dado (generalmente 1 minuto).
+                        </div>
+                    </div>
+                </div>
+
+                <div class="test-section">
+                    <h3>¿Qué condiciones requiere?</h3>
+                    <p>Espacio amplio, cronómetro, supervisión del docente y motivación del estudiante.</p>
+                </div>
+
+                <div class="test-section errores">
+                    <h3>Errores comunes a evitar:</h3>
+                    <p>Tomar el pulso de manera incorrecta, falta de calentamiento previo, no motivar al niño a dar su máximo esfuerzo, errores al contar repeticiones.</p>
+                </div>
+            </div>
+
+            <!-- Equipo C -->
+            <div class="equipo-card equipo-c">
+                <div class="equipo-header">
+                    <span class="equipo-icono">🔹</span>
+                    <h2>Equipo C: Test cardiovasculares</h2>
+                    <div class="subtitulo">(Course Navette)</div>
+                </div>
+                
+                <div class="test-section">
+                    <h3>¿Qué mide?</h3>
+                    <p>La capacidad aeróbica máxima (VO₂ máx) y resistencia cardiorrespiratoria.</p>
+                </div>
+
+                <div class="test-section">
+                    <h3>¿Cómo se aplica?</h3>
+                    <div class="aplicacion-lista">
+                        <div class="aplicacion-item">
+                            El niño corre de un lado a otro (20 metros) siguiendo el ritmo de un audio con pitidos que marcan la velocidad. El ritmo aumenta progresivamente hasta que ya no pueda seguir.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="test-section">
+                    <h3>¿Qué condiciones requiere?</h3>
+                    <p>Espacio de 20 m marcado, reproductor de audio, conos y cronómetro.</p>
+                </div>
+
+                <div class="test-section errores">
+                    <h3>Errores comunes a evitar:</h3>
+                    <p>No realizar calentamiento, no marcar bien la distancia, detener la prueba antes de tiempo o no respetar el ritmo del audio.</p>
+                </div>
+            </div>
+
+            <!-- Equipo D -->
+            <div class="equipo-card equipo-d">
+                <div class="equipo-header">
+                    <span class="equipo-icono">🔹</span>
+                    <h2>Equipo D: Test motores</h2>
+                    <div class="subtitulo">(velocidad y flexibilidad)</div>
+                </div>
+                
+                <div class="test-section">
+                    <h3>¿Qué mide?</h3>
+                    <div class="aplicacion-lista">
+                        <div class="aplicacion-item">
+                            <strong>Velocidad:</strong> capacidad de recorrer una distancia corta en el menor tiempo posible.
+                        </div>
+                        <div class="aplicacion-item">
+                            <strong>Flexibilidad:</strong> amplitud de movimiento de las articulaciones y elasticidad muscular.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="test-section">
+                    <h3>¿Cómo se aplica?</h3>
+                    <div class="aplicacion-lista">
+                        <div class="aplicacion-item">
+                            <strong>Velocidad:</strong> carrera de 30 metros en línea recta, registrando el tiempo con cronómetro.
+                        </div>
+                        <div class="aplicacion-item">
+                            <strong>Flexibilidad:</strong> test de flexión profunda sentado (sit and reach), donde se mide hasta dónde llega el estudiante con las manos hacia adelante.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="test-section">
+                    <h3>¿Qué condiciones requiere?</h3>
+                    <p>Espacio despejado, cronómetro, banco de flexibilidad o regla, supervisión docente.</p>
+                </div>
+
+                <div class="test-section errores">
+                    <h3>Errores comunes a evitar:</h3>
+                    <p>Mala salida en la prueba de velocidad, cronometraje impreciso, no calentar, empujar con rebote en la prueba de flexibilidad.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'987016b8a467952a',t:'MTc1OTE5NzIyOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
