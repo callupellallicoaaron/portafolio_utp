@@ -1,0 +1,2273 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Feria Sociomotriz Interactiva</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            box-sizing: border-box;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.5); }
+            50% { box-shadow: 0 0 30px rgba(59, 130, 246, 0.8); }
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes hop {
+            0% { transform: translateX(0) translateY(0); }
+            20% { transform: translateX(15px) translateY(-20px); }
+            40% { transform: translateX(30px) translateY(0); }
+            60% { transform: translateX(45px) translateY(-20px); }
+            80% { transform: translateX(60px) translateY(0); }
+            100% { transform: translateX(75px) translateY(-20px); }
+        }
+        
+        @keyframes run {
+            0% { transform: translateX(-80px) scale(1); }
+            25% { transform: translateX(-20px) scale(1.1); }
+            50% { transform: translateX(20px) scale(1); }
+            75% { transform: translateX(60px) scale(1.1); }
+            100% { transform: translateX(100px) scale(1); }
+        }
+        
+        @keyframes jump {
+            0%, 100% { transform: translateY(0) scale(1); }
+            25% { transform: translateY(-15px) scale(1.1); }
+            50% { transform: translateY(-30px) scale(1.2); }
+            75% { transform: translateY(-15px) scale(1.1); }
+        }
+        
+        @keyframes ropeSwing {
+            0% { transform: rotate(-30deg); }
+            50% { transform: rotate(30deg); }
+            100% { transform: rotate(-30deg); }
+        }
+        
+        @keyframes ballFly {
+            0% { transform: translateX(0) translateY(0) scale(1); }
+            25% { transform: translateX(50px) translateY(-40px) scale(1.2); }
+            50% { transform: translateX(100px) translateY(-20px) scale(1); }
+            75% { transform: translateX(150px) translateY(-10px) scale(0.8); }
+            100% { transform: translateX(200px) translateY(0) scale(0.6); }
+        }
+        
+        @keyframes playerRun {
+            0% { transform: translateX(0) translateY(0); }
+            25% { transform: translateX(30px) translateY(-5px); }
+            50% { transform: translateX(60px) translateY(0); }
+            75% { transform: translateX(90px) translateY(-5px); }
+            100% { transform: translateX(120px) translateY(0); }
+        }
+        
+        .float { animation: float 3s ease-in-out infinite; }
+        .bounce { animation: bounce 2s infinite; }
+        .glow { animation: glow 2s ease-in-out infinite; }
+        .slide-in { animation: slideIn 0.8s ease-out; }
+        .hop { animation: hop 3s ease-in-out infinite; }
+        .run { animation: run 4s linear infinite; }
+        .jump { animation: jump 1.5s ease-in-out infinite; }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+        
+        .game-animation {
+            min-height: 300px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hidden { display: none; }
+        .show { display: block; }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-full font-sans">
+    
+    <!-- Portada Universitaria -->
+    <div class="bg-white p-5 border-b-4 border-gray-300">
+        <div class="bg-white border-2 border-black rounded-2xl p-6 max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-6">
+            <img src="https://www.carreras.pe/userfiles/images/Logos%20y%20fachadas/Logo%20UTP%202.png" alt="Logo UTP" onerror="this.outerHTML='<div class=\'w-20 h-20 bg-blue-800 text-white flex items-center justify-center font-bold text-lg rounded-lg flex-shrink-0\'>UTP</div>';" style="width: 80px; height: 80px; object-fit: contain; background: transparent; flex-shrink: 0;">
+            
+            <div class="flex-1 text-center md:text-left">
+                <h2 class="text-xl md:text-2xl font-bold text-gray-800 mb-2">Universidad Tecnológica del Perú</h2>
+                <p class="text-gray-600 text-sm md:text-base mb-1">Facultad de Educación</p>
+                <p class="text-gray-600 text-sm md:text-base mb-1">Práctica Educativa I: Psicomotricidad para Educación Primaria</p>
+                <p class="text-gray-600 text-sm md:text-base">Sección 31960</p>
+            </div>
+            
+            <div class="text-center md:text-right flex-shrink-0">
+                <p class="text-gray-800 text-sm md:text-base mb-1"><strong>Aaron Sixto Callupe Llallico</strong></p>
+                <p class="text-gray-600 text-sm md:text-base mb-1">Estudiante de Educación Primaria</p>
+                <p class="text-gray-600 text-sm md:text-base">Semana 10 - Actividad 1</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Escena 1: Pantalla de inicio -->
+    <div id="scene1" class="min-h-full p-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12 slide-in">
+                <h1 class="text-6xl font-bold text-gray-800 mb-4 drop-shadow-lg">
+                    🎪 Mini Feria Sociomotriz Interactiva
+                </h1>
+                <h2 class="text-2xl text-gray-700 mb-8 font-medium">
+                    "Exploramos los juegos populares del Perú y del mundo"
+                </h2>
+                
+                <div class="bg-blue-50 border-2 border-blue-200 rounded-2xl p-6 mb-8 max-w-4xl mx-auto">
+                    <p class="text-lg text-gray-800 leading-relaxed">
+                        🎙️ "Bienvenido a la Mini Feria Sociomotriz. Hoy aprenderemos cómo los juegos populares 
+                        fortalecen nuestras habilidades motrices y sociales. ¡Haz clic en cada tarjeta y participa de la experiencia!"
+                    </p>
+                </div>
+            </div>
+            
+
+            
+            <!-- Tarjetas de juegos con información completa -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12 z-10 relative">
+                <!-- Rayuela -->
+                <div onclick="showGamePopup('rayuela')" class="card-hover bg-white rounded-2xl p-4 text-gray-800 shadow-2xl cursor-pointer border-2 border-gray-200">
+                    <div class="text-center mb-4">
+                        <div class="text-6xl mb-2">🎯</div>
+                        <h2 class="text-xl font-bold">Rayuela Peruana</h2>
+                        <p class="text-sm opacity-90 mt-1">Equilibrio y coordinación</p>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <h3 class="text-xl font-bold mb-3">🪶 Reglas básicas:</h3>
+                        <div class="space-y-2 text-lg">
+                            <div class="flex items-start space-x-3">
+                                <span class="text-2xl">1️⃣</span>
+                                <p>Lanza la piedra sin que salga del cuadro.</p>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <span class="text-2xl">2️⃣</span>
+                                <p>Salta en un pie sin pisar las líneas.</p>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <span class="text-2xl">3️⃣</span>
+                                <p>Completa el recorrido y recoge la piedra.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white/20 backdrop-blur-sm rounded-xl p-3">
+                        <h4 class="text-xl font-bold mb-3">💪 Competencias desarrolladas:</h4>
+                        <ul class="text-lg space-y-2">
+                            <li>• Equilibrio corporal</li>
+                            <li>• Control motor</li>
+                            <li>• Precisión y coordinación</li>
+                            <li>• Concentración</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Pañuelo -->
+                <div onclick="showGamePopup('panuelo')" class="card-hover bg-white rounded-2xl p-4 text-gray-800 shadow-2xl cursor-pointer border-2 border-gray-200">
+                    <div class="text-center mb-4">
+                        <div class="text-6xl mb-2">🧣</div>
+                        <h2 class="text-xl font-bold">Pañuelo</h2>
+                        <p class="text-sm opacity-90 mt-1">Velocidad y trabajo en equipo</p>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <h3 class="text-xl font-bold mb-3">⚡ Reglas básicas:</h3>
+                        <div class="space-y-2 text-lg">
+                            <div class="flex items-start space-x-3">
+                                <span class="text-2xl">1️⃣</span>
+                                <p>Dos equipos frente a frente.</p>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <span class="text-2xl">2️⃣</span>
+                                <p>El árbitro llama un número.</p>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <span class="text-2xl">3️⃣</span>
+                                <p>Los jugadores corren a tomar el pañuelo.</p>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <span class="text-2xl">4️⃣</span>
+                                <p>El primero en regresar sin ser tocado gana.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white/20 backdrop-blur-sm rounded-xl p-3">
+                        <h4 class="text-xl font-bold mb-3">💪 Competencias desarrolladas:</h4>
+                        <ul class="text-lg space-y-2">
+                            <li>• Atención y concentración</li>
+                            <li>• Rapidez y agilidad</li>
+                            <li>• Respeto por las reglas</li>
+                            <li>• Trabajo en equipo</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- La Soga -->
+                <div onclick="showGamePopup('soga')" class="card-hover bg-white rounded-2xl p-4 text-gray-800 shadow-2xl cursor-pointer border-2 border-gray-200">
+                    <div class="text-center mb-4">
+                        <div class="text-6xl mb-2">🪢</div>
+                        <h2 class="text-xl font-bold">La Soga</h2>
+                        <p class="text-sm opacity-90 mt-1">Coordinación y ritmo</p>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <h3 class="text-xl font-bold mb-3">🎵 Reglas básicas:</h3>
+                        <div class="space-y-2 text-lg">
+                            <div class="flex items-start space-x-3">
+                                <span class="text-2xl">1️⃣</span>
+                                <p>Dos jugadores giran la cuerda.</p>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <span class="text-2xl">2️⃣</span>
+                                <p>El tercero salta sin tocarla.</p>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <span class="text-2xl">3️⃣</span>
+                                <p>Se puede cantar una rima mientras salta.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white/20 backdrop-blur-sm rounded-xl p-3">
+                        <h4 class="text-xl font-bold mb-3">💪 Competencias desarrolladas:</h4>
+                        <ul class="text-lg space-y-2">
+                            <li>• Coordinación motriz</li>
+                            <li>• Sentido del ritmo</li>
+                            <li>• Cooperación grupal</li>
+                            <li>• Resistencia física</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Pichi -->
+                <div onclick="showGamePopup('pichi')" class="card-hover bg-white rounded-2xl p-4 text-gray-800 shadow-2xl cursor-pointer border-2 border-gray-200">
+                    <div class="text-center mb-4">
+                        <div class="text-6xl mb-2">⚾</div>
+                        <h2 class="text-xl font-bold">Pichi</h2>
+                        <p class="text-sm opacity-90 mt-1">Agilidad y cooperación</p>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <h3 class="text-xl font-bold mb-3">⚾ Reglas básicas:</h3>
+                        <div class="space-y-2 text-lg">
+                            <div class="flex items-start space-x-3">
+                                <span class="text-2xl">1️⃣</span>
+                                <p>Un jugador lanza la pelota.</p>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <span class="text-2xl">2️⃣</span>
+                                <p>Otro la golpea y corre por las bases.</p>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <span class="text-2xl">3️⃣</span>
+                                <p>El equipo contrario intenta atraparla.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white/20 backdrop-blur-sm rounded-xl p-3">
+                        <h4 class="text-xl font-bold mb-3">💪 Competencias desarrolladas:</h4>
+                        <ul class="text-lg space-y-2">
+                            <li>• Precisión y puntería</li>
+                            <li>• Agilidad y velocidad</li>
+                            <li>• Trabajo en equipo</li>
+                            <li>• Estrategia grupal</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Reflexión final integrada -->
+            <div class="bg-blue-50 border-2 border-blue-200 rounded-3xl p-8 mb-8 max-w-4xl mx-auto">
+                <h2 class="text-4xl font-bold text-gray-800 mb-6 text-center drop-shadow-lg">🧠 Reflexionamos sobre lo aprendido</h2>
+                
+                <p class="text-xl text-gray-800 mb-6 leading-relaxed text-center">
+                    🎙️ "A través de estos juegos, desarrollamos nuestras habilidades motrices y sociales. 
+                    Aprendimos a respetar reglas, trabajar en equipo y disfrutar sin depender de la tecnología."
+                </p>
+                
+                <div class="text-2xl text-blue-700 font-bold mb-6 text-center">
+                    💬 "Jugar juntos fortalece la convivencia y el aprendizaje."
+                </div>
+                
+                <div class="bg-green-50 border-2 border-green-200 rounded-2xl p-6 mb-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">🤔 Preguntas para reflexionar:</h3>
+                    <div class="text-lg text-gray-700 space-y-2 text-center">
+                        <p>• ¿Qué juego te gustó más? ¿Por qué?</p>
+                        <p>• ¿Qué habilidades desarrollaste?</p>
+                        <p>• ¿Cómo te sentiste jugando en equipo?</p>
+                    </div>
+                </div>
+                
+                <!-- Animación de celebración -->
+                <div class="mb-6 relative h-20">
+                    <div class="absolute inset-0 flex items-center justify-center space-x-6">
+                        <div class="bounce text-4xl">🎯</div>
+                        <div class="float text-4xl">🧣</div>
+                        <div class="bounce text-4xl">🪢</div>
+                        <div class="float text-4xl">⚾</div>
+                    </div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="text-5xl bounce">🎉</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal de simulación de juegos -->
+    <div id="gameModal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-gray-50 rounded-3xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto relative">
+            <!-- Botón cerrar dentro del modal -->
+            <button onclick="closeGamePopup()" class="absolute top-4 right-4 bg-gray-200 hover:bg-gray-300 text-black font-bold w-10 h-10 rounded-full transition-all duration-300 flex items-center justify-center text-lg z-10 border-2 border-gray-400">
+                ✖
+            </button>
+            
+            <!-- Contenido del modal se carga dinámicamente -->
+            <div id="modalContent"></div>
+        </div>
+    </div>
+    
+    <!-- Escena 2: Selección de juegos -->
+    <div id="scene2" class="hidden min-h-full p-8">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <h1 class="text-5xl font-bold text-gray-800 mb-6 drop-shadow-lg">🎯 Selección de Juegos</h1>
+                <div class="bg-blue-50 border-2 border-blue-200 rounded-2xl p-6 mb-8">
+                    <p class="text-lg text-gray-800">
+                        🎙️ "Elige un juego para descubrir su dinámica y observar cómo se desarrolla. 
+                        Recuerda: cada juego promueve la cooperación, el respeto y la diversión."
+                    </p>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                <!-- Rayuela -->
+                <div class="card-hover bg-gradient-to-br from-green-400 to-blue-500 rounded-3xl p-8 text-white shadow-2xl">
+                    <div class="text-center mb-6">
+                        <div class="text-8xl mb-4">🎯</div>
+                        <h2 class="text-3xl font-bold">Rayuela Peruana</h2>
+                        <p class="text-lg opacity-90 mt-2">Equilibrio y coordinación</p>
+                    </div>
+                    <button onclick="showScene('scene3a')" class="w-full bg-white/20 hover:bg-white/30 backdrop-blur-sm py-3 px-6 rounded-xl font-bold transition-all duration-300">
+                        🕹️ Jugar / Ver simulación
+                    </button>
+                </div>
+                
+                <!-- Pañuelo -->
+                <div class="card-hover bg-gradient-to-br from-red-400 to-pink-500 rounded-3xl p-8 text-white shadow-2xl">
+                    <div class="text-center mb-6">
+                        <div class="text-8xl mb-4">🧣</div>
+                        <h2 class="text-3xl font-bold">Pañuelo</h2>
+                        <p class="text-lg opacity-90 mt-2">Velocidad y trabajo en equipo</p>
+                    </div>
+                    <button onclick="showScene('scene3b')" class="w-full bg-white/20 hover:bg-white/30 backdrop-blur-sm py-3 px-6 rounded-xl font-bold transition-all duration-300">
+                        🕹️ Jugar / Ver simulación
+                    </button>
+                </div>
+                
+                <!-- La Soga -->
+                <div class="card-hover bg-gradient-to-br from-purple-400 to-indigo-500 rounded-3xl p-8 text-white shadow-2xl">
+                    <div class="text-center mb-6">
+                        <div class="text-8xl mb-4">🪢</div>
+                        <h2 class="text-3xl font-bold">La Soga</h2>
+                        <p class="text-lg opacity-90 mt-2">Coordinación y ritmo</p>
+                    </div>
+                    <button onclick="showScene('scene3c')" class="w-full bg-white/20 hover:bg-white/30 backdrop-blur-sm py-3 px-6 rounded-xl font-bold transition-all duration-300">
+                        🕹️ Jugar / Ver simulación
+                    </button>
+                </div>
+                
+                <!-- Pichi -->
+                <div class="card-hover bg-gradient-to-br from-orange-400 to-red-500 rounded-3xl p-8 text-white shadow-2xl">
+                    <div class="text-center mb-6">
+                        <div class="text-8xl mb-4">⚾</div>
+                        <h2 class="text-3xl font-bold">Pichi</h2>
+                        <p class="text-lg opacity-90 mt-2">Agilidad y cooperación</p>
+                    </div>
+                    <button onclick="showScene('scene3d')" class="w-full bg-white/20 hover:bg-white/30 backdrop-blur-sm py-3 px-6 rounded-xl font-bold transition-all duration-300">
+                        🕹️ Jugar / Ver simulación
+                    </button>
+                </div>
+            </div>
+            
+            <div class="text-center">
+                <button onclick="showScene('scene1')" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300">
+                    🏠 Volver al inicio
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Escena 3A: Rayuela -->
+    <div id="scene3a" class="hidden min-h-full p-8">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-8">
+                <h1 class="text-5xl font-bold text-gray-800 mb-4 drop-shadow-lg">🎯 Rayuela Peruana</h1>
+                <div class="bg-blue-50 border-2 border-blue-200 rounded-2xl p-6">
+                    <p class="text-lg text-gray-800">
+                        🎙️ "La rayuela es un juego tradicional que mejora el equilibrio y la coordinación. Observa cómo se juega."
+                    </p>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Animación -->
+                <div class="bg-white/90 rounded-3xl p-8 shadow-2xl">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">🎮 Simulación del juego</h3>
+                    <div class="game-animation bg-gradient-to-b from-sky-200 to-green-200 rounded-2xl p-6 relative" style="min-height: 500px;">
+                        
+                        <!-- RAYUELA PERFECTAMENTE ORGANIZADA -->
+                        <div class="w-full h-full flex items-center justify-center relative">
+                            
+                            <!-- TABLERO DE RAYUELA COMPACTO CON TODAS LAS CASILLAS -->
+                            <div class="absolute left-1/2 top-8 transform -translate-x-1/2 scale-90">
+                                <!-- CIELO -->
+                                <div class="w-20 h-10 border-4 border-yellow-600 bg-gradient-to-br from-yellow-300 to-orange-400 rounded-2xl flex items-center justify-center text-sm font-black text-black shadow-xl mx-auto mb-1">
+                                    ✨ CIELO
+                                </div>
+                                
+                                <!-- Casilla 10 -->
+                                <div class="w-20 h-10 border-3 border-purple-800 bg-gradient-to-br from-purple-300 to-purple-500 rounded-xl flex items-center justify-center text-xl font-black text-white shadow-lg mx-auto mb-1">10</div>
+                                
+                                <!-- Fila 8-9 -->
+                                <div class="flex gap-1 justify-center mb-1">
+                                    <div class="w-10 h-10 border-3 border-blue-800 bg-gradient-to-br from-blue-300 to-blue-500 rounded-xl flex items-center justify-center text-lg font-black text-white shadow-lg">8</div>
+                                    <div class="w-10 h-10 border-3 border-blue-800 bg-gradient-to-br from-blue-300 to-blue-500 rounded-xl flex items-center justify-center text-lg font-black text-white shadow-lg">9</div>
+                                </div>
+                                
+                                <!-- Casilla 7 -->
+                                <div class="w-20 h-10 border-3 border-blue-800 bg-gradient-to-br from-blue-300 to-blue-500 rounded-xl flex items-center justify-center text-xl font-black text-white shadow-lg mx-auto mb-1">7</div>
+                                
+                                <!-- Fila 5-6 -->
+                                <div class="flex gap-1 justify-center mb-1">
+                                    <div class="w-10 h-10 border-3 border-blue-800 bg-gradient-to-br from-blue-300 to-blue-500 rounded-xl flex items-center justify-center text-lg font-black text-white shadow-lg">5</div>
+                                    <div class="w-10 h-10 border-3 border-blue-800 bg-gradient-to-br from-blue-300 to-blue-500 rounded-xl flex items-center justify-center text-lg font-black text-white shadow-lg">6</div>
+                                </div>
+                                
+                                <!-- Casilla 4 -->
+                                <div class="w-20 h-10 border-3 border-blue-800 bg-gradient-to-br from-blue-300 to-blue-500 rounded-xl flex items-center justify-center text-xl font-black text-white shadow-lg mx-auto mb-1">4</div>
+                                
+                                <!-- Fila 2-3 -->
+                                <div class="flex gap-1 justify-center mb-1">
+                                    <div class="w-10 h-10 border-3 border-blue-800 bg-gradient-to-br from-blue-300 to-blue-500 rounded-xl flex items-center justify-center text-lg font-black text-white shadow-lg">2</div>
+                                    <div class="w-10 h-10 border-3 border-blue-800 bg-gradient-to-br from-blue-300 to-blue-500 rounded-xl flex items-center justify-center text-lg font-black text-white shadow-lg">3</div>
+                                </div>
+                                
+                                <!-- Casilla 1 -->
+                                <div class="w-20 h-10 border-3 border-blue-800 bg-gradient-to-br from-blue-300 to-blue-500 rounded-xl flex items-center justify-center text-xl font-black text-white shadow-lg mx-auto mb-1">1</div>
+                                
+                                <!-- INICIO -->
+                                <div class="w-20 h-10 border-4 border-green-600 bg-gradient-to-br from-green-400 to-green-600 rounded-2xl flex items-center justify-center text-sm font-black text-white shadow-xl mx-auto">
+                                    🚀 INICIO
+                                </div>
+                            </div>
+                            
+                            <!-- NIÑA SALTANDO CON ANIMACIÓN MEJORADA -->
+                            <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2" id="rayuelaPlayer" style="transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);">
+                                <div class="relative">
+                                    <!-- Niña con pierna levantada -->
+                                    <svg width="60" height="80" viewBox="0 0 60 80" class="animate-bounce">
+                                        <!-- Cabeza -->
+                                        <circle cx="30" cy="12" r="8" fill="#FFB6C1" stroke="#000" stroke-width="2"/>
+                                        <!-- Cabello -->
+                                        <path d="M22 8 Q30 4 38 8 Q35 12 30 10 Q25 12 22 8" fill="#8B4513"/>
+                                        <!-- Cuerpo -->
+                                        <line x1="30" y1="20" x2="30" y2="45" stroke="#000" stroke-width="3"/>
+                                        <!-- Brazos balanceando -->
+                                        <line x1="30" y1="28" x2="18" y2="35" stroke="#000" stroke-width="2"/>
+                                        <line x1="30" y1="28" x2="42" y2="25" stroke="#000" stroke-width="2"/>
+                                        <!-- Pierna derecha (apoyada) -->
+                                        <line x1="30" y1="45" x2="35" y2="65" stroke="#000" stroke-width="3"/>
+                                        <line x1="35" y1="65" x2="38" y2="70" stroke="#000" stroke-width="2"/>
+                                        <!-- Pierna izquierda (levantada) -->
+                                        <line x1="30" y1="45" x2="22" y2="55" stroke="#000" stroke-width="3"/>
+                                        <line x1="22" y1="55" x2="18" y2="58" stroke="#000" stroke-width="2"/>
+                                        <!-- Falda -->
+                                        <path d="M25 35 Q30 40 35 35 L32 45 L28 45 Z" fill="#FF69B4"/>
+                                    </svg>
+                                </div>
+                                <div class="text-center bg-pink-500 text-white rounded-2xl px-3 py-2 text-sm font-bold mt-1 shadow-xl border-2 border-white">
+                                    🦵 Saltando en UN PIE
+                                </div>
+                            </div>
+                            
+                            <!-- PIEDRA -->
+                            <div class="absolute bottom-12 right-8" id="rayuelaPiedra" style="transition: all 1s ease-in-out;">
+                                <div class="text-4xl animate-pulse">🪨</div>
+                                <div class="text-center bg-gray-700 text-white rounded-xl px-2 py-1 text-xs font-bold mt-1 shadow-lg">
+                                    PIEDRA
+                                </div>
+                            </div>
+                            
+                            <!-- INDICADOR PRINCIPAL -->
+                            <div class="absolute top-4 left-1/2 transform -translate-x-1/2 bg-red-600 text-white rounded-3xl px-4 py-2 text-lg font-black shadow-2xl border-3 border-white animate-pulse" id="casillaActual">
+                                🎯 ¡PREPARÁNDOSE PARA SALTAR!
+                            </div>
+                            
+                            <!-- INSTRUCCIONES -->
+                            <div class="absolute bottom-4 left-4 bg-blue-700 text-white rounded-2xl px-3 py-2 text-sm font-bold shadow-xl border-3 border-white">
+                                1️⃣ Lanza 🪨 → 2️⃣ Salta 🦵 → 3️⃣ Recoge 🪨
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-center gap-2 mt-4">
+                        <button onclick="startRayuelaAnimation()" class="flex-1 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-xl transition-all duration-300 text-sm">
+                            ▶️ Ver simulación
+                        </button>
+                        <button onclick="stopRayuelaAnimation()" class="flex-1 bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-xl transition-all duration-300 text-sm">
+                            ⏹️ Parar
+                        </button>
+                        <button onclick="resetRayuelaAnimation()" class="flex-1 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-xl transition-all duration-300 text-sm">
+                            🔄 Reiniciar
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Reglas -->
+                <div class="bg-white/90 rounded-3xl p-8 shadow-2xl">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6">🪶 Reglas básicas:</h3>
+                    <div class="space-y-4 text-gray-700">
+                        <div class="flex items-start space-x-3">
+                            <span class="text-2xl">1️⃣</span>
+                            <p class="text-lg">Lanza la piedra sin que salga del cuadro.</p>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <span class="text-2xl">2️⃣</span>
+                            <p class="text-lg">Salta en un pie sin pisar las líneas.</p>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <span class="text-2xl">3️⃣</span>
+                            <p class="text-lg">Completa el recorrido y recoge la piedra.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 p-6 bg-gradient-to-r from-blue-100 to-purple-100 rounded-2xl">
+                        <h4 class="text-xl font-bold text-gray-800 mb-3">💪 Competencias desarrolladas:</h4>
+                        <ul class="text-gray-700 space-y-2">
+                            <li>• Equilibrio corporal</li>
+                            <li>• Control motor</li>
+                            <li>• Precisión y coordinación</li>
+                            <li>• Concentración</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-8">
+                <button onclick="showScene('scene1')" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300">
+                    ⬅️ Volver al inicio
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Escena 3B: Pañuelo -->
+    <div id="scene3b" class="hidden min-h-full p-8">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-8">
+                <h1 class="text-5xl font-bold text-gray-800 mb-4 drop-shadow-lg">🧣 El Pañuelo</h1>
+                <div class="bg-blue-50 border-2 border-blue-200 rounded-2xl p-6">
+                    <p class="text-lg text-gray-800">
+                        🎙️ "El juego del pañuelo desarrolla la atención, la velocidad y el trabajo en equipo. Observemos cómo se juega."
+                    </p>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Animación -->
+                <div class="bg-white/90 rounded-3xl p-8 shadow-2xl">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">🎮 Simulación del juego</h3>
+                    <div class="game-animation bg-gradient-to-b from-green-200 to-blue-200 rounded-2xl p-6 relative" style="min-height: 500px;">
+                        
+                        <!-- JUEGO DEL PAÑUELO SÚPER CLARO -->
+                        <div class="w-full h-full flex items-center justify-center relative">
+                            
+                            <!-- CAMPO DE JUEGO GIGANTE -->
+                            <div class="w-full h-full border-8 border-white rounded-3xl bg-gradient-to-r from-green-300 to-blue-300 relative shadow-2xl">
+                                
+                                <!-- LÍNEA CENTRAL -->
+                                <div class="absolute top-1/2 left-0 right-0 h-2 bg-white shadow-xl transform -translate-y-1/2"></div>
+                                
+                                <!-- EQUIPO AZUL (Izquierda) -->
+                                <div class="absolute left-4 top-1/2 transform -translate-y-1/2">
+                                    <div class="bg-blue-700 text-white rounded-3xl p-6 shadow-2xl border-6 border-white">
+                                        <div class="text-center font-black text-2xl mb-4">🔵 EQUIPO AZUL</div>
+                                        <div class="space-y-4">
+                                            <!-- Jugador 1 -->
+                                            <div class="flex items-center space-x-3">
+                                                <div class="text-6xl">👦</div>
+                                                <div class="bg-white text-blue-700 rounded-full w-12 h-12 flex items-center justify-center text-2xl font-black shadow-lg">1</div>
+                                            </div>
+                                            
+                                            <!-- Jugador 2 (DESTACADO) -->
+                                            <div class="flex items-center space-x-3 bg-yellow-400 rounded-2xl p-3 border-6 border-yellow-600 animate-pulse shadow-xl">
+                                                <div class="text-6xl animate-bounce">👦</div>
+                                                <div class="bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-black shadow-lg">2</div>
+                                                <div class="text-lg font-black text-black">¡LISTO!</div>
+                                            </div>
+                                            
+                                            <!-- Jugador 3 -->
+                                            <div class="flex items-center space-x-3">
+                                                <div class="text-6xl">👦</div>
+                                                <div class="bg-white text-blue-700 rounded-full w-12 h-12 flex items-center justify-center text-2xl font-black shadow-lg">3</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- EQUIPO ROJO (Derecha) -->
+                                <div class="absolute right-4 top-1/2 transform -translate-y-1/2">
+                                    <div class="bg-red-700 text-white rounded-3xl p-6 shadow-2xl border-6 border-white">
+                                        <div class="text-center font-black text-2xl mb-4">🔴 EQUIPO ROJO</div>
+                                        <div class="space-y-4">
+                                            <!-- Jugador 1 -->
+                                            <div class="flex items-center space-x-3">
+                                                <div class="bg-white text-red-700 rounded-full w-12 h-12 flex items-center justify-center text-2xl font-black shadow-lg">1</div>
+                                                <div class="text-6xl">👧</div>
+                                            </div>
+                                            
+                                            <!-- Jugador 2 (DESTACADO) -->
+                                            <div class="flex items-center space-x-3 bg-yellow-400 rounded-2xl p-3 border-6 border-yellow-600 animate-pulse shadow-xl">
+                                                <div class="bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-black shadow-lg">2</div>
+                                                <div class="text-6xl animate-bounce">👧</div>
+                                                <div class="text-lg font-black text-black">¡LISTO!</div>
+                                            </div>
+                                            
+                                            <!-- Jugador 3 -->
+                                            <div class="flex items-center space-x-3">
+                                                <div class="bg-white text-red-700 rounded-full w-12 h-12 flex items-center justify-center text-2xl font-black shadow-lg">3</div>
+                                                <div class="text-6xl">👧</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- ÁRBITRO Y PAÑUELO (Centro) -->
+                                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
+                                    <!-- ÁRBITRO GIGANTE -->
+                                    <div class="text-8xl mb-4">👨‍⚖️</div>
+                                    
+                                    <!-- PAÑUELO SÚPER VISIBLE -->
+                                    <div class="text-6xl animate-bounce mb-4">🧣</div>
+                                    
+                                    <!-- GRITO DEL ÁRBITRO -->
+                                    <div class="bg-white rounded-3xl p-4 text-3xl font-black text-red-600 border-6 border-red-600 shadow-2xl animate-pulse">
+                                        "¡NÚMERO 2!"
+                                    </div>
+                                </div>
+                                
+                                <!-- JUGADORES CORRIENDO -->
+                                <div id="runningPlayersB" class="absolute bottom-20 left-1/3 transform -translate-x-1/2 hidden">
+                                    <div class="text-8xl animate-bounce">🏃‍♂️</div>
+                                    <div class="text-center bg-blue-700 text-white rounded-2xl px-4 py-2 text-xl font-black mt-2 shadow-xl border-4 border-white">
+                                        ¡CORRE AL PAÑUELO!
+                                    </div>
+                                </div>
+                                
+                                <div id="runningPlayersR" class="absolute bottom-20 right-1/3 transform translate-x-1/2 hidden">
+                                    <div class="text-8xl animate-bounce">🏃‍♀️</div>
+                                    <div class="text-center bg-red-700 text-white rounded-2xl px-4 py-2 text-xl font-black mt-2 shadow-xl border-4 border-white">
+                                        ¡CORRE AL PAÑUELO!
+                                    </div>
+                                </div>
+                                
+                                <!-- INDICADOR PRINCIPAL -->
+                                <div class="absolute top-4 left-1/2 transform -translate-x-1/2 bg-yellow-500 text-black rounded-3xl px-8 py-4 text-2xl font-black shadow-2xl border-6 border-white animate-pulse">
+                                    ⚡ Los jugadores #2 de cada equipo CORREN
+                                </div>
+                                
+                                <!-- REGLA PRINCIPAL -->
+                                <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-green-700 text-white rounded-3xl px-6 py-3 text-xl font-black shadow-xl border-4 border-white">
+                                    🏆 El primero en tomar el pañuelo y regresar ¡GANA!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-center gap-2 mt-4">
+                        <button onclick="startPanueeloAnimation()" class="flex-1 bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-xl transition-all duration-300 text-sm">
+                            ▶️ Ver simulación
+                        </button>
+                        <button onclick="stopPanueeloAnimation()" class="flex-1 bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-xl transition-all duration-300 text-sm">
+                            ⏹️ Parar
+                        </button>
+                        <button onclick="resetPanueeloAnimation()" class="flex-1 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-xl transition-all duration-300 text-sm">
+                            🔄 Reiniciar
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Reglas -->
+                <div class="bg-white/90 rounded-3xl p-8 shadow-2xl">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6">⚡ Reglas básicas:</h3>
+                    <div class="space-y-4 text-gray-700">
+                        <div class="flex items-start space-x-3">
+                            <span class="text-2xl">1️⃣</span>
+                            <p class="text-lg">Dos equipos frente a frente.</p>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <span class="text-2xl">2️⃣</span>
+                            <p class="text-lg">El árbitro llama un número.</p>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <span class="text-2xl">3️⃣</span>
+                            <p class="text-lg">Los jugadores corren a tomar el pañuelo.</p>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <span class="text-2xl">4️⃣</span>
+                            <p class="text-lg">El primero en regresar sin ser tocado gana.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 p-6 bg-gradient-to-r from-red-100 to-pink-100 rounded-2xl">
+                        <h4 class="text-xl font-bold text-gray-800 mb-3">💪 Competencias desarrolladas:</h4>
+                        <ul class="text-gray-700 space-y-2">
+                            <li>• Atención y concentración</li>
+                            <li>• Rapidez y agilidad</li>
+                            <li>• Respeto por las reglas</li>
+                            <li>• Trabajo en equipo</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-8">
+                <button onclick="showScene('scene1')" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300">
+                    ⬅️ Volver al inicio
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Escena 3C: La Soga -->
+    <div id="scene3c" class="hidden min-h-full p-8">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-8">
+                <h1 class="text-5xl font-bold text-gray-800 mb-4 drop-shadow-lg">🪢 La Soga</h1>
+                <div class="bg-blue-50 border-2 border-blue-200 rounded-2xl p-6">
+                    <p class="text-lg text-gray-800">
+                        🎙️ "La soga es un juego popular que fortalece la coordinación y el ritmo. Observa cómo los estudiantes saltan al compás."
+                    </p>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Animación -->
+                <div class="bg-white/90 rounded-3xl p-8 shadow-2xl">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">🎮 Simulación del juego</h3>
+                    <div class="game-animation bg-gradient-to-b from-yellow-200 to-orange-200 rounded-2xl p-6 relative" style="min-height: 500px;">
+                        
+                        <!-- JUEGO DE LA SOGA SÚPER CLARO -->
+                        <div class="w-full h-full flex items-center justify-center relative">
+                            
+                            <!-- NIÑOS GIRANDO LA SOGA CON FIGURAS DETALLADAS -->
+                            <div class="absolute left-8 bottom-8" id="sogaLeftKid">
+                                <svg width="80" height="100" viewBox="0 0 80 100">
+                                    <!-- Niño izquierdo con cabeza naranja -->
+                                    <circle cx="40" cy="15" r="10" fill="#FFA500" stroke="#000" stroke-width="2"/>
+                                    <path d="M30 10 Q40 6 50 10 Q47 15 40 13 Q33 15 30 10" fill="#654321"/>
+                                    <line x1="40" y1="25" x2="40" y2="55" stroke="#000" stroke-width="3"/>
+                                    <!-- Brazo derecho extendido agarrando soga -->
+                                    <line x1="40" y1="35" x2="65" y2="30" stroke="#000" stroke-width="3" id="leftArmSoga"/>
+                                    <circle cx="65" cy="30" r="4" fill="#8B4513" stroke="#000" stroke-width="2" id="leftHandSoga"/>
+                                    <!-- Brazo izquierdo -->
+                                    <line x1="40" y1="35" x2="25" y2="40" stroke="#000" stroke-width="2"/>
+                                    <!-- Piernas -->
+                                    <line x1="40" y1="55" x2="35" y2="75" stroke="#000" stroke-width="3"/>
+                                    <line x1="40" y1="55" x2="45" y2="75" stroke="#000" stroke-width="3"/>
+                                    <line x1="35" y1="75" x2="32" y2="80" stroke="#000" stroke-width="2"/>
+                                    <line x1="45" y1="75" x2="48" y2="80" stroke="#000" stroke-width="2"/>
+                                    <!-- Camiseta -->
+                                    <rect x="35" y="25" width="10" height="20" fill="#4169E1" rx="2"/>
+                                </svg>
+                                <div class="text-center bg-orange-600 text-white rounded-2xl px-3 py-2 text-sm font-bold mt-1 shadow-xl border-2 border-white">
+                                    🤲 SUJETANDO SOGA
+                                </div>
+                            </div>
+                            
+                            <div class="absolute right-8 bottom-8" id="sogaRightKid">
+                                <svg width="80" height="100" viewBox="0 0 80 100">
+                                    <!-- Niña derecha con cabeza rosada -->
+                                    <circle cx="40" cy="15" r="10" fill="#FFB6C1" stroke="#000" stroke-width="2"/>
+                                    <path d="M30 8 Q40 4 50 8 Q45 18 40 15 Q35 18 30 8" fill="#8B4513"/>
+                                    <line x1="40" y1="25" x2="40" y2="55" stroke="#000" stroke-width="3"/>
+                                    <!-- Brazo izquierdo extendido agarrando soga -->
+                                    <line x1="40" y1="35" x2="15" y2="30" stroke="#000" stroke-width="3" id="rightArmSoga"/>
+                                    <circle cx="15" cy="30" r="4" fill="#8B4513" stroke="#000" stroke-width="2" id="rightHandSoga"/>
+                                    <!-- Brazo derecho -->
+                                    <line x1="40" y1="35" x2="55" y2="40" stroke="#000" stroke-width="2"/>
+                                    <!-- Piernas -->
+                                    <line x1="40" y1="55" x2="35" y2="75" stroke="#000" stroke-width="3"/>
+                                    <line x1="40" y1="55" x2="45" y2="75" stroke="#000" stroke-width="3"/>
+                                    <line x1="35" y1="75" x2="32" y2="80" stroke="#000" stroke-width="2"/>
+                                    <line x1="45" y1="75" x2="48" y2="80" stroke="#000" stroke-width="2"/>
+                                    <!-- Falda -->
+                                    <path d="M32 45 Q40 50 48 45 L45 60 L35 60 Z" fill="#FF1493"/>
+                                </svg>
+                                <div class="text-center bg-pink-600 text-white rounded-2xl px-3 py-2 text-sm font-bold mt-1 shadow-xl border-2 border-white">
+                                    🤲 SUJETANDO SOGA
+                                </div>
+                            </div>
+                            
+                            <!-- SOGA SÚPER VISIBLE CON MOVIMIENTO REALISTA -->
+                            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" id="sogaRope">
+                                <div class="w-80 h-40 relative">
+                                    <!-- Soga principal con movimiento ondulatorio -->
+                                    <svg width="320" height="160" viewBox="0 0 320 160" id="ropeAnimation">
+                                        <path d="M40 80 Q160 40 280 80" stroke="#8B4513" stroke-width="10" fill="none" stroke-linecap="round" id="ropePath1"/>
+                                        <path d="M40 80 Q160 120 280 80" stroke="#654321" stroke-width="8" fill="none" stroke-linecap="round" id="ropePath2"/>
+                                        <!-- Puntos de agarre más visibles -->
+                                        <circle cx="40" cy="80" r="8" fill="#FFD700" stroke="#000" stroke-width="3" id="leftGrip"/>
+                                        <circle cx="280" cy="80" r="8" fill="#FFD700" stroke="#000" stroke-width="3" id="rightGrip"/>
+                                        <!-- Líneas conectoras para mostrar que están agarrando -->
+                                        <line x1="40" y1="80" x2="65" y2="30" stroke="#FF0000" stroke-width="4" stroke-dasharray="5,5" id="leftConnection"/>
+                                        <line x1="280" y1="80" x2="255" y2="30" stroke="#FF0000" stroke-width="4" stroke-dasharray="5,5" id="rightConnection"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            
+                            <!-- NIÑO SALTANDO (CENTRO - DETALLADO) -->
+                            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 jump">
+                                <svg width="100" height="120" viewBox="0 0 100 120" class="animate-bounce">
+                                    <!-- Niño saltando -->
+                                    <circle cx="50" cy="20" r="12" fill="#FFDAB9" stroke="#000" stroke-width="2"/>
+                                    <path d="M38 15 Q50 10 62 15 Q58 22 50 20 Q42 22 38 15" fill="#8B4513"/>
+                                    <line x1="50" y1="32" x2="50" y2="70" stroke="#000" stroke-width="4"/>
+                                    <!-- Brazos en movimiento -->
+                                    <line x1="50" y1="42" x2="30" y2="35" stroke="#000" stroke-width="3"/>
+                                    <line x1="50" y1="42" x2="70" y2="35" stroke="#000" stroke-width="3"/>
+                                    <!-- Piernas flexionadas (saltando) -->
+                                    <line x1="50" y1="70" x2="40" y2="90" stroke="#000" stroke-width="4"/>
+                                    <line x1="50" y1="70" x2="60" y2="90" stroke="#000" stroke-width="4"/>
+                                    <line x1="40" y1="90" x2="35" y2="95" stroke="#000" stroke-width="3"/>
+                                    <line x1="60" y1="90" x2="65" y2="95" stroke="#000" stroke-width="3"/>
+                                    <!-- Camiseta -->
+                                    <rect x="42" y="32" width="16" height="25" fill="#32CD32" rx="3"/>
+                                    <!-- Pantalón -->
+                                    <rect x="44" y="57" width="12" height="20" fill="#4169E1" rx="2"/>
+                                    <!-- Efectos de movimiento -->
+                                    <text x="20" y="50" font-size="16" fill="#FFD700">💨</text>
+                                    <text x="75" y="55" font-size="16" fill="#FFD700">💨</text>
+                                </svg>
+                                <div class="text-center bg-green-600 text-white rounded-3xl px-6 py-3 text-xl font-black mt-2 shadow-2xl border-4 border-white animate-pulse">
+                                    🦘 ¡SALTANDO AL RITMO!
+                                </div>
+                            </div>
+                            
+                            <!-- CONTADOR DE SALTOS GIGANTE -->
+                            <div class="absolute top-4 left-1/2 transform -translate-x-1/2 bg-white rounded-3xl p-6 text-center shadow-2xl border-6 border-orange-600">
+                                <div class="text-6xl font-black text-orange-600" id="jumpCounterC">0</div>
+                                <div class="text-xl font-black text-gray-800">SALTOS CONSECUTIVOS</div>
+                            </div>
+                            
+                            <!-- NOTAS MUSICALES GIGANTES -->
+                            <div class="absolute top-4 right-4 bg-green-600 text-white rounded-3xl p-6 text-center shadow-2xl border-6 border-white">
+                                <div class="text-5xl animate-pulse">♪ ♫ ♪ ♬</div>
+                                <div class="text-xl font-black">AL RITMO</div>
+                            </div>
+                            
+                            <!-- RIMA TRADICIONAL -->
+                            <div class="absolute top-4 left-4 bg-yellow-500 text-black rounded-3xl p-4 text-center shadow-2xl border-6 border-white">
+                                <div class="text-xl font-black">"Monja, viuda,</div>
+                                <div class="text-xl font-black">soltera, casada..."</div>
+                            </div>
+                            
+                            <!-- MENSAJE DE FELICITACIÓN -->
+                            <div id="excellentTextC" class="absolute bottom-32 left-1/2 transform -translate-x-1/2 text-green-600 font-black text-3xl hidden animate-bounce bg-white rounded-3xl px-8 py-4 shadow-2xl border-6 border-green-600">
+                                ¡EXCELENTE COORDINACIÓN! ⭐🏆
+                            </div>
+                            
+                            <!-- INSTRUCCIONES PRINCIPALES -->
+                            <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-blue-700 text-white rounded-3xl px-8 py-4 text-2xl font-black shadow-2xl border-6 border-white">
+                                🎵 Salta al compás de la soga - ¡No la toques!
+                            </div>
+                            
+                            <!-- EFECTOS DE MOVIMIENTO -->
+                            <div class="absolute top-8 left-16 text-4xl animate-bounce opacity-70">💨</div>
+                            <div class="absolute top-12 right-16 text-4xl animate-bounce opacity-70" style="animation-delay: 0.5s;">💨</div>
+                            <div class="absolute bottom-16 left-20 text-4xl animate-bounce opacity-70" style="animation-delay: 1s;">💨</div>
+                            <div class="absolute bottom-20 right-20 text-4xl animate-bounce opacity-70" style="animation-delay: 1.5s;">💨</div>
+                        </div>
+                    </div>
+                    <div class="flex justify-center gap-2 mt-4">
+                        <button onclick="startSogaAnimation()" class="flex-1 bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded-xl transition-all duration-300 text-sm">
+                            ▶️ Ver simulación
+                        </button>
+                        <button onclick="stopSogaAnimation()" class="flex-1 bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-xl transition-all duration-300 text-sm">
+                            ⏹️ Parar
+                        </button>
+                        <button onclick="resetSogaAnimation()" class="flex-1 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-xl transition-all duration-300 text-sm">
+                            🔄 Reiniciar
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Reglas -->
+                <div class="bg-white/90 rounded-3xl p-8 shadow-2xl">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6">🎵 Reglas básicas:</h3>
+                    <div class="space-y-4 text-gray-700">
+                        <div class="flex items-start space-x-3">
+                            <span class="text-2xl">1️⃣</span>
+                            <p class="text-lg">Dos jugadores giran la cuerda.</p>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <span class="text-2xl">2️⃣</span>
+                            <p class="text-lg">El tercero salta sin tocarla.</p>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <span class="text-2xl">3️⃣</span>
+                            <p class="text-lg">Se puede cantar una rima mientras salta.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 p-6 bg-gradient-to-r from-purple-100 to-indigo-100 rounded-2xl">
+                        <h4 class="text-xl font-bold text-gray-800 mb-3">💪 Competencias desarrolladas:</h4>
+                        <ul class="text-gray-700 space-y-2">
+                            <li>• Coordinación motriz</li>
+                            <li>• Sentido del ritmo</li>
+                            <li>• Cooperación grupal</li>
+                            <li>• Resistencia física</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="mt-6 p-4 bg-yellow-100 rounded-xl">
+                        <h5 class="font-bold text-gray-800 mb-2">🎵 Rima tradicional:</h5>
+                        <p class="text-gray-700 italic">"Monja, viuda, soltera, casada, enamorada, divorciada..."</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-8">
+                <button onclick="showScene('scene1')" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300">
+                    ⬅️ Volver al inicio
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Escena 3D: Pichi -->
+    <div id="scene3d" class="hidden min-h-full p-8">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-8">
+                <h1 class="text-5xl font-bold text-gray-800 mb-4 drop-shadow-lg">⚾ Pichi Peruano</h1>
+                <div class="bg-blue-50 border-2 border-blue-200 rounded-2xl p-6">
+                    <p class="text-lg text-gray-800">
+                        🎙️ "El pichi, parecido al béisbol, promueve la agilidad y la cooperación. Observa cómo se juega en equipo."
+                    </p>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Animación -->
+                <div class="bg-white/90 rounded-3xl p-8 shadow-2xl">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">🎮 Simulación del juego</h3>
+                    <div class="game-animation bg-gradient-to-b from-green-300 to-brown-200 rounded-2xl p-6 relative" style="min-height: 500px;">
+                        
+                        <!-- JUEGO DEL PICHI MÁS CLARO Y ENTENDIBLE -->
+                        <div class="w-full h-full flex items-center justify-center relative">
+                            
+                            <!-- CAMPO DE BÉISBOL SIMPLIFICADO -->
+                            <div class="w-full h-full border-8 border-white rounded-3xl bg-gradient-to-br from-green-400 to-green-600 relative shadow-2xl">
+                                
+                                <!-- BASES DEL CAMPO CON NÚMEROS GRANDES -->
+                                <!-- HOME (casa) -->
+                                <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+                                    <div class="w-20 h-20 bg-white rounded-full border-6 border-gray-800 shadow-2xl flex items-center justify-center">
+                                        <div class="text-4xl">🏠</div>
+                                    </div>
+                                    <div class="text-xl font-black text-center mt-2 bg-white rounded-2xl px-4 py-2 shadow-xl border-4 border-gray-800">HOME</div>
+                                </div>
+                                
+                                <!-- PRIMERA BASE -->
+                                <div class="absolute bottom-1/3 right-12">
+                                    <div class="w-16 h-16 bg-yellow-400 rounded-full border-4 border-gray-800 shadow-xl flex items-center justify-center">
+                                        <div class="text-3xl font-black text-gray-800">1</div>
+                                    </div>
+                                    <div class="text-sm font-black text-center mt-1 bg-yellow-400 rounded-xl px-2 py-1 border-2 border-gray-800">1RA BASE</div>
+                                </div>
+                                
+                                <!-- SEGUNDA BASE -->
+                                <div class="absolute top-12 right-1/3">
+                                    <div class="w-16 h-16 bg-blue-400 rounded-full border-4 border-gray-800 shadow-xl flex items-center justify-center">
+                                        <div class="text-3xl font-black text-white">2</div>
+                                    </div>
+                                    <div class="text-sm font-black text-center mt-1 bg-blue-400 rounded-xl px-2 py-1 border-2 border-gray-800 text-white">2DA BASE</div>
+                                </div>
+                                
+                                <!-- TERCERA BASE -->
+                                <div class="absolute top-12 left-12">
+                                    <div class="w-16 h-16 bg-red-400 rounded-full border-4 border-gray-800 shadow-xl flex items-center justify-center">
+                                        <div class="text-3xl font-black text-white">3</div>
+                                    </div>
+                                    <div class="text-sm font-black text-center mt-1 bg-red-400 rounded-xl px-2 py-1 border-2 border-gray-800 text-white">3RA BASE</div>
+                                </div>
+                                
+                                <!-- BATEADOR DETALLADO -->
+                                <div id="pichiStep1D" class="absolute bottom-20 left-1/2 transform -translate-x-1/2">
+                                    <svg width="80" height="100" viewBox="0 0 80 100">
+                                        <!-- Bateador -->
+                                        <circle cx="40" cy="15" r="10" fill="#FFDAB9" stroke="#000" stroke-width="2"/>
+                                        <path d="M30 10 Q40 6 50 10 Q47 15 40 13 Q33 15 30 10" fill="#654321"/>
+                                        <line x1="40" y1="25" x2="40" y2="55" stroke="#000" stroke-width="3"/>
+                                        <!-- Brazos sosteniendo bate -->
+                                        <line x1="40" y1="35" x2="15" y2="25" stroke="#000" stroke-width="3"/>
+                                        <line x1="40" y1="35" x2="20" y2="30" stroke="#000" stroke-width="3"/>
+                                        <!-- Bate de béisbol -->
+                                        <line x1="15" y1="25" x2="5" y2="15" stroke="#8B4513" stroke-width="6"/>
+                                        <circle cx="5" cy="15" r="2" fill="#654321"/>
+                                        <!-- Piernas en posición -->
+                                        <line x1="40" y1="55" x2="35" y2="75" stroke="#000" stroke-width="3"/>
+                                        <line x1="40" y1="55" x2="45" y2="75" stroke="#000" stroke-width="3"/>
+                                        <line x1="35" y1="75" x2="32" y2="80" stroke="#000" stroke-width="2"/>
+                                        <line x1="45" y1="75" x2="48" y2="80" stroke="#000" stroke-width="2"/>
+                                        <!-- Uniforme -->
+                                        <rect x="35" y="25" width="10" height="20" fill="#FF4500" rx="2"/>
+                                        <rect x="37" y="45" width="6" height="15" fill="#000080" rx="1"/>
+                                    </svg>
+                                    <div class="text-center bg-orange-600 text-white rounded-2xl px-4 py-2 text-lg font-black mt-1 shadow-xl border-4 border-white">
+                                        🏏 LISTO PARA BATEAR
+                                    </div>
+                                </div>
+                                
+                                <!-- LANZADOR DETALLADO -->
+                                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                                    <svg width="80" height="100" viewBox="0 0 80 100">
+                                        <!-- Lanzador -->
+                                        <circle cx="40" cy="15" r="10" fill="#FFE4B5" stroke="#000" stroke-width="2"/>
+                                        <path d="M30 10 Q40 6 50 10 Q47 15 40 13 Q33 15 30 10" fill="#8B4513"/>
+                                        <line x1="40" y1="25" x2="40" y2="55" stroke="#000" stroke-width="3"/>
+                                        <!-- Brazo derecho lanzando -->
+                                        <line x1="40" y1="35" x2="60" y2="20" stroke="#000" stroke-width="3"/>
+                                        <!-- Brazo izquierdo -->
+                                        <line x1="40" y1="35" x2="25" y2="40" stroke="#000" stroke-width="2"/>
+                                        <!-- Pelota en la mano -->
+                                        <circle cx="60" cy="20" r="3" fill="#FFFFFF" stroke="#FF0000" stroke-width="2"/>
+                                        <!-- Piernas -->
+                                        <line x1="40" y1="55" x2="35" y2="75" stroke="#000" stroke-width="3"/>
+                                        <line x1="40" y1="55" x2="45" y2="75" stroke="#000" stroke-width="3"/>
+                                        <line x1="35" y1="75" x2="32" y2="80" stroke="#000" stroke-width="2"/>
+                                        <line x1="45" y1="75" x2="48" y2="80" stroke="#000" stroke-width="2"/>
+                                        <!-- Uniforme -->
+                                        <rect x="35" y="25" width="10" height="20" fill="#4169E1" rx="2"/>
+                                        <rect x="37" y="45" width="6" height="15" fill="#FFFFFF" rx="1"/>
+                                    </svg>
+                                    <div class="text-center bg-blue-600 text-white rounded-2xl px-4 py-2 text-lg font-black mt-1 shadow-xl border-4 border-white">
+                                        ⚾ LANZANDO PELOTA
+                                    </div>
+                                </div>
+                                
+                                <!-- PELOTA EN MOVIMIENTO -->
+                                <div id="pichiBallD" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 hidden">
+                                    <div class="text-4xl animate-bounce">⚾</div>
+                                    <div class="text-center bg-red-600 text-white rounded-xl px-3 py-1 text-sm font-black mt-1 shadow-lg border-2 border-white">
+                                        ¡VOLANDO!
+                                    </div>
+                                </div>
+                                
+                                <!-- BATEADOR GOLPEANDO -->
+                                <div id="pichiHitD" class="absolute bottom-20 left-1/2 transform -translate-x-1/2 hidden">
+                                    <div class="text-6xl">🧒</div>
+                                    <div class="text-center bg-green-700 text-white rounded-2xl px-4 py-2 text-lg font-black mt-1 shadow-xl border-4 border-white animate-pulse">
+                                        💥 ¡GOLPEA LA PELOTA!
+                                    </div>
+                                </div>
+                                
+                                <!-- CORREDOR EN MOVIMIENTO -->
+                                <div id="runnerD" class="absolute bottom-16 left-1/2 transform -translate-x-1/2 hidden">
+                                    <div class="text-6xl">🏃‍♂️</div>
+                                    <div class="text-center bg-purple-700 text-white rounded-2xl px-4 py-2 text-lg font-black mt-1 shadow-xl border-4 border-white">
+                                        🏃‍♂️ CORRE A BASE 1
+                                    </div>
+                                </div>
+                                
+                                <!-- CELEBRACIÓN FINAL -->
+                                <div id="celebrationD" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center hidden">
+                                    <div class="text-6xl mb-4">🎉🏆🎉</div>
+                                    <div class="text-3xl font-black text-green-600 bg-white rounded-3xl px-6 py-3 shadow-2xl border-6 border-green-600">
+                                        ¡LLEGÓ A HOME!
+                                    </div>
+                                    <div class="text-xl font-black text-blue-600 mt-2 bg-white rounded-2xl px-4 py-2 shadow-xl border-4 border-blue-600">¡Punto para su equipo!</div>
+                                </div>
+                                
+                                <!-- INSTRUCCIONES PASO A PASO -->
+                                <div class="absolute top-4 left-1/2 transform -translate-x-1/2 bg-yellow-500 text-black rounded-3xl px-6 py-3 text-xl font-black shadow-2xl border-4 border-white">
+                                    1️⃣ Lanza → 2️⃣ Golpea → 3️⃣ Corre → 4️⃣ ¡Anota!
+                                </div>
+                                
+                                <!-- FLECHA INDICANDO DIRECCIÓN -->
+                                <div id="arrowD" class="absolute bottom-1/2 right-1/4 text-4xl animate-bounce hidden">
+                                    ➡️
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-center gap-2 mt-4">
+                        <button onclick="startPichiAnimation()" class="flex-1 bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-xl transition-all duration-300 text-sm">
+                            ▶️ Ver simulación
+                        </button>
+                        <button onclick="stopPichiAnimation()" class="flex-1 bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-xl transition-all duration-300 text-sm">
+                            ⏹️ Parar
+                        </button>
+                        <button onclick="resetPichiAnimation()" class="flex-1 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-xl transition-all duration-300 text-sm">
+                            🔄 Reiniciar
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Reglas -->
+                <div class="bg-white/90 rounded-3xl p-8 shadow-2xl">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6">⚾ Reglas básicas:</h3>
+                    <div class="space-y-4 text-gray-700">
+                        <div class="flex items-start space-x-3">
+                            <span class="text-2xl">1️⃣</span>
+                            <p class="text-lg">Un jugador lanza la pelota.</p>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <span class="text-2xl">2️⃣</span>
+                            <p class="text-lg">Otro la golpea y corre por las bases.</p>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <span class="text-2xl">3️⃣</span>
+                            <p class="text-lg">El equipo contrario intenta atraparla.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 p-6 bg-gradient-to-r from-orange-100 to-red-100 rounded-2xl">
+                        <h4 class="text-xl font-bold text-gray-800 mb-3">💪 Competencias desarrolladas:</h4>
+                        <ul class="text-gray-700 space-y-2">
+                            <li>• Precisión y puntería</li>
+                            <li>• Agilidad y velocidad</li>
+                            <li>• Trabajo en equipo</li>
+                            <li>• Estrategia grupal</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="mt-6 p-4 bg-blue-100 rounded-xl">
+                        <h5 class="font-bold text-gray-800 mb-2">🏆 Dato curioso:</h5>
+                        <p class="text-gray-700">El pichi es una versión peruana del béisbol, jugado tradicionalmente con materiales caseros como pelotas de trapo y palos de madera.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-8">
+                <button onclick="showScene('scene1')" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300">
+                    ⬅️ Volver al inicio
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Escena 4: Reflexión final -->
+    <div id="scene4" class="hidden min-h-full p-8">
+        <div class="max-w-4xl mx-auto text-center">
+            <h1 class="text-5xl font-bold text-gray-800 mb-8 drop-shadow-lg">🧠 Reflexionamos sobre lo aprendido</h1>
+            
+            <div class="bg-blue-50 border-2 border-blue-200 rounded-3xl p-8 mb-8">
+                <p class="text-xl text-gray-800 mb-6 leading-relaxed">
+                    🎙️ "A través de estos juegos, desarrollamos nuestras habilidades motrices y sociales. 
+                    Aprendimos a respetar reglas, trabajar en equipo y disfrutar sin depender de la tecnología."
+                </p>
+                
+                <div class="text-2xl text-blue-700 font-bold mb-8">
+                    💬 "Jugar juntos fortalece la convivencia y el aprendizaje."
+                </div>
+                
+                <div class="bg-green-50 border-2 border-green-200 rounded-2xl p-6 mb-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">🤔 Preguntas para reflexionar:</h3>
+                    <div class="text-lg text-gray-700 space-y-2">
+                        <p>• ¿Qué juego te gustó más? ¿Por qué?</p>
+                        <p>• ¿Qué habilidades desarrollaste?</p>
+                        <p>• ¿Cómo te sentiste jugando en equipo?</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Animación de celebración -->
+            <div class="mb-8 relative h-32">
+                <div class="absolute inset-0 flex items-center justify-center space-x-8">
+                    <div class="bounce text-5xl">🎯</div>
+                    <div class="float text-5xl">🧣</div>
+                    <div class="bounce text-5xl">🪢</div>
+                    <div class="float text-5xl">⚾</div>
+                </div>
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="text-6xl bounce">🎉</div>
+                </div>
+            </div>
+            
+            <div class="space-x-4">
+                <button onclick="showScene('scene1')" class="glow bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-8 rounded-full text-xl transition-all duration-300 transform hover:scale-110">
+                    🔄 Reiniciar simulación
+                </button>
+                <button onclick="showScene('scene2')" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-4 px-8 rounded-full text-xl transition-all duration-300 transform hover:scale-110">
+                    🎮 Volver a los juegos
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Función simplificada para navegación básica
+        function showScene(sceneId) {
+            console.log('Navegando a:', sceneId);
+        }
+        
+        function showGamePopup(gameType) {
+            const modal = document.getElementById('gameModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            let content = '';
+            
+            switch(gameType) {
+                case 'rayuela':
+                    content = `
+                        <div class="p-8">
+                            <div class="text-center mb-8">
+                                <div class="text-6xl mb-4">🎯</div>
+                                <h2 class="text-3xl font-bold text-gray-800">Rayuela Peruana</h2>
+                            </div>
+                            
+                            <div class="bg-gradient-to-b from-sky-200 to-green-200 rounded-3xl p-6 mb-6 relative h-80 overflow-hidden">
+                                <!-- Rayuela grid -->
+                                <div class="absolute left-1/2 top-4 transform -translate-x-1/2">
+                                    <div class="space-y-1">
+                                        <div class="w-16 h-14 border-3 border-black bg-yellow-300 flex items-center justify-center font-bold text-lg">10</div>
+                                        <div class="flex gap-1">
+                                            <div class="w-16 h-14 border-3 border-black bg-yellow-300 flex items-center justify-center font-bold text-lg">8</div>
+                                            <div class="w-16 h-14 border-3 border-black bg-yellow-300 flex items-center justify-center font-bold text-lg">9</div>
+                                        </div>
+                                        <div class="w-16 h-14 border-3 border-black bg-yellow-300 flex items-center justify-center font-bold text-lg">7</div>
+                                        <div class="flex gap-1">
+                                            <div class="w-16 h-14 border-3 border-black bg-yellow-300 flex items-center justify-center font-bold text-lg">5</div>
+                                            <div class="w-16 h-14 border-3 border-black bg-yellow-300 flex items-center justify-center font-bold text-lg">6</div>
+                                        </div>
+                                        <div class="w-16 h-14 border-3 border-black bg-yellow-300 flex items-center justify-center font-bold text-lg">4</div>
+                                        <div class="flex gap-1">
+                                            <div class="w-16 h-14 border-3 border-black bg-yellow-300 flex items-center justify-center font-bold text-lg">2</div>
+                                            <div class="w-16 h-14 border-3 border-black bg-yellow-300 flex items-center justify-center font-bold text-lg">3</div>
+                                        </div>
+                                        <div class="w-16 h-14 border-3 border-black bg-yellow-300 flex items-center justify-center font-bold text-lg">1</div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Stickman saltando -->
+                                <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2" id="rayuelaPlayerH" style="transition: all 1s ease-in-out;">
+                                    <svg width="40" height="60" viewBox="0 0 40 60">
+                                        <!-- Cabeza -->
+                                        <circle cx="20" cy="8" r="6" fill="none" stroke="black" stroke-width="2"/>
+                                        <!-- Cuerpo -->
+                                        <line x1="20" y1="14" x2="20" y2="35" stroke="black" stroke-width="2"/>
+                                        <!-- Brazos -->
+                                        <line x1="20" y1="20" x2="10" y2="25" stroke="black" stroke-width="2"/>
+                                        <line x1="20" y1="20" x2="30" y2="25" stroke="black" stroke-width="2"/>
+                                        <!-- Pierna izquierda (en el aire) -->
+                                        <line x1="20" y1="35" x2="15" y2="45" stroke="black" stroke-width="2"/>
+                                        <line x1="15" y1="45" x2="12" y2="50" stroke="black" stroke-width="2"/>
+                                        <!-- Pierna derecha (apoyada) -->
+                                        <line x1="20" y1="35" x2="25" y2="50" stroke="black" stroke-width="2"/>
+                                        <line x1="25" y1="50" x2="28" y2="55" stroke="black" stroke-width="2"/>
+                                    </svg>
+                                    <div class="text-center bg-blue-500 text-white rounded-lg px-2 py-1 text-sm font-bold mt-1">
+                                        Saltando en un pie
+                                    </div>
+                                </div>
+                                
+                                <!-- Piedra -->
+                                <div class="absolute bottom-6 right-8 w-4 h-4 bg-gray-600 rounded-full shadow-lg" id="rayuelaPiedraH"></div>
+                                
+                                <!-- Flecha indicadora -->
+                                <div class="absolute top-4 right-4 bg-green-500 text-white rounded-lg px-3 py-1 text-sm font-bold">
+                                    ↑ Salta hacia arriba
+                                </div>
+                            </div>
+                            
+                            <div class="flex gap-2 mb-4">
+                                <button onclick="startRayuelaPopupAnimation()" class="flex-1 bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded-xl transition-all duration-300 text-sm">
+                                    ▶️ Ver simulación
+                                </button>
+                                <button onclick="stopRayuelaPopupAnimation()" class="flex-1 bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-4 rounded-xl transition-all duration-300 text-sm">
+                                    ⏹️ Parar
+                                </button>
+                                <button onclick="resetRayuelaPopupAnimation()" class="flex-1 bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-xl transition-all duration-300 text-sm">
+                                    🔄 Reiniciar
+                                </button>
+                            </div>
+                            
+                            <div class="text-center text-gray-600">
+                                <p class="text-base font-semibold">El jugador salta en un pie por las casillas numeradas</p>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'panuelo':
+                    content = `
+                        <div class="p-8">
+                            <div class="text-center mb-8">
+                                <div class="text-6xl mb-4">🧣</div>
+                                <h2 class="text-3xl font-bold text-gray-800">El Pañuelo</h2>
+                            </div>
+                            
+                            <div class="bg-gradient-to-b from-green-200 to-blue-200 rounded-3xl p-6 mb-6 relative h-80 overflow-hidden">
+                                <!-- Campo de juego -->
+                                <div class="absolute inset-4 border-4 border-white rounded-2xl bg-green-400/30"></div>
+                                <div class="absolute top-1/2 left-4 right-4 h-1 bg-white"></div>
+                                
+                                <!-- Equipo Azul -->
+                                <div class="absolute left-6 top-1/2 transform -translate-y-1/2 space-y-3">
+                                    <svg width="30" height="40" viewBox="0 0 30 40">
+                                        <circle cx="15" cy="6" r="4" fill="blue" stroke="black" stroke-width="1"/>
+                                        <line x1="15" y1="10" x2="15" y2="25" stroke="blue" stroke-width="2"/>
+                                        <line x1="15" y1="15" x2="8" y2="20" stroke="blue" stroke-width="2"/>
+                                        <line x1="15" y1="15" x2="22" y2="20" stroke="blue" stroke-width="2"/>
+                                        <line x1="15" y1="25" x2="10" y2="35" stroke="blue" stroke-width="2"/>
+                                        <line x1="15" y1="25" x2="20" y2="35" stroke="blue" stroke-width="2"/>
+                                        <text x="15" y="45" text-anchor="middle" font-size="8" fill="black">1</text>
+                                    </svg>
+                                    
+                                    <div class="border-2 border-yellow-400 bg-yellow-200 rounded p-1">
+                                        <svg width="30" height="40" viewBox="0 0 30 40">
+                                            <circle cx="15" cy="6" r="4" fill="blue" stroke="black" stroke-width="1"/>
+                                            <line x1="15" y1="10" x2="15" y2="25" stroke="blue" stroke-width="2"/>
+                                            <line x1="15" y1="15" x2="8" y2="20" stroke="blue" stroke-width="2"/>
+                                            <line x1="15" y1="15" x2="22" y2="20" stroke="blue" stroke-width="2"/>
+                                            <line x1="15" y1="25" x2="10" y2="35" stroke="blue" stroke-width="2"/>
+                                            <line x1="15" y1="25" x2="20" y2="35" stroke="blue" stroke-width="2"/>
+                                            <text x="15" y="45" text-anchor="middle" font-size="8" fill="black" font-weight="bold">2</text>
+                                        </svg>
+                                    </div>
+                                    
+                                    <svg width="30" height="40" viewBox="0 0 30 40">
+                                        <circle cx="15" cy="6" r="4" fill="blue" stroke="black" stroke-width="1"/>
+                                        <line x1="15" y1="10" x2="15" y2="25" stroke="blue" stroke-width="2"/>
+                                        <line x1="15" y1="15" x2="8" y2="20" stroke="blue" stroke-width="2"/>
+                                        <line x1="15" y1="15" x2="22" y2="20" stroke="blue" stroke-width="2"/>
+                                        <line x1="15" y1="25" x2="10" y2="35" stroke="blue" stroke-width="2"/>
+                                        <line x1="15" y1="25" x2="20" y2="35" stroke="blue" stroke-width="2"/>
+                                        <text x="15" y="45" text-anchor="middle" font-size="8" fill="black">3</text>
+                                    </svg>
+                                    <div class="text-center bg-blue-600 text-white rounded px-2 py-1 text-xs font-bold">
+                                        EQUIPO AZUL
+                                    </div>
+                                </div>
+                                
+                                <!-- Equipo Rojo -->
+                                <div class="absolute right-6 top-1/2 transform -translate-y-1/2 space-y-3">
+                                    <svg width="30" height="40" viewBox="0 0 30 40">
+                                        <circle cx="15" cy="6" r="4" fill="red" stroke="black" stroke-width="1"/>
+                                        <line x1="15" y1="10" x2="15" y2="25" stroke="red" stroke-width="2"/>
+                                        <line x1="15" y1="15" x2="8" y2="20" stroke="red" stroke-width="2"/>
+                                        <line x1="15" y1="15" x2="22" y2="20" stroke="red" stroke-width="2"/>
+                                        <line x1="15" y1="25" x2="10" y2="35" stroke="red" stroke-width="2"/>
+                                        <line x1="15" y1="25" x2="20" y2="35" stroke="red" stroke-width="2"/>
+                                        <text x="15" y="45" text-anchor="middle" font-size="8" fill="black">1</text>
+                                    </svg>
+                                    
+                                    <div class="border-2 border-yellow-400 bg-yellow-200 rounded p-1">
+                                        <svg width="30" height="40" viewBox="0 0 30 40">
+                                            <circle cx="15" cy="6" r="4" fill="red" stroke="black" stroke-width="1"/>
+                                            <line x1="15" y1="10" x2="15" y2="25" stroke="red" stroke-width="2"/>
+                                            <line x1="15" y1="15" x2="8" y2="20" stroke="red" stroke-width="2"/>
+                                            <line x1="15" y1="15" x2="22" y2="20" stroke="red" stroke-width="2"/>
+                                            <line x1="15" y1="25" x2="10" y2="35" stroke="red" stroke-width="2"/>
+                                            <line x1="15" y1="25" x2="20" y2="35" stroke="red" stroke-width="2"/>
+                                            <text x="15" y="45" text-anchor="middle" font-size="8" fill="black" font-weight="bold">2</text>
+                                        </svg>
+                                    </div>
+                                    
+                                    <svg width="30" height="40" viewBox="0 0 30 40">
+                                        <circle cx="15" cy="6" r="4" fill="red" stroke="black" stroke-width="1"/>
+                                        <line x1="15" y1="10" x2="15" y2="25" stroke="red" stroke-width="2"/>
+                                        <line x1="15" y1="15" x2="8" y2="20" stroke="red" stroke-width="2"/>
+                                        <line x1="15" y1="15" x2="22" y2="20" stroke="red" stroke-width="2"/>
+                                        <line x1="15" y1="25" x2="10" y2="35" stroke="red" stroke-width="2"/>
+                                        <line x1="15" y1="25" x2="20" y2="35" stroke="red" stroke-width="2"/>
+                                        <text x="15" y="45" text-anchor="middle" font-size="8" fill="black">3</text>
+                                    </svg>
+                                    <div class="text-center bg-red-600 text-white rounded px-2 py-1 text-xs font-bold">
+                                        EQUIPO ROJO
+                                    </div>
+                                </div>
+                                
+                                <!-- Árbitro y pañuelo -->
+                                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
+                                    <svg width="40" height="50" viewBox="0 0 40 50">
+                                        <circle cx="20" cy="8" r="6" fill="yellow" stroke="black" stroke-width="2"/>
+                                        <line x1="20" y1="14" x2="20" y2="30" stroke="black" stroke-width="3"/>
+                                        <line x1="20" y1="18" x2="10" y2="23" stroke="black" stroke-width="2"/>
+                                        <line x1="20" y1="18" x2="30" y2="23" stroke="black" stroke-width="2"/>
+                                        <line x1="20" y1="30" x2="15" y2="45" stroke="black" stroke-width="2"/>
+                                        <line x1="20" y1="30" x2="25" y2="45" stroke="black" stroke-width="2"/>
+                                    </svg>
+                                    <div class="w-8 h-6 bg-red-500 rounded mt-2 mx-auto border-2 border-white shadow-lg"></div>
+                                    <div class="bg-white rounded-lg p-2 mt-2 text-sm font-bold text-red-600 border-2 border-red-600">
+                                        "¡NÚMERO 2!"
+                                    </div>
+                                </div>
+                                
+                                <!-- Jugadores corriendo -->
+                                <div id="runningPlayersPopup" class="absolute bottom-8 left-1/4 transform -translate-x-1/2 hidden">
+                                    <svg width="35" height="45" viewBox="0 0 35 45" class="animate-bounce">
+                                        <circle cx="17" cy="6" r="4" fill="blue" stroke="black" stroke-width="1"/>
+                                        <line x1="17" y1="10" x2="22" y2="25" stroke="blue" stroke-width="2"/>
+                                        <line x1="17" y1="15" x2="8" y2="18" stroke="blue" stroke-width="2"/>
+                                        <line x1="17" y1="15" x2="28" y2="22" stroke="blue" stroke-width="2"/>
+                                        <line x1="22" y1="25" x2="15" y2="40" stroke="blue" stroke-width="2"/>
+                                        <line x1="22" y1="25" x2="30" y2="35" stroke="blue" stroke-width="2"/>
+                                    </svg>
+                                    <div class="text-center bg-blue-600 text-white rounded px-2 py-1 text-xs font-bold mt-1">
+                                        ¡Corre al pañuelo!
+                                    </div>
+                                </div>
+                                <div id="runningPlayersPopup2" class="absolute bottom-8 right-1/4 transform translate-x-1/2 hidden">
+                                    <svg width="35" height="45" viewBox="0 0 35 45" class="animate-bounce">
+                                        <circle cx="17" cy="6" r="4" fill="red" stroke="black" stroke-width="1"/>
+                                        <line x1="17" y1="10" x2="12" y2="25" stroke="red" stroke-width="2"/>
+                                        <line x1="17" y1="15" x2="27" y2="18" stroke="red" stroke-width="2"/>
+                                        <line x1="17" y1="15" x2="7" y2="22" stroke="red" stroke-width="2"/>
+                                        <line x1="12" y1="25" x2="20" y2="40" stroke="red" stroke-width="2"/>
+                                        <line x1="12" y1="25" x2="5" y2="35" stroke="red" stroke-width="2"/>
+                                    </svg>
+                                    <div class="text-center bg-red-600 text-white rounded px-2 py-1 text-xs font-bold mt-1">
+                                        ¡Corre al pañuelo!
+                                    </div>
+                                </div>
+                                
+                                <!-- Indicador -->
+                                <div class="absolute top-4 left-1/2 transform -translate-x-1/2 bg-yellow-500 text-black rounded-lg px-3 py-1 text-sm font-bold">
+                                    Los número 2 corren
+                                </div>
+                            </div>
+                            
+                            <div class="flex gap-2 mb-4">
+                                <button onclick="startPanueeloPopupAnimation()" class="flex-1 bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-4 rounded-xl transition-all duration-300 text-sm">
+                                    ▶️ Ver simulación
+                                </button>
+                                <button onclick="stopPanueeloPopupAnimation()" class="flex-1 bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-4 rounded-xl transition-all duration-300 text-sm">
+                                    ⏹️ Parar
+                                </button>
+                                <button onclick="resetPanueeloPopupAnimation()" class="flex-1 bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-xl transition-all duration-300 text-sm">
+                                    🔄 Reiniciar
+                                </button>
+                            </div>
+                            
+                            <div class="text-center text-gray-600">
+                                <p class="text-base font-semibold">Los jugadores número 2 de cada equipo corren hacia el pañuelo</p>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'soga':
+                    content = `
+                        <div class="p-8">
+                            <div class="text-center mb-8">
+                                <div class="text-6xl mb-4">🪢</div>
+                                <h2 class="text-3xl font-bold text-gray-800">La Soga</h2>
+                            </div>
+                            
+                            <div class="bg-gradient-to-b from-yellow-200 to-orange-200 rounded-3xl p-6 mb-6 relative h-80 overflow-hidden">
+                                <!-- Niños girando la cuerda -->
+                                <div class="absolute left-4 bottom-4">
+                                    <svg width="40" height="60" viewBox="0 0 40 60" class="animate-bounce">
+                                        <circle cx="20" cy="8" r="6" fill="orange" stroke="black" stroke-width="2"/>
+                                        <line x1="20" y1="14" x2="20" y2="35" stroke="black" stroke-width="2"/>
+                                        <line x1="20" y1="20" x2="5" y2="15" stroke="black" stroke-width="2"/>
+                                        <line x1="20" y1="20" x2="35" y2="25" stroke="black" stroke-width="2"/>
+                                        <line x1="20" y1="35" x2="15" y2="50" stroke="black" stroke-width="2"/>
+                                        <line x1="20" y1="35" x2="25" y2="50" stroke="black" stroke-width="2"/>
+                                    </svg>
+                                    <div class="text-center bg-purple-600 text-white rounded px-2 py-1 text-xs font-bold mt-1">
+                                        Gira la soga
+                                    </div>
+                                </div>
+                                <div class="absolute right-4 bottom-4">
+                                    <svg width="40" height="60" viewBox="0 0 40 60" class="animate-bounce">
+                                        <circle cx="20" cy="8" r="6" fill="pink" stroke="black" stroke-width="2"/>
+                                        <line x1="20" y1="14" x2="20" y2="35" stroke="black" stroke-width="2"/>
+                                        <line x1="20" y1="20" x2="35" y2="15" stroke="black" stroke-width="2"/>
+                                        <line x1="20" y1="20" x2="5" y2="25" stroke="black" stroke-width="2"/>
+                                        <line x1="20" y1="35" x2="15" y2="50" stroke="black" stroke-width="2"/>
+                                        <line x1="20" y1="35" x2="25" y2="50" stroke="black" stroke-width="2"/>
+                                    </svg>
+                                    <div class="text-center bg-purple-600 text-white rounded px-2 py-1 text-xs font-bold mt-1">
+                                        Gira la soga
+                                    </div>
+                                </div>
+                                
+                                <!-- Cuerda animada -->
+                                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                                    <svg width="280" height="160" viewBox="0 0 280 160" style="animation: ropeSwing 0.8s ease-in-out infinite;">
+                                        <path d="M20 80 Q140 20 260 80" stroke="#8B4513" stroke-width="6" fill="none" stroke-linecap="round"/>
+                                        <path d="M20 80 Q140 140 260 80" stroke="#654321" stroke-width="4" fill="none" stroke-linecap="round"/>
+                                    </svg>
+                                </div>
+                                
+                                <!-- Niño saltando -->
+                                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 jump">
+                                    <svg width="45" height="65" viewBox="0 0 45 65">
+                                        <circle cx="22" cy="10" r="7" fill="lightblue" stroke="black" stroke-width="2"/>
+                                        <line x1="22" y1="17" x2="22" y2="40" stroke="black" stroke-width="3"/>
+                                        <line x1="22" y1="25" x2="10" y2="20" stroke="black" stroke-width="2"/>
+                                        <line x1="22" y1="25" x2="34" y2="30" stroke="black" stroke-width="2"/>
+                                        <line x1="22" y1="40" x2="15" y2="58" stroke="black" stroke-width="2"/>
+                                        <line x1="22" y1="40" x2="29" y2="58" stroke="black" stroke-width="2"/>
+                                    </svg>
+                                    <div class="text-center bg-green-600 text-white rounded px-2 py-1 text-xs font-bold mt-1">
+                                        ¡Saltando al ritmo!
+                                    </div>
+                                </div>
+                                
+                                <!-- Contador de saltos -->
+                                <div class="absolute top-4 left-1/2 transform -translate-x-1/2 bg-white rounded-2xl p-4 text-center shadow-lg border-2 border-orange-500">
+                                    <div class="text-3xl font-bold text-orange-600" id="jumpCounter">0</div>
+                                    <div class="text-sm font-bold text-gray-800">SALTOS</div>
+                                </div>
+                                
+                                <!-- Notas musicales -->
+                                <div class="absolute top-4 right-4 bg-green-500 text-white rounded-2xl p-3 text-center shadow-lg">
+                                    <div class="text-2xl animate-pulse">♪ ♫ ♪</div>
+                                    <div class="text-xs font-bold">RITMO</div>
+                                </div>
+                                
+                                <!-- Mensaje de felicitación -->
+                                <div id="excellentTextPopup" class="absolute top-32 left-1/2 transform -translate-x-1/2 text-green-600 font-bold text-lg hidden animate-bounce bg-white rounded-2xl px-4 py-2 shadow-lg border-2 border-green-500">
+                                    ¡Excelente coordinación!
+                                </div>
+                                
+                                <!-- Indicador -->
+                                <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-yellow-500 text-black rounded-lg px-3 py-1 text-sm font-bold">
+                                    Salta al compás
+                                </div>
+                            </div>
+                            
+                            <div class="flex gap-2 mb-4">
+                                <button onclick="startSogaPopupAnimation()" class="flex-1 bg-purple-500 hover:bg-purple-600 text-white font-bold py-3 px-4 rounded-xl transition-all duration-300 text-sm">
+                                    ▶️ Ver simulación
+                                </button>
+                                <button onclick="stopSogaPopupAnimation()" class="flex-1 bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-4 rounded-xl transition-all duration-300 text-sm">
+                                    ⏹️ Parar
+                                </button>
+                                <button onclick="resetSogaPopupAnimation()" class="flex-1 bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-xl transition-all duration-300 text-sm">
+                                    🔄 Reiniciar
+                                </button>
+                            </div>
+                            
+                            <div class="text-center text-gray-600">
+                                <p class="text-base font-semibold">El jugador salta al ritmo mientras otros giran la cuerda</p>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'pichi':
+                    content = `
+                        <div class="p-8">
+                            <div class="text-center mb-8">
+                                <div class="text-6xl mb-4">⚾</div>
+                                <h2 class="text-3xl font-bold text-gray-800">Pichi Peruano</h2>
+                            </div>
+                            
+                            <div class="bg-gradient-to-b from-green-300 to-brown-200 rounded-3xl p-6 mb-6 relative h-80 overflow-hidden">
+                                <!-- Campo de béisbol -->
+                                <div class="absolute inset-4 border-4 border-white rounded-2xl bg-green-400/40"></div>
+                                
+                                <!-- Bases -->
+                                <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2">
+                                    <div class="w-8 h-8 bg-white rounded-full border-2 border-gray-800 shadow-lg flex items-center justify-center">
+                                        <div class="text-sm font-bold">H</div>
+                                    </div>
+                                    <div class="text-xs font-bold text-center mt-1 bg-white rounded px-2 py-1">HOME</div>
+                                </div>
+                                <div class="absolute top-6 left-6">
+                                    <div class="w-6 h-6 bg-white rounded-full border-2 border-gray-800 shadow-lg flex items-center justify-center">
+                                        <div class="text-xs font-bold">1</div>
+                                    </div>
+                                </div>
+                                <div class="absolute top-6 right-6">
+                                    <div class="w-6 h-6 bg-white rounded-full border-2 border-gray-800 shadow-lg flex items-center justify-center">
+                                        <div class="text-xs font-bold">2</div>
+                                    </div>
+                                </div>
+                                <div class="absolute bottom-6 right-1/4">
+                                    <div class="w-6 h-6 bg-white rounded-full border-2 border-gray-800 shadow-lg flex items-center justify-center">
+                                        <div class="text-xs font-bold">3</div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Bateador -->
+                                <div class="absolute bottom-12 left-1/2 transform -translate-x-1/2">
+                                    <svg width="45" height="60" viewBox="0 0 45 60">
+                                        <circle cx="22" cy="8" r="6" fill="orange" stroke="black" stroke-width="2"/>
+                                        <line x1="22" y1="14" x2="22" y2="35" stroke="black" stroke-width="3"/>
+                                        <line x1="22" y1="20" x2="5" y2="15" stroke="black" stroke-width="3"/>
+                                        <line x1="22" y1="20" x2="35" y2="25" stroke="black" stroke-width="2"/>
+                                        <line x1="22" y1="35" x2="18" y2="50" stroke="black" stroke-width="2"/>
+                                        <line x1="22" y1="35" x2="26" y2="50" stroke="black" stroke-width="2"/>
+                                        <!-- Bate -->
+                                        <line x1="5" y1="15" x2="2" y2="10" stroke="brown" stroke-width="4"/>
+                                    </svg>
+                                    <div class="text-center bg-orange-600 text-white rounded px-2 py-1 text-xs font-bold mt-1">
+                                        Bateador listo
+                                    </div>
+                                </div>
+                                
+                                <!-- Lanzador -->
+                                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                                    <svg width="40" height="55" viewBox="0 0 40 55">
+                                        <circle cx="20" cy="8" r="6" fill="lightgreen" stroke="black" stroke-width="2"/>
+                                        <line x1="20" y1="14" x2="20" y2="32" stroke="black" stroke-width="2"/>
+                                        <line x1="20" y1="18" x2="8" y2="25" stroke="black" stroke-width="2"/>
+                                        <line x1="20" y1="18" x2="32" y2="15" stroke="black" stroke-width="2"/>
+                                        <line x1="20" y1="32" x2="15" y2="45" stroke="black" stroke-width="2"/>
+                                        <line x1="20" y1="32" x2="25" y2="45" stroke="black" stroke-width="2"/>
+                                    </svg>
+                                    <div class="text-center bg-blue-600 text-white rounded px-2 py-1 text-xs font-bold mt-1">
+                                        Lanza la pelota
+                                    </div>
+                                </div>
+                                
+                                <!-- Pelota -->
+                                <div id="pichiBallPopup" class="absolute bottom-24 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-white rounded-full border-2 border-red-500 shadow-lg hidden"></div>
+                                
+                                <!-- Corredor -->
+                                <div id="runnerPopup" class="absolute bottom-8 left-1/2 transform -translate-x-1/2 hidden">
+                                    <svg width="40" height="55" viewBox="0 0 40 55" class="animate-bounce">
+                                        <circle cx="20" cy="8" r="6" fill="yellow" stroke="black" stroke-width="2"/>
+                                        <line x1="20" y1="14" x2="25" y2="32" stroke="black" stroke-width="2"/>
+                                        <line x1="20" y1="18" x2="8" y2="15" stroke="black" stroke-width="2"/>
+                                        <line x1="20" y1="18" x2="32" y2="22" stroke="black" stroke-width="2"/>
+                                        <line x1="25" y1="32" x2="15" y2="50" stroke="black" stroke-width="2"/>
+                                        <line x1="25" y1="32" x2="35" y2="45" stroke="black" stroke-width="2"/>
+                                    </svg>
+                                    <div class="text-center bg-orange-600 text-white rounded px-2 py-1 text-xs font-bold mt-1">
+                                        ¡Corre por las bases!
+                                    </div>
+                                </div>
+                                
+                                <!-- Celebración -->
+                                <div id="celebrationPopup" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center hidden">
+                                    <div class="text-4xl mb-2">🎉</div>
+                                    <div class="text-lg font-bold text-green-600 bg-white rounded-2xl px-4 py-2 shadow-lg border-2 border-green-500">
+                                        ¡Todos celebran!
+                                    </div>
+                                </div>
+                                
+                                <!-- Indicador -->
+                                <div class="absolute top-4 left-1/2 transform -translate-x-1/2 bg-red-500 text-white rounded-lg px-3 py-1 text-sm font-bold">
+                                    Batea y corre
+                                </div>
+                            </div>
+                            
+                            <div class="flex gap-2 mb-4">
+                                <button onclick="startPichiPopupAnimation()" class="flex-1 bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-4 rounded-xl transition-all duration-300 text-sm">
+                                    ▶️ Ver simulación
+                                </button>
+                                <button onclick="stopPichiPopupAnimation()" class="flex-1 bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-4 rounded-xl transition-all duration-300 text-sm">
+                                    ⏹️ Parar
+                                </button>
+                                <button onclick="resetPichiPopupAnimation()" class="flex-1 bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-xl transition-all duration-300 text-sm">
+                                    🔄 Reiniciar
+                                </button>
+                            </div>
+                            
+                            <div class="text-center text-gray-600">
+                                <p class="text-base font-semibold">El bateador golpea la pelota y corre por las bases</p>
+                            </div>
+                        </div>
+                    `;
+                    break;
+            }
+            
+            modalContent.innerHTML = content;
+            modal.classList.remove('hidden');
+            trackGameVisit(gameType);
+        }
+        
+        function closeGamePopup() {
+            document.getElementById('gameModal').classList.add('hidden');
+        }
+        
+        let rayuelaPopupRunning = false;
+        let rayuelaPopupTimeouts = [];
+        
+        function startRayuelaPopupAnimation() {
+            if (rayuelaPopupRunning) return;
+            rayuelaPopupRunning = true;
+            
+            const player = document.getElementById('rayuelaPlayerH');
+            
+            if (player) {
+                let currentPos = 0;
+                const positions = [0, -50, -100, -150, -200, -250];
+                
+                const animateStep = () => {
+                    if (!rayuelaPopupRunning || currentPos >= positions.length) {
+                        if (rayuelaPopupRunning) {
+                            const timeout = setTimeout(() => {
+                                if (rayuelaPopupRunning) {
+                                    player.style.transform = 'translate(-50%, 0px)';
+                                    currentPos = 0;
+                                    rayuelaPopupRunning = false;
+                                }
+                            }, 2000);
+                            rayuelaPopupTimeouts.push(timeout);
+                        }
+                        return;
+                    }
+                    
+                    player.style.transform = `translate(-50%, ${positions[currentPos]}px)`;
+                    currentPos++;
+                    
+                    const timeout = setTimeout(animateStep, 800);
+                    rayuelaPopupTimeouts.push(timeout);
+                };
+                
+                animateStep();
+            }
+        }
+        
+        function stopRayuelaPopupAnimation() {
+            rayuelaPopupRunning = false;
+            rayuelaPopupTimeouts.forEach(timeout => clearTimeout(timeout));
+            rayuelaPopupTimeouts = [];
+            
+            const player = document.getElementById('rayuelaPlayerH');
+            if (player) {
+                player.style.transform = 'translate(-50%, 0px)';
+            }
+        }
+        
+        function resetRayuelaPopupAnimation() {
+            stopRayuelaPopupAnimation();
+            setTimeout(() => {
+                startRayuelaPopupAnimation();
+            }, 500);
+        }
+        
+        let panueeloPopupRunning = false;
+        let panueeloPopupTimeouts = [];
+        
+        function startPanueeloPopupAnimation() {
+            if (panueeloPopupRunning) return;
+            panueeloPopupRunning = true;
+            
+            const runningPlayers = document.getElementById('runningPlayersPopup');
+            const runningPlayers2 = document.getElementById('runningPlayersPopup2');
+            
+            if (runningPlayers && runningPlayers2) {
+                runningPlayers.classList.remove('hidden');
+                runningPlayers2.classList.remove('hidden');
+                
+                const timeout1 = setTimeout(() => {
+                    if (!panueeloPopupRunning) return;
+                    
+                    // Uno gana
+                    runningPlayers.innerHTML = `
+                        <svg width="35" height="45" viewBox="0 0 35 45" class="animate-bounce">
+                            <circle cx="17" cy="6" r="4" fill="blue" stroke="black" stroke-width="1"/>
+                            <line x1="17" y1="10" x2="22" y2="25" stroke="blue" stroke-width="2"/>
+                            <line x1="17" y1="15" x2="8" y2="18" stroke="blue" stroke-width="2"/>
+                            <line x1="17" y1="15" x2="28" y2="22" stroke="blue" stroke-width="2"/>
+                            <line x1="22" y1="25" x2="15" y2="40" stroke="blue" stroke-width="2"/>
+                            <line x1="22" y1="25" x2="30" y2="35" stroke="blue" stroke-width="2"/>
+                        </svg>
+                        <div class="w-8 h-6 bg-red-500 rounded mt-1 mx-auto border-2 border-white shadow-lg"></div>
+                        <div class="text-center bg-green-600 text-white rounded px-2 py-1 text-xs font-bold mt-1">
+                            ¡GANÓ EL PAÑUELO!
+                        </div>
+                    `;
+                    
+                    const timeout2 = setTimeout(() => {
+                        if (!panueeloPopupRunning) return;
+                        runningPlayers.classList.add('hidden');
+                        runningPlayers2.classList.add('hidden');
+                        
+                        // Restaurar contenido original
+                        runningPlayers.innerHTML = `
+                            <svg width="35" height="45" viewBox="0 0 35 45" class="animate-bounce">
+                                <circle cx="17" cy="6" r="4" fill="blue" stroke="black" stroke-width="1"/>
+                                <line x1="17" y1="10" x2="22" y2="25" stroke="blue" stroke-width="2"/>
+                                <line x1="17" y1="15" x2="8" y2="18" stroke="blue" stroke-width="2"/>
+                                <line x1="17" y1="15" x2="28" y2="22" stroke="blue" stroke-width="2"/>
+                                <line x1="22" y1="25" x2="15" y2="40" stroke="blue" stroke-width="2"/>
+                                <line x1="22" y1="25" x2="30" y2="35" stroke="blue" stroke-width="2"/>
+                            </svg>
+                            <div class="text-center bg-blue-600 text-white rounded px-2 py-1 text-xs font-bold mt-1">
+                                ¡Corre al pañuelo!
+                            </div>
+                        `;
+                        panueeloPopupRunning = false;
+                    }, 3000);
+                    panueeloPopupTimeouts.push(timeout2);
+                }, 2000);
+                panueeloPopupTimeouts.push(timeout1);
+            }
+        }
+        
+        function stopPanueeloPopupAnimation() {
+            panueeloPopupRunning = false;
+            panueeloPopupTimeouts.forEach(timeout => clearTimeout(timeout));
+            panueeloPopupTimeouts = [];
+            
+            const runningPlayers = document.getElementById('runningPlayersPopup');
+            const runningPlayers2 = document.getElementById('runningPlayersPopup2');
+            
+            if (runningPlayers && runningPlayers2) {
+                runningPlayers.classList.add('hidden');
+                runningPlayers2.classList.add('hidden');
+            }
+        }
+        
+        function resetPanueeloPopupAnimation() {
+            stopPanueeloPopupAnimation();
+            setTimeout(() => {
+                startPanueeloPopupAnimation();
+            }, 500);
+        }
+        
+        let sogaPopupRunning = false;
+        let sogaPopupInterval = null;
+        let sogaPopupTimeouts = [];
+        
+        function startSogaPopupAnimation() {
+            if (sogaPopupRunning) return;
+            sogaPopupRunning = true;
+            
+            const excellentText = document.getElementById('excellentTextPopup');
+            const jumpCounter = document.getElementById('jumpCounter');
+            let jumps = 0;
+            
+            if (excellentText && jumpCounter) {
+                sogaPopupInterval = setInterval(() => {
+                    if (!sogaPopupRunning) return;
+                    
+                    jumps++;
+                    jumpCounter.textContent = jumps;
+                    
+                    if (jumps >= 10) {
+                        clearInterval(sogaPopupInterval);
+                        excellentText.classList.remove('hidden');
+                        
+                        const timeout = setTimeout(() => {
+                            if (!sogaPopupRunning) return;
+                            excellentText.classList.add('hidden');
+                            jumpCounter.textContent = '0';
+                            sogaPopupRunning = false;
+                        }, 3000);
+                        sogaPopupTimeouts.push(timeout);
+                    }
+                }, 300);
+            }
+        }
+        
+        function stopSogaPopupAnimation() {
+            sogaPopupRunning = false;
+            if (sogaPopupInterval) {
+                clearInterval(sogaPopupInterval);
+                sogaPopupInterval = null;
+            }
+            sogaPopupTimeouts.forEach(timeout => clearTimeout(timeout));
+            sogaPopupTimeouts = [];
+            
+            const excellentText = document.getElementById('excellentTextPopup');
+            const jumpCounter = document.getElementById('jumpCounter');
+            
+            if (excellentText && jumpCounter) {
+                excellentText.classList.add('hidden');
+                jumpCounter.textContent = '0';
+            }
+        }
+        
+        function resetSogaPopupAnimation() {
+            stopSogaPopupAnimation();
+            setTimeout(() => {
+                startSogaPopupAnimation();
+            }, 500);
+        }
+        
+        let pichiPopupRunning = false;
+        let pichiPopupTimeouts = [];
+        
+        function startPichiPopupAnimation() {
+            if (pichiPopupRunning) return;
+            pichiPopupRunning = true;
+            
+            const ball = document.getElementById('pichiBallPopup');
+            const runner = document.getElementById('runnerPopup');
+            const celebration = document.getElementById('celebrationPopup');
+            
+            if (ball && runner && celebration) {
+                // Mostrar pelota volando
+                ball.classList.remove('hidden');
+                ball.style.transition = 'all 2s ease-out';
+                ball.style.transform = 'translateX(150px) translateY(-50px)';
+                
+                const timeout1 = setTimeout(() => {
+                    if (!pichiPopupRunning) return;
+                    
+                    // Mostrar corredor después de batear
+                    runner.classList.remove('hidden');
+                    runner.style.transition = 'all 2s ease-in-out';
+                    runner.style.transform = 'translateX(100px) translateY(-20px)';
+                    
+                    const timeout2 = setTimeout(() => {
+                        if (!pichiPopupRunning) return;
+                        
+                        // Celebración al final
+                        ball.classList.add('hidden');
+                        runner.classList.add('hidden');
+                        celebration.classList.remove('hidden');
+                        
+                        const timeout3 = setTimeout(() => {
+                            if (!pichiPopupRunning) return;
+                            
+                            celebration.classList.add('hidden');
+                            // Reiniciar posiciones
+                            ball.style.transform = 'translateX(0px) translateY(0px)';
+                            runner.style.transform = 'translateX(0px) translateY(0px)';
+                            pichiPopupRunning = false;
+                        }, 3000);
+                        pichiPopupTimeouts.push(timeout3);
+                    }, 2000);
+                    pichiPopupTimeouts.push(timeout2);
+                }, 1000);
+                pichiPopupTimeouts.push(timeout1);
+            }
+        }
+        
+        function stopPichiPopupAnimation() {
+            pichiPopupRunning = false;
+            pichiPopupTimeouts.forEach(timeout => clearTimeout(timeout));
+            pichiPopupTimeouts = [];
+            
+            const ball = document.getElementById('pichiBallPopup');
+            const runner = document.getElementById('runnerPopup');
+            const celebration = document.getElementById('celebrationPopup');
+            
+            if (ball && runner && celebration) {
+                ball.classList.add('hidden');
+                runner.classList.add('hidden');
+                celebration.classList.add('hidden');
+                
+                ball.style.transform = 'translateX(0px) translateY(0px)';
+                runner.style.transform = 'translateX(0px) translateY(0px)';
+            }
+        }
+        
+        function resetPichiPopupAnimation() {
+            stopPichiPopupAnimation();
+            setTimeout(() => {
+                startPichiPopupAnimation();
+            }, 500);
+        }
+        
+        let rayuelaAnimationRunning = false;
+        let rayuelaTimeouts = [];
+        
+        function startRayuelaAnimation() {
+            if (rayuelaAnimationRunning) return;
+            rayuelaAnimationRunning = true;
+            
+            const player = document.getElementById('rayuelaPlayer');
+            const casillaIndicador = document.getElementById('casillaActual');
+            
+            if (player && casillaIndicador) {
+                casillaIndicador.textContent = '🦵 ¡Saltando por las casillas!';
+                casillaIndicador.style.backgroundColor = '#10b981';
+                
+                player.style.transition = 'all 2s ease-in-out';
+                player.style.transform = 'translateX(-50%) translateY(-200px)';
+                
+                const timeout1 = setTimeout(() => {
+                    if (!rayuelaAnimationRunning) return;
+                    casillaIndicador.textContent = '🏆 ¡LLEGÓ AL CIELO!';
+                    casillaIndicador.style.backgroundColor = '#f59e0b';
+                    
+                    const timeout2 = setTimeout(() => {
+                        if (!rayuelaAnimationRunning) return;
+                        player.style.transform = 'translateX(-50%) translateY(0px)';
+                        casillaIndicador.textContent = '🎯 ¡PREPARÁNDOSE PARA SALTAR!';
+                        casillaIndicador.style.backgroundColor = '#ef4444';
+                        rayuelaAnimationRunning = false;
+                    }, 2000);
+                    rayuelaTimeouts.push(timeout2);
+                }, 3000);
+                rayuelaTimeouts.push(timeout1);
+            }
+        }
+        
+        function stopRayuelaAnimation() {
+            rayuelaAnimationRunning = false;
+            rayuelaTimeouts.forEach(timeout => clearTimeout(timeout));
+            rayuelaTimeouts = [];
+            
+            const player = document.getElementById('rayuelaPlayer');
+            const casillaIndicador = document.getElementById('casillaActual');
+            
+            if (player && casillaIndicador) {
+                player.style.transform = 'translateX(-50%) translateY(0px)';
+                casillaIndicador.textContent = '🎯 ¡PREPARÁNDOSE PARA SALTAR!';
+                casillaIndicador.style.backgroundColor = '#ef4444';
+            }
+        }
+        
+        function resetRayuelaAnimation() {
+            stopRayuelaAnimation();
+            // Reiniciar completamente la animación
+            setTimeout(() => {
+                startRayuelaAnimation();
+            }, 500);
+        }
+        
+        let panueeloAnimationRunning = false;
+        let panueeloTimeouts = [];
+        
+        function startPanueeloAnimation() {
+            if (panueeloAnimationRunning) return;
+            panueeloAnimationRunning = true;
+            
+            const runningPlayersB = document.getElementById('runningPlayersB');
+            const runningPlayersR = document.getElementById('runningPlayersR');
+            
+            console.log('Elementos pañuelo:', {runningPlayersB, runningPlayersR});
+            
+            if (runningPlayersB && runningPlayersR) {
+                // Mostrar jugadores corriendo
+                runningPlayersB.classList.remove('hidden');
+                runningPlayersR.classList.remove('hidden');
+                
+                // Animación simple
+                runningPlayersB.style.transition = 'all 2s ease-out';
+                runningPlayersR.style.transition = 'all 2s ease-out';
+                
+                const timeout1 = setTimeout(() => {
+                    if (!panueeloAnimationRunning) return;
+                    runningPlayersB.style.transform = 'translateX(100px)';
+                    runningPlayersR.style.transform = 'translateX(-100px)';
+                    
+                    const timeout2 = setTimeout(() => {
+                        if (!panueeloAnimationRunning) return;
+                        // Uno gana
+                        runningPlayersB.innerHTML = `
+                            <div class="text-8xl animate-bounce">🏃‍♂️🧣</div>
+                            <div class="text-center bg-green-600 text-white rounded-2xl px-4 py-2 text-xl font-black mt-2 shadow-xl border-4 border-white">
+                                ¡GANÓ!
+                            </div>
+                        `;
+                        
+                        const timeout3 = setTimeout(() => {
+                            if (!panueeloAnimationRunning) return;
+                            // Reiniciar
+                            runningPlayersB.classList.add('hidden');
+                            runningPlayersR.classList.add('hidden');
+                            runningPlayersB.style.transform = 'translateX(0px)';
+                            runningPlayersR.style.transform = 'translateX(0px)';
+                            runningPlayersB.innerHTML = `
+                                <div class="text-8xl animate-bounce">🏃‍♂️</div>
+                                <div class="text-center bg-blue-700 text-white rounded-2xl px-4 py-2 text-xl font-black mt-2 shadow-xl border-4 border-white">
+                                    ¡CORRE AL PAÑUELO!
+                                </div>
+                            `;
+                            panueeloAnimationRunning = false;
+                        }, 2000);
+                        panueeloTimeouts.push(timeout3);
+                    }, 2000);
+                    panueeloTimeouts.push(timeout2);
+                }, 1000);
+                panueeloTimeouts.push(timeout1);
+            }
+        }
+        
+        function stopPanueeloAnimation() {
+            panueeloAnimationRunning = false;
+            panueeloTimeouts.forEach(timeout => clearTimeout(timeout));
+            panueeloTimeouts = [];
+            
+            const runningPlayersB = document.getElementById('runningPlayersB');
+            const runningPlayersR = document.getElementById('runningPlayersR');
+            
+            if (runningPlayersB && runningPlayersR) {
+                runningPlayersB.classList.add('hidden');
+                runningPlayersR.classList.add('hidden');
+                runningPlayersB.style.transform = 'translateX(0px)';
+                runningPlayersR.style.transform = 'translateX(0px)';
+            }
+        }
+        
+        function resetPanueeloAnimation() {
+            stopPanueeloAnimation();
+            setTimeout(() => {
+                startPanueeloAnimation();
+            }, 500);
+        }
+        
+        let sogaAnimationRunning = false;
+        let sogaInterval = null;
+        let sogaTimeouts = [];
+        
+        function startSogaAnimation() {
+            if (sogaAnimationRunning) return;
+            sogaAnimationRunning = true;
+            
+            const excellentText = document.getElementById('excellentTextC');
+            const jumpCounter = document.getElementById('jumpCounterC');
+            let jumps = 0;
+            
+            console.log('Elementos soga:', {excellentText, jumpCounter});
+            
+            if (excellentText && jumpCounter) {
+                // Contador simple
+                sogaInterval = setInterval(() => {
+                    if (!sogaAnimationRunning) return;
+                    
+                    jumps++;
+                    jumpCounter.textContent = jumps;
+                    
+                    if (jumps >= 10) {
+                        clearInterval(sogaInterval);
+                        excellentText.classList.remove('hidden');
+                        
+                        const timeout1 = setTimeout(() => {
+                            if (!sogaAnimationRunning) return;
+                            excellentText.classList.add('hidden');
+                            jumpCounter.textContent = '0';
+                            sogaAnimationRunning = false;
+                        }, 3000);
+                        sogaTimeouts.push(timeout1);
+                    }
+                }, 500);
+            }
+        }
+        
+        function stopSogaAnimation() {
+            sogaAnimationRunning = false;
+            if (sogaInterval) {
+                clearInterval(sogaInterval);
+                sogaInterval = null;
+            }
+            sogaTimeouts.forEach(timeout => clearTimeout(timeout));
+            sogaTimeouts = [];
+            
+            const excellentText = document.getElementById('excellentTextC');
+            const jumpCounter = document.getElementById('jumpCounterC');
+            
+            if (excellentText && jumpCounter) {
+                excellentText.classList.add('hidden');
+                jumpCounter.textContent = '0';
+            }
+        }
+        
+        function resetSogaAnimation() {
+            stopSogaAnimation();
+            setTimeout(() => {
+                startSogaAnimation();
+            }, 500);
+        }
+        
+        let pichiAnimationRunning = false;
+        let pichiTimeouts = [];
+        
+        function startPichiAnimation() {
+            if (pichiAnimationRunning) return;
+            pichiAnimationRunning = true;
+            
+            const ball = document.getElementById('pichiBallD');
+            const runner = document.getElementById('runnerD');
+            const celebration = document.getElementById('celebrationD');
+            
+            console.log('Elementos pichi:', {ball, runner, celebration});
+            
+            if (ball && runner && celebration) {
+                // Mostrar pelota
+                ball.classList.remove('hidden');
+                ball.style.transition = 'all 2s ease-out';
+                ball.style.transform = 'translateX(150px) translateY(-50px)';
+                
+                const timeout1 = setTimeout(() => {
+                    if (!pichiAnimationRunning) return;
+                    // Mostrar corredor
+                    runner.classList.remove('hidden');
+                    runner.style.transition = 'all 2s ease-in-out';
+                    runner.style.transform = 'translateX(100px) translateY(-50px)';
+                    
+                    const timeout2 = setTimeout(() => {
+                        if (!pichiAnimationRunning) return;
+                        // Celebración
+                        ball.classList.add('hidden');
+                        runner.classList.add('hidden');
+                        celebration.classList.remove('hidden');
+                        
+                        const timeout3 = setTimeout(() => {
+                            if (!pichiAnimationRunning) return;
+                            // Reiniciar
+                            celebration.classList.add('hidden');
+                            ball.style.transform = 'translateX(0px) translateY(0px)';
+                            runner.style.transform = 'translateX(0px) translateY(0px)';
+                            pichiAnimationRunning = false;
+                        }, 3000);
+                        pichiTimeouts.push(timeout3);
+                    }, 2000);
+                    pichiTimeouts.push(timeout2);
+                }, 1000);
+                pichiTimeouts.push(timeout1);
+            }
+        }
+        
+        function stopPichiAnimation() {
+            pichiAnimationRunning = false;
+            pichiTimeouts.forEach(timeout => clearTimeout(timeout));
+            pichiTimeouts = [];
+            
+            const ball = document.getElementById('pichiBallD');
+            const runner = document.getElementById('runnerD');
+            const celebration = document.getElementById('celebrationD');
+            
+            if (ball && runner && celebration) {
+                ball.classList.add('hidden');
+                runner.classList.add('hidden');
+                celebration.classList.add('hidden');
+                
+                ball.style.transform = 'translateX(0px) translateY(0px)';
+                runner.style.transform = 'translateX(0px) translateY(0px)';
+            }
+        }
+        
+        function resetPichiAnimation() {
+            stopPichiAnimation();
+            setTimeout(() => {
+                startPichiAnimation();
+            }, 500);
+        }
+        
+        // Función simplificada de tracking
+        function trackGameVisit(game) {
+            console.log('Juego visitado:', game);
+        }
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98e85aff5788c2ee',t:'MTc2MDQ1ODMxNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
