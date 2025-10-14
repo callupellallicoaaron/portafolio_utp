@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reflexión sobre el Juego en la Educación</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            box-sizing: border-box;
+        }
+
+        .portada {
+            background: white;
+            border: 2px solid black;
+            border-radius: 15px;
+            padding: 20px;
+            max-width: 1200px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin: 20px auto;
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+            background: #1e40af;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        .info-institucional {
+            flex: 1;
+        }
+
+        .info-institucional h2 {
+            margin: 0 0 10px 0;
+            color: #333;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .info-institucional p {
+            margin: 5px 0;
+            color: #666;
+            font-size: 16px;
+            line-height: 1.4;
+        }
+
+        .info-estudiante {
+            text-align: right;
+            flex-shrink: 0;
+        }
+
+        .info-estudiante p {
+            margin: 5px 0;
+            color: #333;
+            font-size: 16px;
+            line-height: 1.4;
+        }
+
+        .info-estudiante p strong {
+            color: black;
+        }
+
+        @media (max-width: 768px) {
+            .portada {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+                gap: 20px;
+            }
+            
+            .info-estudiante {
+                text-align: center;
+            }
+            
+            .info-institucional h2 {
+                font-size: 20px;
+            }
+            
+            .info-institucional p,
+            .info-estudiante p {
+                font-size: 14px;
+            }
+            
+            .logo {
+                width: 80px;
+                height: 80px;
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .portada {
+                padding: 15px;
+            }
+            
+            .info-institucional h2 {
+                font-size: 18px;
+            }
+            
+            .info-institucional p,
+            .info-estudiante p {
+                font-size: 12px;
+            }
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .section-fade {
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .icon-bounce {
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gray-50">
+    <!-- Portada Universitaria -->
+    <div class="portada">
+        <img src="https://www.carreras.pe/userfiles/images/Logos%20y%20fachadas/Logo%20UTP%202.png" alt="Logo UTP" onerror="this.outerHTML='<div class=\'logo\'>UTP</div>';" style="width: 100px; height: 100px; object-fit: contain; background: transparent; flex-shrink: 0;">
+        
+        <div class="info-institucional">
+            <h2>Universidad Tecnológica del Perú</h2>
+            <p>Facultad de Educación</p>
+            <p>Práctica Educativa I: Psicomotricidad para Educación Primaria</p>
+            <p>Sección 31960</p>
+        </div>
+        
+        <div class="info-estudiante">
+            <p><strong>Aaron Sixto Callupe Llallico</strong></p>
+            <p>Estudiante de Educación Primaria</p>
+            <p>Semana 9 - Actividad 1</p>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="bg-transparent text-gray-900 py-0">
+        <div class="container mx-auto px-6 text-center">
+            <div class="icon-bounce text-6xl mb-4">🎮</div>
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">El Juego en la Educación</h1>
+            <p class="text-xl opacity-90 max-w-2xl mx-auto">Una reflexión sobre la importancia del juego como herramienta pedagógica y de desarrollo integral</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 py-8">
+        <!-- Aplicando lo aprendido -->
+        <section class="section-fade mb-8">
+            <div class="bg-white rounded-2xl shadow-lg p-6 card-hover">
+                <div class="flex items-center mb-6">
+                    <div class="text-4xl mr-4">🧩</div>
+                    <h2 class="text-3xl font-bold text-gray-800">Aplicando lo aprendido</h2>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                    <!-- Pregunta 1 -->
+                    <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-4">
+                        <h3 class="text-xl font-semibold text-indigo-800 mb-4 flex items-center">
+                            <span class="text-2xl mr-3">💭</span>
+                            ¿Qué sentiste durante los juegos?
+                        </h3>
+                        <p class="text-gray-700 leading-relaxed text-justify">
+                            Durante las actividades lúdicas de la sesión, pude experimentar cómo el juego se convierte en una poderosa herramienta para desarrollar nuestras habilidades motrices, cognitivas y sociales. Sentí <strong>alegría, energía y conexión</strong> con mis compañeros; cada dinámica me permitió aprender jugando y fortalecer mi capacidad de cooperación, atención y empatía.
+                        </p>
+                    </div>
+
+                    <!-- Pregunta 2 -->
+                    <div class="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-4">
+                        <h3 class="text-xl font-semibold text-emerald-800 mb-4 flex items-center">
+                            <span class="text-2xl mr-3">⚖️</span>
+                            ¿Qué fue más fácil o difícil?
+                        </h3>
+                        <p class="text-gray-700 leading-relaxed text-justify">
+                            En algunos momentos, fue un reto coordinar movimientos o recordar secuencias, pero con la práctica y el apoyo del grupo, logré mejorar mi desempeño. Esto me hizo reflexionar sobre la importancia de incluir actividades lúdicas en las clases, ya que los niños aprenden con <strong>mayor motivación</strong> cuando se divierten y participan activamente.
+                        </p>
+                    </div>
+
+                    <!-- Pregunta 3 -->
+                    <div class="bg-gradient-to-r from-purple-50 to-violet-50 rounded-xl p-4">
+                        <h3 class="text-xl font-semibold text-purple-800 mb-4 flex items-center">
+                            <span class="text-2xl mr-3">👩‍🏫</span>
+                            ¿Cómo se relaciona esto con tu rol como futuro docente?
+                        </h3>
+                        <p class="text-gray-700 leading-relaxed text-justify">
+                            Como futuro docente, reconozco que el juego no es solo entretenimiento, sino un <strong>medio didáctico esencial</strong> que favorece el desarrollo integral: físico, emocional, cognitivo y social. A través del juego, los estudiantes exploran, se expresan y aprenden a convivir. Por eso, el docente debe propiciar experiencias donde el movimiento, la imaginación y la alegría sean parte del aprendizaje.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Palabra clave -->
+                <div class="mt-6 bg-gradient-to-r from-yellow-100 to-orange-100 rounded-xl p-4 text-center">
+                    <div class="text-2xl mb-2">✨</div>
+                    <h3 class="text-2xl font-bold text-orange-800 mb-3">Palabra clave: Descubrimiento</h3>
+                    <p class="text-lg text-gray-700 italic">
+                        "El juego es una oportunidad para descubrir nuestras capacidades, emociones y formas de aprender disfrutando."
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Actividad para casita -->
+        <section class="section-fade">
+            <div class="bg-white rounded-2xl shadow-lg p-6 card-hover">
+                <div class="flex items-center mb-6">
+                    <div class="text-4xl mr-4">🏠</div>
+                    <h2 class="text-3xl font-bold text-gray-800">Actividad para casita</h2>
+                </div>
+                
+                <div class="bg-gradient-to-r from-rose-50 to-pink-50 rounded-xl p-4">
+                    <h3 class="text-xl font-semibold text-rose-800 mb-4 flex items-center">
+                        <span class="text-2xl mr-3">🎬</span>
+                        Reflexión sobre el video "Importancia del juego"
+                    </h3>
+                    <p class="text-gray-700 leading-relaxed text-justify">
+                        Después de observar el video, comprendí que el juego es una <strong>necesidad evolutiva y natural</strong> del ser humano. Desde niños, aprendemos a vivir a través de él; exploramos, imaginamos, creamos vínculos y expresamos emociones. Sin embargo, al crecer, muchas veces dejamos de jugar por las exigencias sociales que priorizan la productividad y los resultados. Recuperar el juego en la adultez significa <strong>reconectar con la creatividad, la alegría y la libertad interior</strong>. En el ámbito educativo, jugar permite aprender de manera significativa, porque activa la imaginación, mejora la convivencia y despierta la motivación. Como futuro docente, deseo que mis estudiantes <strong>aprendan jugando</strong>, sintiendo placer por descubrir y crecer en un ambiente lleno de respeto, movimiento y diversión.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer inspiracional -->
+        <footer class="text-center py-6">
+            <div class="bg-gradient-to-r from-indigo-100 to-purple-100 rounded-2xl p-4 max-w-4xl mx-auto">
+                <div class="text-2xl mb-2">🌟</div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">Reflexión Final</h3>
+                <p class="text-lg text-gray-700 italic">
+                    "El juego no es una pausa en el aprendizaje, es el aprendizaje mismo en su forma más pura y natural."
+                </p>
+            </div>
+        </footer>
+    </main>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98a81ae8737fc2c1',t:'MTc1OTc4NDYwMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

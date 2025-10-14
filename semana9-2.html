@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juegos Psicomotrices - Educación Primaria</title>
+    <style>
+        body {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: white;
+        }
+        
+        .portada-container {
+            background: white;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .portada {
+            background: white;
+            border: 2px solid black;
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 1200px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+            background: #1e40af;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        .info-institucional {
+            flex: 1;
+        }
+
+        .info-institucional h2 {
+            margin: 0 0 10px 0;
+            color: #333;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .info-institucional p {
+            margin: 5px 0;
+            color: #666;
+            font-size: 16px;
+            line-height: 1.4;
+        }
+
+        .info-estudiante {
+            text-align: right;
+            flex-shrink: 0;
+        }
+
+        .info-estudiante p {
+            margin: 5px 0;
+            color: #333;
+            font-size: 16px;
+            line-height: 1.4;
+        }
+
+        .info-estudiante p strong {
+            color: black;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 1.5rem;
+        }
+        
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .game-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+        
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--accent-color);
+        }
+        
+        .functional { --accent-color: #ff6b6b; }
+        .symbolic { --accent-color: #4ecdc4; }
+        .regulated { --accent-color: #45b7d1; }
+        .sensorial { --accent-color: #96ceb4; }
+        
+        .game-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .game-icon {
+            font-size: 2rem;
+            margin-right: 0.8rem;
+            background: var(--accent-color);
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .game-title {
+            flex: 1;
+        }
+        
+        .game-title h3 {
+            margin: 0;
+            font-size: 1.1rem;
+            color: #2c3e50;
+        }
+        
+        .game-type {
+            background: var(--accent-color);
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            margin-top: 0.3rem;
+            display: inline-block;
+        }
+        
+        .age-badge {
+            background: #f8f9fa;
+            color: #6c757d;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            margin-left: 0.4rem;
+        }
+        
+        .game-content {
+            margin-bottom: 1rem;
+        }
+        
+        .section {
+            margin-bottom: 1rem;
+        }
+        
+        .section h4 {
+            color: var(--accent-color);
+            margin-bottom: 0.3rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .section p, .section ul {
+            color: #555;
+            line-height: 1.5;
+            margin: 0;
+            font-size: 0.85rem;
+        }
+        
+        .section ul {
+            padding-left: 1rem;
+        }
+        
+        .materials {
+            background: #f8f9fa;
+            padding: 0.8rem;
+            border-radius: 8px;
+            border-left: 3px solid var(--accent-color);
+        }
+        
+        .simulation {
+            background: linear-gradient(135deg, var(--accent-color), rgba(255,255,255,0.1));
+            border-radius: 12px;
+            padding: 1rem;
+            margin-top: 1rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .simulation::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+        
+        @keyframes shimmer {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(180deg); }
+        }
+        
+        .simulation h4 {
+            color: white;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .simulation h4::before {
+            content: '🎬';
+            margin-right: 0.5rem;
+        }
+        
+        .students {
+            display: flex;
+            gap: 0.5rem;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .student {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            background: rgba(255,255,255,0.2);
+            animation: bounce 2s ease-in-out infinite;
+        }
+        
+        .student:nth-child(2) { animation-delay: 0.2s; }
+        .student:nth-child(3) { animation-delay: 0.4s; }
+        .student:nth-child(4) { animation-delay: 0.6s; }
+        .student:nth-child(5) { animation-delay: 0.8s; }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        
+        .benefits {
+            background: rgba(var(--accent-color-rgb), 0.1);
+            padding: 0.8rem;
+            border-radius: 8px;
+            border: 1px solid rgba(var(--accent-color-rgb), 0.2);
+        }
+        
+        .functional { --accent-color-rgb: 255, 107, 107; }
+        .symbolic { --accent-color-rgb: 78, 205, 196; }
+        .regulated { --accent-color-rgb: 69, 183, 209; }
+        .sensorial { --accent-color-rgb: 150, 206, 180; }
+        .cooperative { --accent-color: #f39c12; --accent-color-rgb: 243, 156, 18; }
+
+        .academic-section {
+            background: white;
+            padding: 1.5rem 1rem;
+        }
+
+        .academic-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 0.8rem;
+            }
+            
+            .header h1 {
+                font-size: 1.6rem;
+            }
+            
+            .games-grid {
+                grid-template-columns: 1fr;
+                gap: 0.8rem;
+            }
+            
+            .game-card {
+                padding: 1rem;
+            }
+            
+            .game-icon {
+                width: 35px;
+                height: 35px;
+                font-size: 1.5rem;
+            }
+            
+            .game-title h3 {
+                font-size: 1rem;
+            }
+            
+            .section h4 {
+                font-size: 0.8rem;
+            }
+            
+            .section p, .section ul {
+                font-size: 0.8rem;
+            }
+            
+            .students {
+                justify-content: center;
+            }
+            
+            .portada {
+                flex-direction: column;
+                text-align: center;
+                padding: 15px;
+                gap: 15px;
+            }
+            
+            .info-estudiante {
+                text-align: center;
+            }
+            
+            .info-institucional h2 {
+                font-size: 18px;
+            }
+            
+            .info-institucional p,
+            .info-estudiante p {
+                font-size: 13px;
+            }
+            
+            .logo {
+                width: 70px;
+                height: 70px;
+                font-size: 16px;
+            }
+            
+            .academic-section {
+                padding: 1rem 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0.5rem;
+            }
+            
+            .header h1 {
+                font-size: 1.4rem;
+            }
+            
+            .games-grid {
+                gap: 0.6rem;
+            }
+            
+            .game-card {
+                padding: 0.8rem;
+            }
+            
+            .portada {
+                padding: 10px;
+            }
+            
+            .info-institucional h2 {
+                font-size: 16px;
+            }
+            
+            .info-institucional p,
+            .info-estudiante p {
+                font-size: 12px;
+            }
+            
+            .logo {
+                width: 60px;
+                height: 60px;
+                font-size: 14px;
+            }
+            
+            .academic-section {
+                padding: 0.8rem 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Portada -->
+    <div class="portada-container">
+        <div class="portada">
+            <img src="https://www.carreras.pe/userfiles/images/Logos%20y%20fachadas/Logo%20UTP%202.png" alt="Logo UTP" onerror="this.outerHTML='<div class=\'logo\'>UTP</div>';" style="width: 100px; height: 100px; object-fit: contain; background: transparent; flex-shrink: 0;">
+            
+            <div class="info-institucional">
+                <h2>Universidad Tecnológica del Perú</h2>
+                <p>Facultad de Educación</p>
+                <p>Práctica Educativa I: Psicomotricidad para Educación Primaria</p>
+                <p>Sección 31960</p>
+            </div>
+            
+            <div class="info-estudiante">
+                <p><strong>Aaron Sixto Callupe Llallico</strong></p>
+                <p>Estudiante de Educación Primaria</p>
+                <p>Semana 9 - Actividad 2</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contenido Principal -->
+    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 2rem 0;">
+        <div class="container">
+        <div class="header">
+            <h1>🧠 Practicando lo aprendido</h1>
+        </div>
+        
+        <div class="games-grid">
+            <!-- Juego Funcional -->
+            <div class="game-card functional">
+                <div class="game-header">
+                    <div class="game-icon">🧩</div>
+                    <div class="game-title">
+                        <h3>"Torres en movimiento"</h3>
+                        <span class="game-type">Funcional</span>
+                        <span class="age-badge">6 a 8 años</span>
+                    </div>
+                </div>
+                
+                <div class="game-content">
+                    <div class="section materials">
+                        <h4>📦 Materiales</h4>
+                        <p>Bloques de construcción o vasos plásticos, cronómetro, música.</p>
+                    </div>
+                    
+                    <div class="section">
+                        <h4>🎯 Objetivo psicomotriz</h4>
+                        <ul>
+                            <li>Desarrollar la coordinación visomotriz y la precisión manual</li>
+                            <li>Estimular la concentración y el control corporal</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="section">
+                        <h4>🎮 Dinámica</h4>
+                        <p>Los niños, por turnos, construyen una torre con vasos o bloques mientras suena la música. Cuando la música se detiene, deben detener el movimiento y mantener el equilibrio sin derribar su construcción.</p>
+                    </div>
+                    
+                    <div class="section">
+                        <h4>⚙️ Funciones integradas</h4>
+                        <ul>
+                            <li><strong>Motriz:</strong> coordinación y control del movimiento</li>
+                            <li><strong>Cognitiva:</strong> concentración y planeación para apilar sin derribar</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="section benefits">
+                    <h4>✨ Beneficios</h4>
+                    <p>Favorece el autocontrol, la atención y la organización del movimiento, fundamentales en el desarrollo psicomotor.</p>
+                </div>
+            </div>
+            
+            <!-- Juego Simbólico -->
+            <div class="game-card symbolic">
+                <div class="game-header">
+                    <div class="game-icon">🎭</div>
+                    <div class="game-title">
+                        <h3>"En el hospital de los juguetes"</h3>
+                        <span class="game-type">Simbólico</span>
+                        <span class="age-badge">7 a 9 años</span>
+                    </div>
+                </div>
+                
+                <div class="game-content">
+                    <div class="section materials">
+                        <h4>📦 Materiales</h4>
+                        <p>Muñecos, vendas, estetoscopios de juguete, cajas pequeñas, lápices y hojas.</p>
+                    </div>
+                    
+                    <div class="section">
+                        <h4>🎯 Objetivo psicomotriz</h4>
+                        <ul>
+                            <li>Estimular la imaginación y el pensamiento representacional</li>
+                            <li>Promover la empatía y la expresión de emociones</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="section">
+                        <h4>🎮 Dinámica</h4>
+                        <p>Los niños asumen roles (médico, enfermero, paciente, familiar). Representan una situación donde deben "curar" a un muñeco que se ha caído. Elaboran una pequeña receta y dialogan sobre los cuidados que necesita.</p>
+                    </div>
+                    
+                    <div class="section">
+                        <h4>⚙️ Funciones integradas</h4>
+                        <ul>
+                            <li><strong>Afectiva:</strong> expresión de emociones y empatía</li>
+                            <li><strong>Cognitiva:</strong> planificación del rol y resolución simbólica de un problema</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="section benefits">
+                    <h4>✨ Beneficios</h4>
+                    <p>Desarrolla la creatividad, el lenguaje, la empatía y la comprensión de situaciones sociales reales.</p>
+                </div>
+            </div>
+            
+            <!-- Juego Reglado -->
+            <div class="game-card regulated">
+                <div class="game-header">
+                    <div class="game-icon">⚽</div>
+                    <div class="game-title">
+                        <h3>"Atrapa la bandera"</h3>
+                        <span class="game-type">Reglado</span>
+                        <span class="age-badge">9 a 11 años</span>
+                    </div>
+                </div>
+                
+                <div class="game-content">
+                    <div class="section materials">
+                        <h4>📦 Materiales</h4>
+                        <p>Dos pañuelos o banderas, conos para delimitar el campo.</p>
+                    </div>
+                    
+                    <div class="section">
+                        <h4>🎯 Objetivo psicomotriz</h4>
+                        <ul>
+                            <li>Fomentar la autorregulación y el respeto por las reglas</li>
+                            <li>Mejorar la coordinación motora gruesa y la velocidad de reacción</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="section">
+                        <h4>🎮 Dinámica</h4>
+                        <p>Se forman dos equipos. Cada equipo defiende su bandera y trata de capturar la del rival sin ser tocado. Si alguien es tocado, debe volver a su base antes de continuar. Gana el equipo que capture la bandera contraria primero.</p>
+                    </div>
+                    
+                    <div class="section">
+                        <h4>⚙️ Funciones integradas</h4>
+                        <ul>
+                            <li><strong>Motriz:</strong> desplazamientos, velocidad, coordinación</li>
+                            <li><strong>Socializadora:</strong> trabajo en equipo y respeto por las normas</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="section benefits">
+                    <h4>✨ Beneficios</h4>
+                    <p>Fomenta la cooperación, la toma de decisiones y la convivencia basada en el respeto y la justicia.</p>
+                </div>
+            </div>
+            
+            <!-- Juego Sensorial -->
+            <div class="game-card sensorial">
+                <div class="game-header">
+                    <div class="game-icon">👃</div>
+                    <div class="game-title">
+                        <h3>"Detectives de los sentidos"</h3>
+                        <span class="game-type">Sensorial</span>
+                        <span class="age-badge">6 a 8 años</span>
+                    </div>
+                </div>
+                
+                <div class="game-content">
+                    <div class="section materials">
+                        <h4>📦 Materiales</h4>
+                        <p>Cajas misteriosas con objetos (frutas, esponjas, arena, papel, etc.), vendas para los ojos.</p>
+                    </div>
+                    
+                    <div class="section">
+                        <h4>🎯 Objetivo psicomotriz</h4>
+                        <ul>
+                            <li>Desarrollar la percepción sensorial y la discriminación táctil</li>
+                            <li>Fortalecer la atención y la memoria</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="section">
+                        <h4>🎮 Dinámica</h4>
+                        <p>Los niños, con los ojos vendados, introducen la mano en la caja y describen lo que sienten: textura, forma, temperatura, olor. Luego, intentan adivinar de qué objeto se trata.</p>
+                    </div>
+                    
+                    <div class="section">
+                        <h4>⚙️ Funciones integradas</h4>
+                        <ul>
+                            <li><strong>Cognitiva:</strong> observación, memoria y análisis sensorial</li>
+                            <li><strong>Afectiva:</strong> confianza y disfrute de la experiencia lúdica</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="section benefits">
+                    <h4>✨ Beneficios</h4>
+                    <p>Potencia la exploración del entorno, la curiosidad y el aprendizaje multisensorial, esenciales en las etapas iniciales del desarrollo.</p>
+                </div>
+            </div>
+            
+            <!-- Juego Cooperativo -->
+            <div class="game-card cooperative">
+                <div class="game-header">
+                    <div class="game-icon">🤝</div>
+                    <div class="game-title">
+                        <h3>"Puentes humanos"</h3>
+                        <span class="game-type">Cooperativo</span>
+                        <span class="age-badge">9 a 11 años</span>
+                    </div>
+                </div>
+                
+                <div class="game-content">
+                    <div class="section materials">
+                        <h4>📦 Materiales</h4>
+                        <p>Aros, cuerdas, cintas adhesivas para marcar líneas en el suelo.</p>
+                    </div>
+                    
+                    <div class="section">
+                        <h4>🎯 Objetivo psicomotriz</h4>
+                        <ul>
+                            <li>Desarrollar la coordinación colectiva y el sentido de equipo</li>
+                            <li>Fomentar la comunicación y la toma de decisiones conjunta</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="section">
+                        <h4>🎮 Dinámica</h4>
+                        <p>Los estudiantes forman equipos y deben trasladar objetos de un punto a otro construyendo "puentes humanos" (uniendo manos, brazos o pies) sin soltar a sus compañeros. Si se cae un objeto, el grupo debe reorganizarse y continuar.</p>
+                    </div>
+                    
+                    <div class="section">
+                        <h4>⚙️ Funciones integradas</h4>
+                        <ul>
+                            <li><strong>Socializadora:</strong> cooperación, liderazgo y comunicación</li>
+                            <li><strong>Motriz:</strong> equilibrio, coordinación y control postural</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="section benefits">
+                    <h4>✨ Beneficios</h4>
+                    <p>Promueve la empatía, el compañerismo y el trabajo conjunto para alcanzar metas comunes, valores fundamentales en la educación primaria.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Reflexión Final -->
+        <div style="background: white; border-radius: 15px; padding: 1.5rem; margin-top: 2rem; box-shadow: 0 5px 15px rgba(0,0,0,0.15); border-top: 4px solid #e74c3c;">
+            <div style="text-align: center; margin-bottom: 1rem;">
+                <h2 style="color: #2c3e50; font-size: 1.5rem; margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                    ✨ Reflexión final
+                </h2>
+            </div>
+            
+            <div style="background: linear-gradient(135deg, #e74c3c, #c0392b); color: white; padding: 1.5rem; border-radius: 12px; line-height: 1.6; font-size: 0.95rem; text-align: justify;">
+                <p style="margin: 0;">
+                    A través de estas actividades, comprendemos que cada tipo de juego tiene un valor formativo único. Todos estimulan diferentes dimensiones del desarrollo infantil —corporal, cognitiva, emocional y social—. Como futuros docentes, aplicar estrategias lúdicas psicomotrices nos permitirá crear entornos de aprendizaje significativos donde el movimiento, la cooperación y la imaginación sean protagonistas del desarrollo integral de nuestros estudiantes.
+                </p>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- Trabajo Académico Completo -->
+    <div class="academic-section">
+        <div class="academic-container">
+            
+            <!-- Título del Trabajo -->
+            <div style="text-align: center; margin-bottom: 2rem; border-bottom: 2px solid #667eea; padding-bottom: 1rem;">
+                <h1 style="color: #2c3e50; font-size: 1.8rem; margin-bottom: 0.5rem;">Tipos y Funciones del Juego desde una Perspectiva Psicomotriz</h1>
+                <p style="color: #666; font-size: 1rem; font-style: italic;">Diseño de Actividades Psicomotrices para Educación Primaria</p>
+            </div>
+
+            <!-- Introducción -->
+            <div style="margin-bottom: 2rem;">
+                <h2 style="color: #667eea; border-left: 4px solid #667eea; padding-left: 0.8rem; margin-bottom: 1rem; font-size: 1.3rem;">📚 Introducción</h2>
+                <div style="background: #f8f9fa; padding: 1.2rem; border-radius: 8px; line-height: 1.6; text-align: justify; font-size: 0.9rem;">
+                    <p style="margin-bottom: 1.5rem;">El juego constituye una actividad fundamental en el desarrollo integral del niño, especialmente desde la perspectiva psicomotriz. Según Piaget, el juego evoluciona a través de diferentes etapas que corresponden al desarrollo cognitivo del niño, mientras que desde el enfoque psicomotor, cada tipo de juego contribuye de manera específica al desarrollo de las funciones motriz, cognitiva, afectiva y socializadora.</p>
+                    
+                    <p style="margin-bottom: 1.5rem;">La psicomotricidad, entendida como la relación entre el movimiento y las funciones mentales, encuentra en el juego su principal herramienta de desarrollo. A través de las actividades lúdicas, los niños no solo desarrollan sus habilidades motoras, sino que también construyen su identidad, aprenden a relacionarse con otros y desarrollan capacidades cognitivas superiores.</p>
+                    
+                    <p style="margin: 0;">Este trabajo presenta cinco actividades psicomotrices diseñadas específicamente para estudiantes de educación primaria, cada una representando un tipo diferente de juego: funcional, simbólico, reglado, sensorial y cooperativo. Cada actividad ha sido estructurada para integrar las cuatro funciones fundamentales del desarrollo psicomotor.</p>
+                </div>
+            </div>
+
+            <!-- Desarrollo de Actividades -->
+            <div style="margin-bottom: 2rem;">
+                <h2 style="color: #667eea; border-left: 4px solid #667eea; padding-left: 0.8rem; margin-bottom: 1rem; font-size: 1.3rem;">🎯 Desarrollo de Actividades</h2>
+                
+                <!-- Actividad 1 -->
+                <div style="background: white; border: 1px solid #ff6b6b; border-radius: 12px; padding: 1.2rem; margin-bottom: 1.5rem; box-shadow: 0 3px 10px rgba(0,0,0,0.08);">
+                    <h3 style="color: #ff6b6b; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem; font-size: 1.1rem;">
+                        🧩 Actividad 1: "Torres en movimiento" (Juego Funcional)
+                    </h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1rem;">
+                        <div>
+                            <h4 style="color: #333; margin-bottom: 0.3rem; font-size: 0.9rem;">📋 Descripción:</h4>
+                            <p style="line-height: 1.5; margin-bottom: 0.8rem; font-size: 0.85rem;">Los niños construyen torres con bloques o vasos mientras suena música. Al detenerse la música, deben mantener el equilibrio sin derribar su construcción.</p>
+                            
+                            <h4 style="color: #333; margin-bottom: 0.3rem; font-size: 0.9rem;">🎯 Edad recomendada:</h4>
+                            <p style="line-height: 1.5; margin-bottom: 0.8rem; font-size: 0.85rem;">6 a 8 años</p>
+                            
+                            <h4 style="color: #333; margin-bottom: 0.3rem; font-size: 0.9rem;">📦 Materiales:</h4>
+                            <p style="line-height: 1.5; font-size: 0.85rem;">Bloques de construcción o vasos plásticos, cronómetro, música.</p>
+                        </div>
+                        <div>
+                            <h4 style="color: #333; margin-bottom: 0.3rem; font-size: 0.9rem;">⚙️ Funciones desarrolladas:</h4>
+                            <ul style="line-height: 1.5; padding-left: 1rem; font-size: 0.85rem;">
+                                <li><strong>Motriz:</strong> Coordinación visomotriz, precisión manual, control corporal</li>
+                                <li><strong>Cognitiva:</strong> Concentración, planificación espacial, atención sostenida</li>
+                                <li><strong>Afectiva:</strong> Autocontrol, tolerancia a la frustración</li>
+                                <li><strong>Socializadora:</strong> Respeto por turnos, observación de pares</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div style="background: #fff5f5; padding: 0.8rem; border-radius: 6px; border-left: 3px solid #ff6b6b; font-size: 0.85rem;">
+                        <strong>Justificación psicomotriz:</strong> Este juego funcional permite el desarrollo de la coordinación óculo-manual y el control postural, fundamentales en esta etapa. La combinación de movimiento y pausa desarrolla la autorregulación motora.
+                    </div>
+                </div>
+
+                <!-- Actividad 2 -->
+                <div style="background: white; border: 2px solid #4ecdc4; border-radius: 15px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                    <h3 style="color: #4ecdc4; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                        🎭 Actividad 2: "En el hospital de los juguetes" (Juego Simbólico)
+                    </h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 1.5rem;">
+                        <div>
+                            <h4 style="color: #333; margin-bottom: 0.5rem;">📋 Descripción:</h4>
+                            <p style="line-height: 1.6; margin-bottom: 1rem;">Los niños asumen roles de personal médico para "curar" muñecos heridos, elaborando recetas y dialogando sobre cuidados necesarios.</p>
+                            
+                            <h4 style="color: #333; margin-bottom: 0.5rem;">🎯 Edad recomendada:</h4>
+                            <p style="line-height: 1.6; margin-bottom: 1rem;">7 a 9 años</p>
+                            
+                            <h4 style="color: #333; margin-bottom: 0.5rem;">📦 Materiales:</h4>
+                            <p style="line-height: 1.6;">Muñecos, vendas, estetoscopios de juguete, cajas pequeñas, lápices y hojas.</p>
+                        </div>
+                        <div>
+                            <h4 style="color: #333; margin-bottom: 0.5rem;">⚙️ Funciones desarrolladas:</h4>
+                            <ul style="line-height: 1.6; padding-left: 1.2rem;">
+                                <li><strong>Motriz:</strong> Motricidad fina al manipular objetos pequeños</li>
+                                <li><strong>Cognitiva:</strong> Pensamiento representacional, planificación de roles</li>
+                                <li><strong>Afectiva:</strong> Empatía, expresión emocional, cuidado del otro</li>
+                                <li><strong>Socializadora:</strong> Comunicación, negociación de roles, cooperación</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div style="background: #f0fffe; padding: 1rem; border-radius: 8px; border-left: 4px solid #4ecdc4;">
+                        <strong>Justificación psicomotriz:</strong> El juego simbólico permite la integración de experiencias vividas y el desarrollo del pensamiento abstracto. La representación de roles médicos fomenta la empatía y el cuidado corporal.
+                    </div>
+                </div>
+
+                <!-- Actividad 3 -->
+                <div style="background: white; border: 2px solid #45b7d1; border-radius: 15px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                    <h3 style="color: #45b7d1; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                        ⚽ Actividad 3: "Atrapa la bandera" (Juego Reglado)
+                    </h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 1.5rem;">
+                        <div>
+                            <h4 style="color: #333; margin-bottom: 0.5rem;">📋 Descripción:</h4>
+                            <p style="line-height: 1.6; margin-bottom: 1rem;">Dos equipos compiten por capturar la bandera rival sin ser tocados. Quien es tocado debe regresar a su base antes de continuar.</p>
+                            
+                            <h4 style="color: #333; margin-bottom: 0.5rem;">🎯 Edad recomendada:</h4>
+                            <p style="line-height: 1.6; margin-bottom: 1rem;">9 a 11 años</p>
+                            
+                            <h4 style="color: #333; margin-bottom: 0.5rem;">📦 Materiales:</h4>
+                            <p style="line-height: 1.6;">Dos pañuelos o banderas, conos para delimitar el campo.</p>
+                        </div>
+                        <div>
+                            <h4 style="color: #333; margin-bottom: 0.5rem;">⚙️ Funciones desarrolladas:</h4>
+                            <ul style="line-height: 1.6; padding-left: 1.2rem;">
+                                <li><strong>Motriz:</strong> Coordinación motora gruesa, velocidad, agilidad</li>
+                                <li><strong>Cognitiva:</strong> Estrategia, toma de decisiones, orientación espacial</li>
+                                <li><strong>Afectiva:</strong> Autorregulación, manejo de la competencia</li>
+                                <li><strong>Socializadora:</strong> Trabajo en equipo, respeto por reglas, fair play</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div style="background: #f0f9ff; padding: 1rem; border-radius: 8px; border-left: 4px solid #45b7d1;">
+                        <strong>Justificación psicomotriz:</strong> Los juegos reglados desarrollan la autorregulación y el pensamiento estratégico. La actividad física intensa mejora la coordinación motora gruesa y la resistencia cardiovascular.
+                    </div>
+                </div>
+
+                <!-- Actividad 4 -->
+                <div style="background: white; border: 2px solid #96ceb4; border-radius: 15px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                    <h3 style="color: #96ceb4; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                        👃 Actividad 4: "Detectives de los sentidos" (Juego Sensorial)
+                    </h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 1.5rem;">
+                        <div>
+                            <h4 style="color: #333; margin-bottom: 0.5rem;">📋 Descripción:</h4>
+                            <p style="line-height: 1.6; margin-bottom: 1rem;">Con los ojos vendados, los niños exploran objetos en cajas misteriosas, describiendo texturas, formas y olores para adivinar qué son.</p>
+                            
+                            <h4 style="color: #333; margin-bottom: 0.5rem;">🎯 Edad recomendada:</h4>
+                            <p style="line-height: 1.6; margin-bottom: 1rem;">6 a 8 años</p>
+                            
+                            <h4 style="color: #333; margin-bottom: 0.5rem;">📦 Materiales:</h4>
+                            <p style="line-height: 1.6;">Cajas misteriosas con objetos variados, vendas para los ojos.</p>
+                        </div>
+                        <div>
+                            <h4 style="color: #333; margin-bottom: 0.5rem;">⚙️ Funciones desarrolladas:</h4>
+                            <ul style="line-height: 1.6; padding-left: 1.2rem;">
+                                <li><strong>Motriz:</strong> Motricidad fina, exploración táctil controlada</li>
+                                <li><strong>Cognitiva:</strong> Discriminación sensorial, memoria, análisis</li>
+                                <li><strong>Afectiva:</strong> Confianza, superación de miedos, disfrute</li>
+                                <li><strong>Socializadora:</strong> Comunicación de experiencias, escucha activa</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div style="background: #f8fffe; padding: 1rem; border-radius: 8px; border-left: 4px solid #96ceb4;">
+                        <strong>Justificación psicomotriz:</strong> La exploración sensorial es fundamental para el desarrollo perceptivo. Al eliminar la vista, se potencian otros sentidos y se desarrolla la confianza en las propias capacidades corporales.
+                    </div>
+                </div>
+
+                <!-- Actividad 5 -->
+                <div style="background: white; border: 2px solid #f39c12; border-radius: 15px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                    <h3 style="color: #f39c12; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                        🤝 Actividad 5: "Puentes humanos" (Juego Cooperativo)
+                    </h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 1.5rem;">
+                        <div>
+                            <h4 style="color: #333; margin-bottom: 0.5rem;">📋 Descripción:</h4>
+                            <p style="line-height: 1.6; margin-bottom: 1rem;">Los equipos deben trasladar objetos construyendo "puentes humanos" sin soltarse. Si cae un objeto, deben reorganizarse y continuar.</p>
+                            
+                            <h4 style="color: #333; margin-bottom: 0.5rem;">🎯 Edad recomendada:</h4>
+                            <p style="line-height: 1.6; margin-bottom: 1rem;">9 a 11 años</p>
+                            
+                            <h4 style="color: #333; margin-bottom: 0.5rem;">📦 Materiales:</h4>
+                            <p style="line-height: 1.6;">Aros, cuerdas, cintas adhesivas para marcar líneas en el suelo.</p>
+                        </div>
+                        <div>
+                            <h4 style="color: #333; margin-bottom: 0.5rem;">⚙️ Funciones desarrolladas:</h4>
+                            <ul style="line-height: 1.6; padding-left: 1.2rem;">
+                                <li><strong>Motriz:</strong> Equilibrio, coordinación colectiva, control postural</li>
+                                <li><strong>Cognitiva:</strong> Resolución de problemas, planificación grupal</li>
+                                <li><strong>Afectiva:</strong> Confianza mutua, paciencia, perseverancia</li>
+                                <li><strong>Socializadora:</strong> Comunicación efectiva, liderazgo compartido, cooperación</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div style="background: #fef9e7; padding: 1rem; border-radius: 8px; border-left: 4px solid #f39c12;">
+                        <strong>Justificación psicomotriz:</strong> Los juegos cooperativos desarrollan la conciencia corporal colectiva y la coordinación interpersonal. Fomentan valores de solidaridad y trabajo conjunto esenciales para el desarrollo social.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Análisis Comparativo -->
+            <div style="margin-bottom: 3rem;">
+                <h2 style="color: #667eea; border-left: 5px solid #667eea; padding-left: 1rem; margin-bottom: 1.5rem;">📊 Análisis Comparativo de los Tipos de Juego</h2>
+                
+                <div style="background: #f8f9fa; padding: 2rem; border-radius: 10px;">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+                        
+                        <div style="background: white; padding: 1.5rem; border-radius: 10px; border-top: 4px solid #ff6b6b;">
+                            <h4 style="color: #ff6b6b; margin-bottom: 1rem;">🧩 Juego Funcional</h4>
+                            <p style="line-height: 1.6; font-size: 0.9rem;"><strong>Características:</strong> Centrado en el movimiento y la exploración sensoriomotriz. Desarrolla habilidades básicas de coordinación.</p>
+                            <p style="line-height: 1.6; font-size: 0.9rem;"><strong>Edad óptima:</strong> 6-8 años (etapa preoperacional tardía)</p>
+                        </div>
+                        
+                        <div style="background: white; padding: 1.5rem; border-radius: 10px; border-top: 4px solid #4ecdc4;">
+                            <h4 style="color: #4ecdc4; margin-bottom: 1rem;">🎭 Juego Simbólico</h4>
+                            <p style="line-height: 1.6; font-size: 0.9rem;"><strong>Características:</strong> Implica representación y uso de símbolos. Fundamental para el desarrollo del pensamiento abstracto.</p>
+                            <p style="line-height: 1.6; font-size: 0.9rem;"><strong>Edad óptima:</strong> 7-9 años (transición preoperacional-operacional)</p>
+                        </div>
+                        
+                        <div style="background: white; padding: 1.5rem; border-radius: 10px; border-top: 4px solid #45b7d1;">
+                            <h4 style="color: #45b7d1; margin-bottom: 1rem;">⚽ Juego Reglado</h4>
+                            <p style="line-height: 1.6; font-size: 0.9rem;"><strong>Características:</strong> Requiere comprensión y seguimiento de reglas. Desarrolla el pensamiento lógico y la autorregulación.</p>
+                            <p style="line-height: 1.6; font-size: 0.9rem;"><strong>Edad óptima:</strong> 9-11 años (etapa operacional concreta)</p>
+                        </div>
+                        
+                        <div style="background: white; padding: 1.5rem; border-radius: 10px; border-top: 4px solid #96ceb4;">
+                            <h4 style="color: #96ceb4; margin-bottom: 1rem;">👃 Juego Sensorial</h4>
+                            <p style="line-height: 1.6; font-size: 0.9rem;"><strong>Características:</strong> Enfocado en la exploración perceptiva. Base fundamental para todos los demás aprendizajes.</p>
+                            <p style="line-height: 1.6; font-size: 0.9rem;"><strong>Edad óptima:</strong> 6-8 años (desarrollo perceptivo crítico)</p>
+                        </div>
+                        
+                        <div style="background: white; padding: 1.5rem; border-radius: 10px; border-top: 4px solid #f39c12;">
+                            <h4 style="color: #f39c12; margin-bottom: 1rem;">🤝 Juego Cooperativo</h4>
+                            <p style="line-height: 1.6; font-size: 0.9rem;"><strong>Características:</strong> Enfatiza la colaboración sobre la competencia. Desarrolla habilidades sociales y empatía.</p>
+                            <p style="line-height: 1.6; font-size: 0.9rem;"><strong>Edad óptima:</strong> 9-11 años (desarrollo social avanzado)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Conclusiones -->
+            <div style="margin-bottom: 3rem;">
+                <h2 style="color: #667eea; border-left: 5px solid #667eea; padding-left: 1rem; margin-bottom: 1.5rem;">💡 Conclusiones</h2>
+                
+                <div style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 2rem; border-radius: 15px; line-height: 1.8;">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                        <div>
+                            <h4 style="color: white; margin-bottom: 1rem;">🎯 Integración de Funciones</h4>
+                            <p style="margin-bottom: 1rem;">Cada tipo de juego contribuye de manera específica al desarrollo psicomotor, pero todos integran las cuatro funciones fundamentales: motriz, cognitiva, afectiva y socializadora.</p>
+                        </div>
+                        
+                        <div>
+                            <h4 style="color: white; margin-bottom: 1rem;">📈 Progresión Evolutiva</h4>
+                            <p style="margin-bottom: 1rem;">Los juegos deben adaptarse al nivel de desarrollo cognitivo y motor del niño, siguiendo una progresión que respete sus capacidades y necesidades evolutivas.</p>
+                        </div>
+                        
+                        <div>
+                            <h4 style="color: white; margin-bottom: 1rem;">🏫 Aplicación Pedagógica</h4>
+                            <p style="margin-bottom: 1rem;">La implementación de estos juegos en el aula requiere una planificación cuidadosa que considere objetivos específicos, materiales apropiados y evaluación continua.</p>
+                        </div>
+                        
+                        <div>
+                            <h4 style="color: white; margin-bottom: 1rem;">🌟 Impacto Integral</h4>
+                            <p style="margin: 0;">El juego psicomotriz no solo desarrolla habilidades físicas, sino que constituye la base para el aprendizaje académico, social y emocional posterior.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reflexión Final Académica -->
+            <div style="background: white; border: 3px solid #e74c3c; border-radius: 20px; padding: 2.5rem; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                <h2 style="color: #e74c3c; text-align: center; margin-bottom: 2rem; font-size: 2rem;">✨ Reflexión Final</h2>
+                
+                <div style="background: linear-gradient(135deg, #e74c3c, #c0392b); color: white; padding: 2rem; border-radius: 15px; line-height: 1.8; font-size: 1.1rem; text-align: justify;">
+                    <p style="margin-bottom: 1.5rem;">A través del diseño y análisis de estas cinco actividades psicomotrices, he comprendido la importancia fundamental del juego como herramienta pedagógica integral. Cada tipo de juego —funcional, simbólico, reglado, sensorial y cooperativo— aporta elementos únicos al desarrollo infantil, pero todos comparten la capacidad de integrar las dimensiones motriz, cognitiva, afectiva y socializadora del desarrollo humano.</p>
+                    
+                    <p style="margin-bottom: 1.5rem;">Como futuro docente de educación primaria, reconozco que la implementación de estrategias lúdicas psicomotrices no es solo una metodología atractiva, sino una necesidad pedagógica que responde a la naturaleza integral del aprendizaje infantil. El movimiento, la exploración, la imaginación y la cooperación no son elementos adicionales al proceso educativo, sino componentes esenciales que facilitan la construcción de conocimientos significativos.</p>
+                    
+                    <p style="margin: 0;">Esta experiencia de diseño me ha permitido valorar la complejidad del acto educativo y la responsabilidad que implica crear entornos de aprendizaje que respeten y potencien las capacidades naturales de los niños. El juego psicomotriz se presenta así como un puente entre el mundo natural del niño y los objetivos formativos de la educación formal, creando espacios donde el aprendizaje surge de manera espontánea y placentera.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98af412106456df8',t:'MTc1OTg1OTU2OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
