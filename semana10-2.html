@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulación Virtual - Juegos Cooperativos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            box-sizing: border-box;
+        }
+
+        .portada {
+            background: white;
+            border: 2px solid black;
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 1240px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin: 20px auto;
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+            background: #1e40af;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        .info-institucional {
+            flex: 1;
+        }
+
+        .info-institucional h2 {
+            margin: 0 0 10px 0;
+            color: #333;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .info-institucional p {
+            margin: 5px 0;
+            color: #666;
+            font-size: 16px;
+            line-height: 1.4;
+        }
+
+        .info-estudiante {
+            text-align: right;
+            flex-shrink: 0;
+        }
+
+        .info-estudiante p {
+            margin: 5px 0;
+            color: #333;
+            font-size: 16px;
+            line-height: 1.4;
+        }
+
+        .info-estudiante p strong {
+            color: black;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 5px rgba(59, 130, 246, 0.5); }
+            50% { box-shadow: 0 0 20px rgba(59, 130, 246, 1), 0 0 30px rgba(59, 130, 246, 0.8); }
+        }
+        
+        @keyframes sparkle {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+            50% { transform: scale(1.2) rotate(180deg); opacity: 0.8; }
+        }
+        
+        .float { animation: float 3s ease-in-out infinite; }
+        .pulse { animation: pulse 2s ease-in-out infinite; }
+        .slide-in { animation: slideIn 0.8s ease-out; }
+        .bounce { animation: bounce 2s infinite; }
+        
+        .block {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .block:hover {
+            transform: scale(1.1);
+        }
+        
+        .avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            transition: all 0.3s ease;
+        }
+        
+        .path-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            transition: all 0.5s ease;
+        }
+        
+        .active-dot {
+            transform: scale(1.5);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.8);
+        }
+
+        @media (max-width: 768px) {
+            .portada {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+                gap: 20px;
+            }
+            
+            .info-estudiante {
+                text-align: center;
+            }
+            
+            .info-institucional h2 {
+                font-size: 20px;
+            }
+            
+            .info-institucional p,
+            .info-estudiante p {
+                font-size: 14px;
+            }
+            
+            .logo {
+                width: 80px;
+                height: 80px;
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .portada {
+                padding: 15px;
+            }
+            
+            .info-institucional h2 {
+                font-size: 18px;
+            }
+            
+            .info-institucional p,
+            .info-estudiante p {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-full bg-gradient-to-br from-blue-50 to-purple-50 font-sans">
+    <!-- Portada Universitaria -->
+    <section class="py-2 px-4 sm:px-6">
+        <div class="portada">
+            <img src="https://www.carreras.pe/userfiles/images/Logos%20y%20fachadas/Logo%20UTP%202.png" alt="Logo UTP" onerror="this.outerHTML='<div class=\'logo\'>UTP</div>';" style="width: 100px; height: 100px; object-fit: contain; background: transparent; flex-shrink: 0;">
+            
+            <div class="info-institucional">
+                <h2>Universidad Tecnológica del Perú</h2>
+                <p>Facultad de Educación</p>
+                <p>Práctica Educativa I: Psicomotricidad para Educación Primaria</p>
+                <p>Sección 31960</p>
+            </div>
+            
+            <div class="info-estudiante">
+                <p><strong>Aaron Sixto Callupe Llallico - Estefany Inga Moreno</strong></p>
+                <p>Estudiantes de Educación Primaria</p>
+                <p>Semana 10 - Actividad 2</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Header -->
+    
+
+    <!-- Inicio -->
+    <section class="py-0 px-6">
+        <div class="container mx-auto max-w-4xl text-center">
+            <div class="bg-white rounded-2xl shadow-lg p-8 mb-8 slide-in">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">🏠 Inicio</h2>
+                <p class="text-lg text-gray-600 leading-relaxed">
+                    Los juegos cooperativos son una forma divertida y educativa de fortalecer la motricidad, el trabajo en equipo y la empatía. A continuación, conocerás tres simulaciones interactivas que representan actividades psicomotrices adaptadas al entorno digital.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Estación 1: Torre -->
+    <section class="py-0 px-6 bg-gradient-to-r from-green-50 to-blue-50">
+        <div class="container mx-auto max-w-4xl">
+            <div class="bg-white rounded-2xl shadow-lg p-8">
+                <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">🧱 Estación 1: Construye la torre juntos</h2>
+                
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <p class="text-gray-600 mb-4"><strong>Descripción:</strong> Dos o más jugadores deben apilar bloques de colores para formar una torre estable.</p>
+                        <p class="text-gray-600 mb-4"><strong>Objetivo motriz:</strong> Coordinación ojo-mano, equilibrio y precisión.</p>
+                        <p class="text-gray-600 mb-6"><strong>Habilidad social:</strong> Comunicación no verbal y trabajo conjunto.</p>
+                        
+                        <button id="startTower" class="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors pulse">
+                            🎮 Iniciar Simulación
+                        </button>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div id="towerGame" class="bg-gradient-to-b from-sky-200 to-green-200 rounded-lg p-6 min-h-80 flex flex-col justify-end items-center relative overflow-hidden">
+
+                            
+                            <div id="tower" class="flex flex-col-reverse items-center gap-1 relative z-10">
+                                <!-- Los bloques aparecerán aquí -->
+                            </div>
+                            
+                            <div class="flex gap-6 mt-4 relative z-10">
+                                <div id="builder1" class="avatar bg-blue-500 text-white shadow-lg">👨‍🎓</div>
+                                <div id="builder2" class="avatar bg-purple-500 text-white shadow-lg">👩‍🎓</div>
+                            </div>
+                            
+                            <div class="absolute bottom-0 left-0 right-0 h-4 bg-brown-400 bg-gradient-to-r from-amber-700 to-amber-600"></div>
+                        </div>
+                        <div id="towerBlocks" class="flex justify-center mt-4">
+                            <div class="block w-24 h-12 bg-gradient-to-r from-gray-400 to-gray-600 rounded-lg cursor-pointer shadow-lg border-2 border-gray-300 flex items-center justify-center text-white font-bold text-lg">Colocar</div>
+                        </div>
+                        <div id="towerMessage" class="mt-4 text-center font-semibold text-gray-700"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Estación 2: Laberinto -->
+    <section class="py-2 px-6">
+        <div class="container mx-auto max-w-4xl">
+            <div class="bg-white rounded-2xl shadow-lg p-8">
+                <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">🏃‍♂️ Estación 2: Patio con obstáculos</h2>
+                
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <p class="text-gray-600 mb-4"><strong>Descripción:</strong> Un estudiante con los ojos vendados debe atravesar un patio con obstáculos, guiado por las indicaciones de su compañero.</p>
+                        <p class="text-gray-600 mb-4"><strong>Objetivo motriz:</strong> Orientación espacial, equilibrio y confianza corporal.</p>
+                        <p class="text-gray-600 mb-6"><strong>Habilidad social:</strong> Comunicación clara, confianza mutua y trabajo en equipo.</p>
+                        
+                        <button id="startMaze" class="bg-purple-500 hover:bg-purple-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors pulse">
+                            🎮 Iniciar Simulación
+                        </button>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div id="mazeGame" class="bg-gradient-to-br from-emerald-100 via-sky-100 to-indigo-100 rounded-xl p-8 min-h-80 relative overflow-hidden border-4 border-gradient-to-r from-emerald-400 to-sky-500 shadow-2xl">
+                            <!-- Título del patio más elegante -->
+                            <div class="absolute top-3 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-emerald-500 to-sky-500 rounded-full px-6 py-2 shadow-xl border-2 border-white">
+                                <span class="text-sm font-bold text-white drop-shadow-lg">🏫 PATIO ESCOLAR</span>
+                            </div>
+                            
+                            <!-- Césped decorativo -->
+                            <div class="absolute bottom-0 left-0 right-0 h-6 bg-gradient-to-t from-green-300 to-green-200 opacity-40 rounded-b-xl"></div>
+                            <div class="absolute bottom-2 left-4 w-3 h-3 bg-green-400 rounded-full opacity-60"></div>
+                            <div class="absolute bottom-1 right-8 w-2 h-2 bg-green-500 rounded-full opacity-50"></div>
+                            <div class="absolute bottom-3 left-1/3 w-2 h-2 bg-green-400 rounded-full opacity-40"></div>
+                            
+                            <!-- Obstáculos del patio más hermosos -->
+                            <div class="absolute top-20 left-20 w-14 h-14 bg-gradient-to-br from-orange-300 to-orange-500 rounded-full flex items-center justify-center shadow-xl border-4 border-orange-200 text-3xl transform hover:scale-110 transition-transform">🏀</div>
+                            <div class="absolute top-28 right-16 w-18 h-12 bg-gradient-to-br from-amber-500 to-amber-700 rounded-xl flex items-center justify-center shadow-xl border-4 border-amber-300 text-2xl transform hover:scale-105 transition-transform">📦</div>
+                            <div class="absolute top-36 left-1/2 transform -translate-x-1/2 w-16 h-16 bg-gradient-to-br from-red-400 to-red-600 rounded-xl flex items-center justify-center shadow-xl border-4 border-red-300 text-3xl transform hover:scale-110 transition-transform">🚧</div>
+                            <div class="absolute top-48 right-12 w-14 h-14 bg-gradient-to-br from-gray-400 to-gray-600 rounded-xl flex items-center justify-center shadow-xl border-4 border-gray-300 text-2xl transform hover:scale-105 transition-transform">🪨</div>
+                            
+                            <!-- Punto de inicio más elegante -->
+                            <div class="absolute top-16 left-6 w-10 h-10 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full border-4 border-blue-200 flex items-center justify-center shadow-xl text-xl font-bold transform hover:scale-110 transition-transform" data-step="start">🏁</div>
+                            
+                            <!-- Camino seguro más hermoso con efectos -->
+                            <div class="absolute top-24 left-12 w-8 h-8 bg-gradient-to-br from-emerald-300 to-emerald-500 rounded-full border-4 border-emerald-200 shadow-lg transform hover:scale-125 transition-transform" data-step="0"></div>
+                            <div class="absolute top-32 left-20 w-8 h-8 bg-gradient-to-br from-emerald-300 to-emerald-500 rounded-full border-4 border-emerald-200 shadow-lg transform hover:scale-125 transition-transform" data-step="1"></div>
+                            <div class="absolute top-40 left-28 w-8 h-8 bg-gradient-to-br from-emerald-300 to-emerald-500 rounded-full border-4 border-emerald-200 shadow-lg transform hover:scale-125 transition-transform" data-step="2"></div>
+                            <div class="absolute top-48 right-24 w-8 h-8 bg-gradient-to-br from-emerald-300 to-emerald-500 rounded-full border-4 border-emerald-200 shadow-lg transform hover:scale-125 transition-transform" data-step="3"></div>
+                            <div class="absolute top-56 right-20 w-8 h-8 bg-gradient-to-br from-emerald-300 to-emerald-500 rounded-full border-4 border-emerald-200 shadow-lg transform hover:scale-125 transition-transform" data-step="4"></div>
+                            <div class="absolute top-56 right-16 w-12 h-12 bg-gradient-to-br from-yellow-300 to-yellow-500 rounded-full border-4 border-yellow-200 flex items-center justify-center shadow-xl text-2xl font-bold transform hover:scale-110 transition-transform" data-step="finish">🎯</div>
+                            
+                            <!-- Estudiantes más hermosos con efectos -->
+                            <div id="blindPlayer" class="absolute top-20 left-6 w-18 h-18 bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 rounded-full flex items-center justify-center shadow-2xl border-4 border-blue-200 text-3xl transform hover:scale-105 transition-all duration-300">👦</div>
+                            <div id="guidePlayer" class="absolute bottom-8 left-6 w-18 h-18 bg-gradient-to-br from-purple-400 via-purple-500 to-purple-600 rounded-full flex items-center justify-center shadow-2xl border-4 border-purple-200 text-3xl transform hover:scale-105 transition-all duration-300">👧</div>
+                            
+                            <!-- Decoraciones adicionales -->
+                            <div class="absolute top-8 right-8 w-4 h-4 bg-yellow-300 rounded-full opacity-60 animate-pulse"></div>
+                            <div class="absolute top-12 right-12 w-3 h-3 bg-pink-300 rounded-full opacity-50 animate-pulse" style="animation-delay: 0.5s;"></div>
+                            <div class="absolute top-6 right-16 w-2 h-2 bg-blue-300 rounded-full opacity-40 animate-pulse" style="animation-delay: 1s;"></div>
+                            
+
+                        </div>
+                        <div id="mazeMessage" class="mt-4 text-center font-semibold text-gray-700"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Estación 3: Agua y Cemento Intelectual -->
+    <section class="py-2 px-6 bg-gradient-to-r from-orange-50 to-red-50">
+        <div class="container mx-auto max-w-4xl">
+            <div class="bg-white rounded-2xl shadow-lg p-8">
+                <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">🧠 Estación 3: Agua y Cemento Intelectual</h2>
+                
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <p class="text-gray-600 mb-4"><strong>Descripción:</strong> Un estudiante debe atrapar a otro y hacerle una pregunta. Si responde correctamente se salva, si no, queda "encementado".</p>
+                        <p class="text-gray-600 mb-4"><strong>Objetivo motriz:</strong> Velocidad, agilidad y reacción rápida.</p>
+                        <p class="text-gray-600 mb-6"><strong>Habilidad social:</strong> Conocimiento académico, presión de tiempo y toma de decisiones.</p>
+                        
+                        <button id="startRelay" class="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors pulse">
+                            🎮 Iniciar Simulación
+                        </button>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div id="relayGame" class="bg-gradient-to-b from-green-200 to-blue-200 rounded-lg p-6 min-h-80 relative overflow-hidden border-4 border-green-600">
+                            <!-- Ambiente de patio escolar -->
+                            
+                            <!-- Área de juego -->
+                            <div class="absolute inset-4 border-2 border-dashed border-white rounded-lg bg-gradient-to-br from-green-100 to-blue-100 opacity-30"></div>
+                            
+                            <!-- Estudiante que va a encementar -->
+                            <div id="chaser" class="absolute w-12 h-12 bg-red-500 text-white shadow-xl border-2 border-red-700 rounded-full flex items-center justify-center text-xs font-bold" style="left: 50%; top: 50%; transform: translate(-50%, -50%);">
+                                Carlos
+                            </div>
+                            
+                            <!-- Estudiantes móviles -->
+                            <div id="student1" class="absolute w-10 h-10 bg-blue-500 text-white shadow-lg border-2 border-blue-700 rounded-full flex items-center justify-center text-xs font-bold" style="left: 20%; top: 30%;">
+                                Ana
+                            </div>
+                            
+                            <div id="student2" class="absolute w-10 h-10 bg-blue-500 text-white shadow-lg border-2 border-blue-700 rounded-full flex items-center justify-center text-xs font-bold" style="left: 70%; top: 25%;">
+                                Luis
+                            </div>
+                            
+                            <div id="student3" class="absolute w-10 h-10 bg-blue-500 text-white shadow-lg border-2 border-blue-700 rounded-full flex items-center justify-center text-xs font-bold" style="left: 80%; top: 70%;">
+                                María
+                            </div>
+                            
+                            <div id="student4" class="absolute w-10 h-10 bg-blue-500 text-white shadow-lg border-2 border-blue-700 rounded-full flex items-center justify-center text-xs font-bold" style="left: 25%; top: 75%;">
+                                Pedro
+                            </div>
+                            
+                            <div id="student5" class="absolute w-10 h-10 bg-blue-500 text-white shadow-lg border-2 border-blue-700 rounded-full flex items-center justify-center text-xs font-bold" style="left: 15%; top: 60%;">
+                                Sofia
+                            </div>
+                            
+                            <div id="student6" class="absolute w-10 h-10 bg-blue-500 text-white shadow-lg border-2 border-blue-700 rounded-full flex items-center justify-center text-xs font-bold" style="left: 60%; top: 40%;">
+                                Elena
+                            </div>
+                            
+                            <div id="student7" class="absolute w-10 h-10 bg-blue-500 text-white shadow-lg border-2 border-blue-700 rounded-full flex items-center justify-center text-xs font-bold" style="left: 40%; top: 20%;">
+                                Diego
+                            </div>
+                            
+                            <div id="student8" class="absolute w-10 h-10 bg-blue-500 text-white shadow-lg border-2 border-blue-700 rounded-full flex items-center justify-center text-xs font-bold" style="left: 30%; top: 50%;">
+                                Ruth
+                            </div>
+                            
+                            <!-- Pregunta y respuesta (centrada) -->
+                            <div id="questionBox" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg p-4 shadow-xl border-3 border-red-500 hidden z-20 max-w-xs">
+                                <div id="questionText" class="text-sm font-bold text-gray-800 mb-3"></div>
+                                <div class="flex flex-col gap-2">
+                                    <button id="answerA" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded-lg text-xs font-semibold transition-colors">A</button>
+                                    <button id="answerB" class="bg-green-500 hover:bg-green-600 text-white px-3 py-2 rounded-lg text-xs font-semibold transition-colors">B</button>
+                                    <button id="answerC" class="bg-purple-500 hover:bg-purple-600 text-white px-3 py-2 rounded-lg text-xs font-semibold transition-colors">C</button>
+                                </div>
+                                <div id="escapeTimer" class="mt-2 text-center text-xs font-bold text-red-600"></div>
+                            </div>
+                            
+                            <!-- Estudiantes encementados -->
+                            <div id="cementedStudents" class="absolute bottom-2 left-2 flex gap-1 flex-wrap max-w-32">
+                                <!-- Aquí aparecerán los estudiantes encementados -->
+                            </div>
+                            
+                            <!-- Indicadores -->
+                        </div>
+                        <div id="relayMessage" class="mt-4 text-center font-semibold text-gray-700"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reflexión -->
+    <section class="py-2 px-6 bg-gradient-to-r from-indigo-50 to-purple-50">
+        <div class="container mx-auto max-w-4xl">
+            <div class="bg-white rounded-2xl shadow-lg p-8">
+                <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">🧠 Reflexión final</h2>
+                
+                <div class="max-w-3xl mx-auto">
+                    <div class="bg-gradient-to-r from-indigo-100 to-purple-100 rounded-xl p-6 mb-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">💡 Reflexión sobre los Juegos Cooperativos</h3>
+                        <p class="text-gray-700 leading-relaxed mb-4">
+                            A través de estas simulaciones hemos podido observar cómo los juegos cooperativos desarrollan múltiples habilidades de manera integral:
+                        </p>
+                        
+                        <div class="grid md:grid-cols-2 gap-4 mb-4">
+                            <div class="bg-white rounded-lg p-4">
+                                <h4 class="font-semibold text-green-600 mb-2">🤝 Habilidades Sociales</h4>
+                                <ul class="text-sm text-gray-600 space-y-1">
+                                    <li>• Comunicación efectiva</li>
+                                    <li>• Confianza mutua</li>
+                                    <li>• Trabajo en equipo</li>
+                                    <li>• Empatía y comprensión</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="bg-white rounded-lg p-4">
+                                <h4 class="font-semibold text-blue-600 mb-2">🎯 Habilidades Motrices</h4>
+                                <ul class="text-sm text-gray-600 space-y-1">
+                                    <li>• Coordinación ojo-mano</li>
+                                    <li>• Equilibrio y precisión</li>
+                                    <li>• Orientación espacial</li>
+                                    <li>• Sincronización motriz</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <p class="text-gray-700 leading-relaxed">
+                            Los juegos cooperativos nos enseñan que el verdadero éxito no radica en la competencia individual, sino en la capacidad de trabajar juntos hacia un objetivo común. Cada actividad fortalece tanto el cuerpo como las relaciones interpersonales, creando experiencias de aprendizaje significativas que trascienden el momento del juego.
+                        </p>
+                    </div>
+                    
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cierre -->
+    <footer class="bg-gradient-to-r from-gray-800 to-gray-900 text-white py-8">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-2xl font-bold mb-4">🌱 Cierre</h2>
+            <p class="text-lg opacity-90 max-w-3xl mx-auto leading-relaxed">
+                La acción motriz no solo desarrolla el cuerpo, también fortalece la mente y el corazón. Jugar, cooperar y moverse son actos que educan para la vida.
+            </p>
+
+        </div>
+    </footer>
+
+    <script>
+        // Variables globales
+        let towerHeight = 0;
+        let mazeStep = 0;
+        let gameActive = false;
+        let towerBlocks = [];
+
+        // ESTACIÓN 1: TORRE - Funciona perfectamente
+        document.getElementById('startTower').addEventListener('click', function() {
+            const tower = document.getElementById('tower');
+            const message = document.getElementById('towerMessage');
+            
+            // Resetear juego
+            tower.innerHTML = '';
+            towerHeight = 0;
+            towerBlocks = [];
+            gameActive = true;
+            
+            message.textContent = '¡Haz clic en "Colocar" para apilar bloques! El estudiante azul 👨‍🎓 comienza.';
+            message.className = 'mt-4 text-center font-semibold text-blue-600';
+        });
+
+        // Evento para colocar bloques
+        document.querySelector('.block').addEventListener('click', function() {
+            if (!gameActive) return;
+            
+            const tower = document.getElementById('tower');
+            const message = document.getElementById('towerMessage');
+            const builder1 = document.getElementById('builder1');
+            const builder2 = document.getElementById('builder2');
+            
+            // Determinar turno
+            let studentColor, studentEmoji, currentPlayer;
+            if (towerHeight % 2 === 0) {
+                studentColor = 'bg-blue-500';
+                studentEmoji = '👨‍🎓';
+                currentPlayer = 'azul';
+                builder1.style.transform = 'scale(1.1)';
+                setTimeout(() => builder1.style.transform = 'scale(1)', 300);
+            } else {
+                studentColor = 'bg-purple-500';
+                studentEmoji = '👩‍🎓';
+                currentPlayer = 'morado';
+                builder2.style.transform = 'scale(1.1)';
+                setTimeout(() => builder2.style.transform = 'scale(1)', 300);
+            }
+            
+            // Crear bloque con posición aleatoria y chueca
+            const newBlock = document.createElement('div');
+            const randomRotation = (Math.random() - 0.5) * 20; // Rotación aleatoria -10° a +10°
+            const randomOffset = (Math.random() - 0.5) * 15; // Desplazamiento lateral
+            newBlock.className = `w-20 h-10 ${studentColor} rounded-lg mb-1 shadow-lg flex items-center justify-center text-white font-bold`;
+            newBlock.textContent = studentEmoji;
+            newBlock.style.transform = `translateX(${randomOffset}px) rotate(${randomRotation}deg)`;
+            newBlock.style.animation = 'bounce 0.5s ease-in-out';
+            
+            tower.appendChild(newBlock);
+            towerBlocks.push(newBlock);
+            towerHeight++;
+            
+            // Verificar caída (probabilidad aumenta con altura)
+            let shouldFall = false;
+            if (towerHeight >= 4) {
+                const fallChance = towerHeight >= 8 ? 0.8 : (towerHeight - 3) * 0.15;
+                shouldFall = Math.random() < fallChance;
+            }
+            
+            if (shouldFall) {
+                setTimeout(() => {
+                    // Animación de caída
+                    towerBlocks.forEach((block, index) => {
+                        setTimeout(() => {
+                            block.style.transform = 'rotate(45deg) translateY(50px)';
+                            block.style.opacity = '0.5';
+                        }, index * 100);
+                    });
+                    
+                    const winner = currentPlayer === 'azul' ? 'MORADO 👩‍🎓' : 'AZUL 👨‍🎓';
+                    message.innerHTML = `💥 ¡Torre caída!<br>🏆 ¡GANÓ EL ESTUDIANTE ${winner}!`;
+                    message.className = 'mt-4 text-center font-semibold text-green-600';
+                    gameActive = false;
+                    
+                    // Reiniciar después de 3 segundos
+                    setTimeout(() => {
+                        tower.innerHTML = '';
+                        towerHeight = 0;
+                        towerBlocks = [];
+                        gameActive = true;
+                        message.textContent = '¡Nueva partida! Haz clic en "Colocar" para comenzar.';
+                        message.className = 'mt-4 text-center font-semibold text-blue-600';
+                    }, 3000);
+                }, 500);
+            } else {
+                const nextPlayer = towerHeight % 2 === 0 ? 'morado 👩‍🎓' : 'azul 👨‍🎓';
+                message.innerHTML = `Torre: ${towerHeight} bloques<br>Turno del estudiante ${nextPlayer}`;
+                message.className = 'mt-4 text-center font-semibold text-blue-600';
+            }
+        });
+
+        // ESTACIÓN 2: LABERINTO - Mejorado con recorrido completo
+        document.getElementById('startMaze').addEventListener('click', function() {
+            const player = document.getElementById('blindPlayer');
+            const guide = document.getElementById('guidePlayer');
+            const message = document.getElementById('mazeMessage');
+            const dots = document.querySelectorAll('[data-step]');
+            
+            // Resetear
+            mazeStep = 0;
+            player.style.left = '24px';
+            player.style.top = '80px';
+            player.style.transition = 'all 1.5s ease-in-out';
+            dots.forEach(dot => dot.classList.remove('active-dot'));
+            
+            message.textContent = '🏁 INICIO: El estudiante con ojos vendados espera las indicaciones...';
+            message.className = 'mt-4 text-center font-semibold text-blue-600';
+            
+            // Animar guía
+            guide.style.transform = 'scale(1.1)';
+            setTimeout(() => guide.style.transform = 'scale(1)', 300);
+            
+            // Secuencia de movimiento paso a paso
+            const moveSequence = () => {
+                if (mazeStep <= 4) {
+                    // Activar punto actual
+                    const currentDot = document.querySelector(`[data-step="${mazeStep}"]`);
+                    if (currentDot) {
+                        currentDot.classList.add('active-dot');
+                        currentDot.style.animation = 'sparkle 1s ease-in-out';
+                    }
+                    
+                    const positions = [
+                        { left: '48px', top: '96px', msg: 'Guía: "¡Camina despacio hacia adelante, hay una pelota a tu derecha!"' },
+                        { left: '80px', top: '128px', msg: 'Guía: "¡Perfecto! Ahora gira un poco a la derecha, cuidado con la caja!"' },
+                        { left: '112px', top: '160px', msg: 'Guía: "¡Excelente! Sigue recto, esquiva el cono naranja!"' },
+                        { left: '192px', top: '192px', msg: 'Guía: "¡Muy bien! Ahora camina hacia la derecha, evita la piedra!"' },
+                        { left: '256px', top: '224px', msg: 'Guía: "¡Ya casi! Unos pasos más hacia el objetivo amarillo!"' }
+                    ];
+                    
+                    if (positions[mazeStep]) {
+                        // Mover jugador suavemente
+                        player.style.left = positions[mazeStep].left;
+                        player.style.top = positions[mazeStep].top;
+                        message.textContent = positions[mazeStep].msg;
+                        message.className = 'mt-4 text-center font-semibold text-purple-600';
+                        
+                        // Animar guía
+                        guide.style.transform = 'scale(1.1)';
+                        guide.style.animation = 'pulse 0.5s ease-in-out';
+                        setTimeout(() => {
+                            guide.style.transform = 'scale(1)';
+                            guide.style.animation = '';
+                        }, 500);
+                        
+                        // Efecto de movimiento en el jugador
+                        player.style.animation = 'bounce 0.8s ease-in-out';
+                        setTimeout(() => player.style.animation = '', 800);
+                    }
+                    
+                    mazeStep++;
+                    setTimeout(moveSequence, 2500);
+                } else {
+                    // Meta alcanzada
+                    const finishDot = document.querySelector('[data-step="finish"]');
+                    if (finishDot) {
+                        finishDot.classList.add('active-dot');
+                        finishDot.style.animation = 'glow 2s ease-in-out infinite';
+                    }
+                    
+                    // Posición final
+                    player.style.left = '256px';
+                    player.style.top = '224px';
+                    
+                    message.innerHTML = '🎯 ¡META ALCANZADA! 🏆<br>¡Excelente trabajo en equipo! La comunicación y confianza fueron perfectas.';
+                    message.className = 'mt-4 text-center font-semibold text-green-600';
+                    
+                    // Celebración final
+                    player.style.animation = 'glow 2s ease-in-out infinite';
+                    guide.style.animation = 'glow 2s ease-in-out infinite';
+                    
+                    // Confeti visual
+                    setTimeout(() => {
+                        message.innerHTML = '🎉 ¡FELICITACIONES! 🎉<br>Completaron el recorrido sin tocar ningún obstáculo.';
+                    }, 2000);
+                }
+            };
+            
+            setTimeout(moveSequence, 1500);
+        });
+
+        // ESTACIÓN 3: AGUA Y CEMENTO - Completamente funcional
+        let relayGameActive = false;
+        let relayInterval;
+        let questionTimer;
+        let currentTarget = null;
+        let cementedCount = 0;
+        
+        const students = [
+            { id: 'student1', name: 'Ana', active: true },
+            { id: 'student2', name: 'Luis', active: true },
+            { id: 'student3', name: 'María', active: true },
+            { id: 'student4', name: 'Pedro', active: true },
+            { id: 'student5', name: 'Sofia', active: true },
+            { id: 'student6', name: 'Elena', active: true },
+            { id: 'student7', name: 'Diego', active: true },
+            { id: 'student8', name: 'Ruth', active: true }
+        ];
+        
+        const questions = [
+            { question: "¿Cuánto es 2 + 3?", options: ["A) 4", "B) 5", "C) 6"], correct: "B" },
+            { question: "¿Qué color sale al mezclar azul y amarillo?", options: ["A) Rojo", "B) Verde", "C) Morado"], correct: "B" },
+            { question: "¿Cuántas patas tiene un perro?", options: ["A) 2", "B) 3", "C) 4"], correct: "C" },
+            { question: "¿Qué animal dice 'miau'?", options: ["A) Perro", "B) Gato", "C) Vaca"], correct: "B" },
+            { question: "¿Cuánto es 5 - 2?", options: ["A) 2", "B) 3", "C) 4"], correct: "B" },
+            { question: "¿Qué forma tiene una pelota?", options: ["A) Cuadrada", "B) Redonda", "C) Triangular"], correct: "B" },
+            { question: "¿Cuántos dedos tienes en una mano?", options: ["A) 4", "B) 5", "C) 6"], correct: "B" },
+            { question: "¿De qué color es el sol?", options: ["A) Azul", "B) Amarillo", "C) Verde"], correct: "B" }
+        ];
+
+        document.getElementById('startRelay').addEventListener('click', function() {
+            const message = document.getElementById('relayMessage');
+            const questionBox = document.getElementById('questionBox');
+            
+            // Resetear juego
+            relayGameActive = true;
+            cementedCount = 0;
+            currentTarget = null;
+            questionBox.classList.add('hidden');
+            document.getElementById('cementedStudents').innerHTML = '';
+            
+            // Resetear estudiantes
+            students.forEach(student => {
+                student.active = true;
+                const element = document.getElementById(student.id);
+                if (element) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'scale(1)';
+                    element.style.animation = '';
+                }
+            });
+            
+            message.textContent = '¡Carlos (rojo) persigue a los 8 estudiantes! Si los alcanza quedan encementados...';
+            message.className = 'mt-4 text-center font-semibold text-blue-600';
+            
+            // Limpiar intervalos previos
+            if (relayInterval) clearInterval(relayInterval);
+            if (questionTimer) clearInterval(questionTimer);
+            
+            // Iniciar movimiento y persecución en tiempo real
+            startStudentMovement();
+        });
+        
+        function startStudentMovement() {
+            // Inicializar direcciones aleatorias para cada estudiante
+            students.forEach(student => {
+                student.directionX = (Math.random() - 0.5) * 2; // -1 a 1
+                student.directionY = (Math.random() - 0.5) * 2; // -1 a 1
+                student.speed = Math.random() * 0.5 + 0.3; // 0.3 a 0.8
+            });
+            
+            // Dirección inicial para Carlos
+            let carlosDirectionX = (Math.random() - 0.5) * 2;
+            let carlosDirectionY = (Math.random() - 0.5) * 2;
+            let carlosSpeed = 0.6;
+            
+            relayInterval = setInterval(() => {
+                if (!relayGameActive) return;
+                
+                // Mover estudiantes con movimiento continuo
+                students.forEach(student => {
+                    if (student.active) {
+                        const element = document.getElementById(student.id);
+                        if (element) {
+                            // Obtener posición actual
+                            let currentLeft = parseFloat(element.style.left) || 20;
+                            let currentTop = parseFloat(element.style.top) || 30;
+                            
+                            // Calcular nueva posición
+                            let newLeft = currentLeft + student.directionX * student.speed;
+                            let newTop = currentTop + student.directionY * student.speed;
+                            
+                            // Rebotar en los bordes
+                            if (newLeft <= 5 || newLeft >= 85) {
+                                student.directionX *= -1;
+                                newLeft = Math.max(5, Math.min(85, newLeft));
+                            }
+                            if (newTop <= 5 || newTop >= 85) {
+                                student.directionY *= -1;
+                                newTop = Math.max(5, Math.min(85, newTop));
+                            }
+                            
+                            // Cambio aleatorio de dirección ocasional
+                            if (Math.random() < 0.02) {
+                                student.directionX = (Math.random() - 0.5) * 2;
+                                student.directionY = (Math.random() - 0.5) * 2;
+                            }
+                            
+                            element.style.left = newLeft + '%';
+                            element.style.top = newTop + '%';
+                        }
+                    }
+                });
+                
+                // Mover Carlos con movimiento continuo aleatorio
+                const carlos = document.getElementById('chaser');
+                if (carlos) {
+                    let carlosLeft = parseFloat(carlos.style.left) || 50;
+                    let carlosTop = parseFloat(carlos.style.top) || 50;
+                    
+                    let newCarlosLeft = carlosLeft + carlosDirectionX * carlosSpeed;
+                    let newCarlosTop = carlosTop + carlosDirectionY * carlosSpeed;
+                    
+                    // Rebotar en los bordes
+                    if (newCarlosLeft <= 8 || newCarlosLeft >= 82) {
+                        carlosDirectionX *= -1;
+                        newCarlosLeft = Math.max(8, Math.min(82, newCarlosLeft));
+                    }
+                    if (newCarlosTop <= 8 || newCarlosTop >= 82) {
+                        carlosDirectionY *= -1;
+                        newCarlosTop = Math.max(8, Math.min(82, newCarlosTop));
+                    }
+                    
+                    // Cambio aleatorio de dirección ocasional
+                    if (Math.random() < 0.03) {
+                        carlosDirectionX = (Math.random() - 0.5) * 2;
+                        carlosDirectionY = (Math.random() - 0.5) * 2;
+                    }
+                    
+                    carlos.style.left = newCarlosLeft + '%';
+                    carlos.style.top = newCarlosTop + '%';
+                    
+                    // Verificar colisiones con todos los estudiantes activos
+                    students.forEach(student => {
+                        if (student.active && checkCollision(student)) {
+                            // Pausar inmediatamente el movimiento
+                            relayGameActive = false;
+                            if (relayInterval) clearInterval(relayInterval);
+                            showQuestion(student);
+                        }
+                    });
+                }
+            }, 50); // Movimiento más fluido con intervalos más cortos
+        }
+        
+
+        
+        function checkCollision(target) {
+            const carlos = document.getElementById('chaser');
+            const targetElement = document.getElementById(target.id);
+            
+            if (!carlos || !targetElement || !target.active) return false;
+            
+            // Obtener posiciones reales en píxeles
+            const carlosRect = carlos.getBoundingClientRect();
+            const targetRect = targetElement.getBoundingClientRect();
+            
+            // Verificar si los bordes se tocan o superponen
+            const carlosLeft = carlosRect.left;
+            const carlosRight = carlosRect.right;
+            const carlosTop = carlosRect.top;
+            const carlosBottom = carlosRect.bottom;
+            
+            const targetLeft = targetRect.left;
+            const targetRight = targetRect.right;
+            const targetTop = targetRect.top;
+            const targetBottom = targetRect.bottom;
+            
+            // Colisión cuando los rectángulos se superponen
+            const horizontalOverlap = carlosLeft < targetRight && carlosRight > targetLeft;
+            const verticalOverlap = carlosTop < targetBottom && carlosBottom > targetTop;
+            
+            return horizontalOverlap && verticalOverlap;
+        }
+        
+        function showQuestion(student) {
+            if (!student.active) return;
+            
+            currentTarget = student;
+            const message = document.getElementById('relayMessage');
+            message.textContent = `¡Carlos atrapó a ${student.name}! Debe responder...`;
+            message.className = 'mt-4 text-center font-semibold text-red-600';
+            
+            // Detener animación del estudiante
+            const targetElement = document.getElementById(student.id);
+            if (targetElement) {
+                targetElement.style.animation = 'glow 1s ease-in-out infinite';
+            }
+            
+            setTimeout(() => displayQuestion(), 1000);
+        }
+        
+        function displayQuestion() {
+            const questionBox = document.getElementById('questionBox');
+            const questionText = document.getElementById('questionText');
+            const timerDiv = document.getElementById('escapeTimer');
+            
+            // Pregunta aleatoria
+            const question = questions[Math.floor(Math.random() * questions.length)];
+            
+            questionText.innerHTML = `<strong>${currentTarget.name} debe responder:</strong><br>${question.question}<br><br>${question.options.join('<br>')}`;
+            questionBox.classList.remove('hidden');
+            
+            // Timer de 10 segundos
+            let timeLeft = 10;
+            timerDiv.textContent = `Tiempo: ${timeLeft}s`;
+            
+            questionTimer = setInterval(() => {
+                timeLeft--;
+                timerDiv.textContent = `Tiempo: ${timeLeft}s`;
+                if (timeLeft <= 0) {
+                    clearInterval(questionTimer);
+                    checkAnswer('TIMEOUT', question);
+                }
+            }, 1000);
+            
+            // Botones de respuesta
+            document.getElementById('answerA').onclick = () => checkAnswer('A', question);
+            document.getElementById('answerB').onclick = () => checkAnswer('B', question);
+            document.getElementById('answerC').onclick = () => checkAnswer('C', question);
+        }
+        
+        function checkAnswer(answer, question) {
+            if (questionTimer) clearInterval(questionTimer);
+            
+            const questionBox = document.getElementById('questionBox');
+            const message = document.getElementById('relayMessage');
+            
+            questionBox.classList.add('hidden');
+            
+            if (answer === question.correct) {
+                // Respuesta correcta
+                message.innerHTML = `✅ ¡${currentTarget.name} respondió correctamente y escapó!`;
+                message.className = 'mt-4 text-center font-semibold text-green-600';
+                
+                const targetElement = document.getElementById(currentTarget.id);
+                if (targetElement) {
+                    targetElement.style.animation = 'glow 2s ease-in-out';
+                    setTimeout(() => targetElement.style.animation = '', 2000);
+                }
+            } else {
+                // Respuesta incorrecta o tiempo agotado
+                cementStudent(currentTarget);
+            }
+            
+            currentTarget = null;
+            
+            // Reanudar juego después de 3 segundos
+            setTimeout(() => {
+                const activeCount = students.filter(s => s.active).length;
+                if (activeCount > 0) {
+                    relayGameActive = true;
+                    message.textContent = 'El juego continúa...';
+                    message.className = 'mt-4 text-center font-semibold text-blue-600';
+                    startStudentMovement();
+                } else {
+                    endRelayGame();
+                }
+            }, 3000);
+        }
+        
+        function cementStudent(student) {
+            const message = document.getElementById('relayMessage');
+            cementedCount++;
+            
+            const reason = 'respondió mal o se agotó el tiempo';
+            message.innerHTML = `❌ ${student.name} ${reason} y queda encementado!`;
+            message.className = 'mt-4 text-center font-semibold text-gray-600';
+            
+            // Marcar como inactivo
+            student.active = false;
+            const targetElement = document.getElementById(student.id);
+            if (targetElement) {
+                targetElement.style.opacity = '0.3';
+                targetElement.style.transform = 'scale(0.8)';
+                targetElement.style.animation = '';
+            }
+        }
+        
+
+        
+        function endRelayGame() {
+            relayGameActive = false;
+            if (relayInterval) clearInterval(relayInterval);
+            if (questionTimer) clearInterval(questionTimer);
+            
+            const message = document.getElementById('relayMessage');
+            const activeCount = students.filter(s => s.active).length;
+            
+            if (cementedCount === 0) {
+                message.innerHTML = '🏆 ¡Increíble! Los 8 estudiantes lograron escapar de Carlos!';
+                message.className = 'mt-4 text-center font-semibold text-green-600';
+            } else if (activeCount === 0) {
+                message.innerHTML = '🧱 ¡Carlos atrapó a todos! Los 8 estudiantes quedaron encementados.';
+                message.className = 'mt-4 text-center font-semibold text-red-600';
+            } else {
+                message.innerHTML = `📊 Resultado final: ${activeCount} escaparon, ${cementedCount} encementados de 8 total`;
+                message.className = 'mt-4 text-center font-semibold text-blue-600';
+            }
+            
+            // Animar Carlos
+            const chaser = document.getElementById('chaser');
+            if (chaser) {
+                chaser.style.animation = 'pulse 2s ease-in-out infinite';
+            }
+        }
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98f1897e50c99537',t:'MTc2MDU1NDU5My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
