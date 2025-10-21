@@ -1,0 +1,1640 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulación: El Puente de las Emociones</title>
+    <style>
+        body {
+            box-sizing: border-box;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100%;
+            color: #333;
+        }
+
+        .portada {
+            background: white;
+            border: 2px solid black;
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 1200px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin: 0 auto 30px auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+            background: #1e40af;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        .info-institucional {
+            flex: 1;
+        }
+
+        .info-institucional h2 {
+            margin: 0 0 10px 0;
+            color: #333;
+            font-size: 24px;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+        }
+
+        .info-institucional p {
+            margin: 5px 0;
+            color: #666;
+            font-size: 16px;
+            line-height: 1.4;
+            font-family: Arial, sans-serif;
+        }
+
+        .info-estudiante {
+            text-align: right;
+            flex-shrink: 0;
+        }
+
+        .info-estudiante p {
+            margin: 5px 0;
+            color: #333;
+            font-size: 16px;
+            line-height: 1.4;
+            font-family: Arial, sans-serif;
+        }
+
+        .info-estudiante p strong {
+            color: black;
+        }
+
+        @media (max-width: 768px) {
+            .portada {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+                gap: 20px;
+            }
+            
+            .info-estudiante {
+                text-align: center;
+            }
+            
+            .info-institucional h2 {
+                font-size: 20px;
+            }
+            
+            .info-institucional p,
+            .info-estudiante p {
+                font-size: 14px;
+            }
+            
+            .logo {
+                width: 80px;
+                height: 80px;
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .portada {
+                padding: 15px;
+            }
+            
+            .info-institucional h2 {
+                font-size: 18px;
+            }
+            
+            .info-institucional p,
+            .info-estudiante p {
+                font-size: 12px;
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #4a5568;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            min-width: 160px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+                border-radius: 15px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .controls {
+                gap: 10px;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+                font-size: 14px;
+                min-width: 140px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+                margin: 5px;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: center;
+                gap: 8px;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 280px;
+                padding: 12px 16px;
+                font-size: 14px;
+            }
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(45deg, #2196F3, #1976D2);
+            color: white;
+        }
+
+        .btn-special {
+            background: linear-gradient(45deg, #FF9800, #F57C00);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+        }
+
+        .game-area {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 20px;
+            min-height: 400px;
+            position: relative;
+        }
+
+        @media (max-width: 768px) {
+            .game-area {
+                padding: 20px;
+                margin-bottom: 15px;
+                min-height: 350px;
+                border-radius: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .game-area {
+                padding: 15px;
+                margin-bottom: 12px;
+                min-height: 300px;
+                border-radius: 10px;
+            }
+        }
+
+        .bridge {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 40px 0;
+            position: relative;
+            overflow-x: auto;
+            padding: 10px 0;
+        }
+
+        .bridge-segment {
+            width: 80px;
+            height: 80px;
+            border: 4px solid #4CAF50;
+            border-radius: 50%;
+            background: rgba(76, 175, 80, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .emotion-station {
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 8px 12px;
+            border-radius: 20px;
+            border: 2px solid #FF9800;
+            font-size: 14px;
+            font-weight: bold;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            white-space: nowrap;
+        }
+
+        @media (max-width: 768px) {
+            .bridge {
+                margin: 30px 0;
+                gap: 10px;
+                justify-content: flex-start;
+                padding: 20px 10px;
+            }
+            
+            .bridge-segment {
+                width: 60px;
+                height: 60px;
+                font-size: 20px;
+                border-width: 3px;
+            }
+            
+            .emotion-station {
+                top: -35px;
+                font-size: 12px;
+                padding: 6px 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .bridge {
+                flex-direction: column;
+                gap: 20px;
+                align-items: center;
+                margin: 20px 0;
+                padding: 15px;
+            }
+            
+            .bridge-segment {
+                width: 70px;
+                height: 70px;
+                font-size: 22px;
+            }
+            
+            .emotion-station {
+                position: static;
+                transform: none;
+                margin-top: 10px;
+                font-size: 13px;
+            }
+        }
+
+        .students-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .student {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            font-weight: bold;
+            position: relative;
+            transition: all 0.5s ease;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .students-container {
+                gap: 12px;
+                margin: 15px 0;
+            }
+            
+            .student {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .students-container {
+                gap: 10px;
+                margin: 10px 0;
+                justify-content: space-around;
+            }
+            
+            .student {
+                width: 45px;
+                height: 45px;
+                font-size: 18px;
+            }
+        }
+
+        .student.normal {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+        }
+
+        .student.tea {
+            background: linear-gradient(45deg, #9C27B0, #7B1FA2);
+            border: 3px solid #FFD700;
+        }
+
+        .student.mobility {
+            background: linear-gradient(45deg, #2196F3, #1976D2);
+            border: 3px solid #FF5722;
+        }
+
+        .student-name {
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            color: #333;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .speech-bubble {
+            position: absolute;
+            top: 70px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 10px 15px;
+            border-radius: 15px;
+            border: 2px solid #4CAF50;
+            font-size: 12px;
+            font-weight: bold;
+            max-width: 200px;
+            min-width: 120px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 10;
+            color: #333;
+            line-height: 1.3;
+            word-wrap: break-word;
+        }
+
+        @media (max-width: 768px) {
+            .speech-bubble {
+                top: 60px;
+                font-size: 11px;
+                padding: 8px 12px;
+                max-width: 180px;
+                min-width: 100px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .speech-bubble {
+                top: 55px;
+                font-size: 10px;
+                padding: 6px 10px;
+                max-width: 160px;
+                min-width: 90px;
+                border-radius: 12px;
+            }
+        }
+
+        .speech-bubble.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(5px);
+        }
+
+        .speech-bubble.tea {
+            border-color: #9C27B0;
+            background: linear-gradient(135deg, #f3e5f5, #e1bee7);
+        }
+
+        .speech-bubble.mobility {
+            border-color: #2196F3;
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+        }
+
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 8px solid transparent;
+            border-bottom-color: white;
+        }
+
+        .speech-bubble.tea::after {
+            border-bottom-color: #f3e5f5;
+        }
+
+        .speech-bubble.mobility::after {
+            border-bottom-color: #e3f2fd;
+        }
+
+        .activity-log {
+            background: #e8f5e8;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .log-entry {
+            margin-bottom: 10px;
+            padding: 8px 12px;
+            background: white;
+            border-radius: 8px;
+            border-left: 4px solid #4CAF50;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @media (max-width: 768px) {
+            .activity-log {
+                padding: 15px;
+                margin-top: 15px;
+                max-height: 250px;
+                border-radius: 8px;
+            }
+            
+            .log-entry {
+                padding: 6px 10px;
+                margin-bottom: 8px;
+                font-size: 13px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .activity-log {
+                padding: 12px;
+                margin-top: 12px;
+                max-height: 200px;
+                border-radius: 6px;
+            }
+            
+            .log-entry {
+                padding: 5px 8px;
+                margin-bottom: 6px;
+                font-size: 12px;
+                border-radius: 6px;
+            }
+        }
+
+        .log-entry.tea {
+            border-left-color: #9C27B0;
+        }
+
+        .log-entry.mobility {
+            border-left-color: #2196F3;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+
+        @media (max-width: 768px) {
+            .stats {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 15px;
+                margin-top: 15px;
+            }
+            
+            .stat-card {
+                padding: 15px;
+            }
+            
+            .stat-number {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats {
+                grid-template-columns: 1fr;
+                gap: 10px;
+                margin-top: 10px;
+            }
+            
+            .stat-card {
+                padding: 12px;
+            }
+            
+            .stat-number {
+                font-size: 1.3rem;
+            }
+        }
+
+        .emotion-display {
+            text-align: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: linear-gradient(45deg, #FFE0B2, #FFCC02);
+            border-radius: 15px;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            transition: width 0.5s ease;
+            border-radius: 10px;
+        }
+
+        .scenario-info {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid #2196F3;
+        }
+
+        @media (max-width: 768px) {
+            .scenario-info {
+                padding: 12px;
+                margin-bottom: 15px;
+                border-radius: 8px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .scenario-info {
+                padding: 10px;
+                margin-bottom: 12px;
+                border-radius: 6px;
+                font-size: 13px;
+                line-height: 1.4;
+            }
+        }
+
+        .system-bubble {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: bold;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            opacity: 0;
+            transition: all 0.5s ease;
+            z-index: 100;
+            border: 3px solid #FFD700;
+        }
+
+        @media (max-width: 768px) {
+            .system-bubble {
+                padding: 15px 20px;
+                font-size: 14px;
+                max-width: 320px;
+                border-radius: 15px;
+                margin: 0 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .system-bubble {
+                padding: 12px 15px;
+                font-size: 13px;
+                max-width: 280px;
+                border-radius: 12px;
+                margin: 0 15px;
+                border-width: 2px;
+            }
+        }
+
+        .system-bubble.show {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1.05);
+        }
+
+        .system-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 15px solid transparent;
+            border-top-color: #667eea;
+        }
+
+        .continue-btn {
+            background: #FFD700;
+            color: #333;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .continue-btn:hover {
+            background: #FFC107;
+            transform: scale(1.05);
+        }
+
+        .pause-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.3);
+            display: none;
+            z-index: 99;
+        }
+
+        .pause-overlay.show {
+            display: block;
+        }
+
+        .planning-card {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+            border: 2px solid #4CAF50;
+        }
+
+        .planning-card h2 {
+            color: #4a5568;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .planning-section {
+            background: white;
+            padding: 15px;
+            margin-bottom: 12px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-left: 4px solid #4CAF50;
+        }
+
+        .planning-section h3 {
+            color: #4CAF50;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .planning-section h4 {
+            color: #666;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .planning-section p {
+            line-height: 1.4;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .planning-section ul, .planning-section ol {
+            line-height: 1.4;
+            color: #333;
+            padding-left: 18px;
+            font-size: 14px;
+        }
+
+        .planning-section li {
+            margin-bottom: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .planning-card {
+                padding: 15px;
+                margin-bottom: 15px;
+                border-radius: 10px;
+            }
+            
+            .planning-card h2 {
+                font-size: 1.3rem;
+                margin-bottom: 12px;
+            }
+            
+            .planning-section {
+                padding: 12px;
+                margin-bottom: 10px;
+            }
+            
+            .planning-section h3 {
+                font-size: 1rem;
+                margin-bottom: 8px;
+            }
+            
+            .planning-section h4 {
+                font-size: 0.9rem;
+                margin-bottom: 6px;
+            }
+            
+            .planning-section p,
+            .planning-section ul,
+            .planning-section ol {
+                font-size: 13px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .planning-card {
+                padding: 12px;
+                margin-bottom: 12px;
+            }
+            
+            .planning-card h2 {
+                font-size: 1.2rem;
+                margin-bottom: 10px;
+            }
+            
+            .planning-section {
+                padding: 10px;
+                margin-bottom: 8px;
+            }
+            
+            .planning-section h3 {
+                font-size: 0.95rem;
+                margin-bottom: 6px;
+            }
+            
+            .planning-section h4 {
+                font-size: 0.85rem;
+                margin-bottom: 5px;
+            }
+            
+            .planning-section p,
+            .planning-section ul,
+            .planning-section ol {
+                font-size: 12px;
+                line-height: 1.3;
+            }
+            
+            .planning-section ul,
+            .planning-section ol {
+                padding-left: 15px;
+            }
+        }
+
+        .adaptations {
+            border-left-color: #FF9800;
+        }
+
+        .adaptations h3 {
+            color: #FF9800;
+        }
+
+        .adaptation-group {
+            background: #f8f9fa;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            border: 1px solid #e9ecef;
+        }
+
+        .adaptation-group h4 {
+            color: #495057;
+            margin-bottom: 8px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #dee2e6;
+            font-size: 0.95rem;
+        }
+
+        .adaptation-group ul {
+            margin-bottom: 0;
+        }
+
+        .adaptation-group li strong {
+            color: #495057;
+        }
+    </style>
+</head>
+<body>
+    <!-- Portada Universitaria -->
+    <div class="portada">
+        <img src="https://www.carreras.pe/userfiles/images/Logos%20y%20fachadas/Logo%20UTP%202.png" alt="Logo UTP" onerror="this.outerHTML='<div class=\'logo\'>UTP</div>';" style="width: 100px; height: 100px; object-fit: contain; background: transparent; flex-shrink: 0;">
+        
+        <div class="info-institucional">
+            <h2>Universidad Tecnológica del Perú</h2>
+            <p>Facultad de Educación</p>
+            <p>Práctica Educativa I: Psicomotricidad para Educación Primaria</p>
+            <p>Sección 31960</p>
+        </div>
+        
+        <div class="info-estudiante">
+            <p><strong>Aaron Sixto Callupe Llallico</strong></p>
+            <p>Estudiante de Educación Primaria</p>
+            <p>Semana 11 - Actividad 1</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <header class="header">
+            <h1>🌉 El Puente de las Emociones</h1>
+            <p>Simulación interactiva del juego psicomotor inclusivo</p>
+        </header>
+
+        <div class="planning-card">
+            <h2>📋 Ficha de Planificación del Juego</h2>
+            
+            <div class="planning-section">
+                <h3>🎯 Nombre</h3>
+                <p><strong>El Puente de las Emociones</strong></p>
+            </div>
+
+            <div class="planning-section">
+                <h3>🎯 Objetivo</h3>
+                <p>Desarrollar la inteligencia emocional y la psicomotricidad gruesa a través del reconocimiento, expresión y compartir de experiencias emocionales, promoviendo la inclusión y el trabajo colaborativo entre todos los estudiantes.</p>
+            </div>
+
+            <div class="planning-section">
+                <h3>👥 Participantes</h3>
+                <p><strong>Edad:</strong> 8 años <br>
+                <strong>Cantidad:</strong> 5-8 estudiantes por grupo<br>
+                <strong>Modalidad:</strong> Inclusiva (estudiantes típicos, con TEA, movilidad reducida, etc.)</p>
+            </div>
+
+            <div class="planning-section">
+                <h3>🎨 Materiales</h3>
+                <ul>
+                    <li>Aros o círculos marcados en el suelo (5 estaciones)</li>
+                    <li>Tarjetas con emojis de emociones (😊😢😰😡)</li>
+                    <li>Tarjetas visuales de apoyo para estudiantes TEA</li>
+                    <li>Espacio amplio y accesible</li>
+                    <li>Música suave de fondo (opcional)</li>
+                    <li>Cronómetro</li>
+                </ul>
+            </div>
+
+            <div class="planning-section">
+                <h3>📜 Reglas Básicas</h3>
+                <ol>
+                    <li>Los estudiantes forman un grupo y avanzan juntos por las 5 estaciones del "puente"</li>
+                    <li>En cada estación emocional, deben compartir una experiencia personal relacionada</li>
+                    <li>Todos esperan y escuchan respetuosamente a cada compañero</li>
+                    <li>El grupo avanza solo cuando todos han participado</li>
+                    <li>Se celebra la participación de cada estudiante</li>
+                </ol>
+            </div>
+
+            <div class="planning-section adaptations">
+                <h3>🔧 Adaptaciones Inclusivas</h3>
+                
+                <div class="adaptation-group">
+                    <h4>🧩 Para Estudiantes con TEA:</h4>
+                    <ul>
+                        <li><strong>Tiempo extra:</strong> Permitir más tiempo para procesar y responder</li>
+                        <li><strong>Apoyo visual:</strong> Usar tarjetas con imágenes de emociones</li>
+                        <li><strong>Comunicación alternativa:</strong> Aceptar gestos, señalar o comunicación no verbal</li>
+                        <li><strong>Acompañamiento:</strong> Apoyo cercano del docente cuando sea necesario</li>
+                        <li><strong>Ambiente predecible:</strong> Explicar la secuencia antes de comenzar</li>
+                        <li><strong>Respeto al ritmo:</strong> No presionar, validar cualquier forma de participación</li>
+                    </ul>
+                </div>
+
+                <div class="adaptation-group">
+                    <h4>♿ Para Estudiantes con Movilidad Reducida:</h4>
+                    <ul>
+                        <li><strong>Accesibilidad:</strong> Asegurar que todas las estaciones sean accesibles</li>
+                        <li><strong>Adaptación grupal:</strong> El grupo se acerca al estudiante en lugar de que él se mueva</li>
+                        <li><strong>Participación equitativa:</strong> Mismo tiempo y oportunidades que todos</li>
+                        <li><strong>Apoyo de pares:</strong> Compañeros ayudan en el desplazamiento si es necesario</li>
+                        <li><strong>Flexibilidad espacial:</strong> Ajustar distancias entre estaciones según necesidades</li>
+                        <li><strong>Inclusión activa:</strong> Rol protagónico en la actividad, no solo observador</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="btn btn-primary" onclick="startNormalScenario()">
+                👥 Estudiantes Normales
+            </button>
+            <button class="btn btn-special" onclick="startTEAScenario()">
+                🧩 Incluir Estudiante TEA
+            </button>
+            <button class="btn btn-secondary" onclick="startMobilityScenario()">
+                ♿ Incluir Movilidad Reducida
+            </button>
+            <button class="btn btn-primary" onclick="resetSimulation()">
+                🔄 Reiniciar
+            </button>
+        </div>
+
+        <div class="scenario-info" id="scenarioInfo">
+            <strong>Selecciona un escenario para comenzar la simulación</strong>
+        </div>
+
+        <div class="game-area">
+            <div class="pause-overlay" id="pauseOverlay"></div>
+            <div class="system-bubble" id="systemBubble">
+                <div id="systemMessage"></div>
+                <button class="continue-btn" id="continueBtn" onclick="continueSimulation()">
+                    ▶️ Continuar
+                </button>
+            </div>
+            
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar" style="width: 0%"></div>
+            </div>
+
+            <div class="bridge" id="bridge">
+                <div class="bridge-segment">🏁</div>
+                <div class="bridge-segment" id="station1">
+                    <div class="emotion-station" style="display: none;">😊 Alegría</div>
+                </div>
+                <div class="bridge-segment" id="station2">
+                    <div class="emotion-station" style="display: none;">😢 Tristeza</div>
+                </div>
+                <div class="bridge-segment" id="station3">
+                    <div class="emotion-station" style="display: none;">😰 Miedo</div>
+                </div>
+                <div class="bridge-segment" id="station4">
+                    <div class="emotion-station" style="display: none;">😡 Enojo</div>
+                </div>
+                <div class="bridge-segment">🎯</div>
+            </div>
+
+            <div class="emotion-display" id="currentEmotion" style="display: none;">
+                Emoción actual: <span id="emotionText"></span>
+            </div>
+
+            <div class="students-container" id="studentsContainer">
+                <!-- Los estudiantes se generarán dinámicamente -->
+            </div>
+        </div>
+
+        <div class="stats" id="stats" style="display: none;">
+            <div class="stat-card">
+                <div class="stat-number" id="timeElapsed">0</div>
+                <div>Tiempo (segundos)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="emotionsCompleted">0</div>
+                <div>Emociones Completadas</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="participationRate">100</div>
+                <div>% Participación</div>
+            </div>
+        </div>
+
+        <div class="activity-log" id="activityLog" style="display: none;">
+            <h3>📝 Registro de Actividades</h3>
+            <div id="logEntries">
+                <p>Selecciona un escenario para ver las actividades...</p>
+            </div>
+        </div>
+
+        <div class="planning-card">
+            <h2>💭 Reflexión Final</h2>
+            
+            <div class="planning-section">
+                <h3>🎯 Impacto del Juego Inclusivo</h3>
+                <p>El "Puente de las Emociones" representa más que una actividad psicomotora; es una herramienta transformadora que construye puentes reales entre estudiantes de diferentes capacidades y necesidades. A través del juego, los niños aprenden que la diversidad no es un obstáculo, sino una fortaleza que enriquece la experiencia de aprendizaje colectivo.</p>
+            </div>
+
+            <div class="planning-section">
+                <h3>🌟 Beneficios Observados</h3>
+                <ul>
+                    <li><strong>Desarrollo emocional:</strong> Los estudiantes aprenden a identificar, expresar y validar emociones propias y ajenas</li>
+                    <li><strong>Inclusión natural:</strong> Las adaptaciones se integran de forma orgánica, sin segregar ni destacar diferencias</li>
+                    <li><strong>Empatía activa:</strong> Los compañeros desarrollan comprensión y apoyo hacia las necesidades diversas</li>
+                    <li><strong>Autoestima:</strong> Cada estudiante encuentra su forma única de participar y ser valorado</li>
+                    <li><strong>Trabajo colaborativo:</strong> El grupo aprende que el éxito se logra cuando todos participan</li>
+                </ul>
+            </div>
+
+            <div class="planning-section">
+                <h3>🔄 Adaptabilidad y Flexibilidad</h3>
+                <p>La simulación demuestra cómo un mismo juego puede adaptarse a diferentes realidades sin perder su esencia. Las modificaciones para estudiantes con TEA o movilidad reducida no son "excepciones" sino variaciones naturales que enriquecen la experiencia para todos. Esta flexibilidad es clave para una educación verdaderamente inclusiva.</p>
+            </div>
+
+            <div class="planning-section">
+                <h3>👨‍🏫 Rol del Educador</h3>
+                <p>El docente actúa como facilitador que:</p>
+                <ul>
+                    <li>Observa y ajusta el ritmo según las necesidades del grupo</li>
+                    <li>Valida todas las formas de participación</li>
+                    <li>Fomenta el apoyo mutuo entre estudiantes</li>
+                    <li>Celebra la diversidad como valor educativo</li>
+                    <li>Crea un ambiente seguro para la expresión emocional</li>
+                </ul>
+            </div>
+
+            <div class="planning-section">
+                <h3>🚀 Proyección Futura</h3>
+                <p>Esta experiencia sienta las bases para una cultura escolar inclusiva donde cada estudiante, independientemente de sus capacidades, encuentra su lugar y contribuye al aprendizaje colectivo. Los valores de respeto, paciencia y colaboración trascienden el juego y se integran en la convivencia diaria.</p>
+                
+                <p><strong>El verdadero éxito no se mide en la velocidad para completar el puente, sino en que todos lo crucen juntos, aprendiendo unos de otros en el camino.</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentScenario = null;
+        let students = [];
+        let currentStation = 0;
+        let startTime = null;
+        let gameInterval = null;
+        let emotionsCompleted = 0;
+        let isPaused = false;
+        let pauseResolve = null;
+
+        const emotions = [
+            { name: "Alegría", emoji: "😊", color: "#FFD700" },
+            { name: "Tristeza", emoji: "😢", color: "#87CEEB" },
+            { name: "Miedo", emoji: "😰", color: "#DDA0DD" },
+            { name: "Enojo", emoji: "😡", color: "#FF6B6B" }
+        ];
+
+        const studentNames = ["Juan", "Luisa", "María", "Carlos", "Sofia", "Diego"];
+
+        function createStudents(scenario) {
+            students = [];
+            const container = document.getElementById('studentsContainer');
+            container.innerHTML = '';
+
+            // Crear estudiantes normales
+            const normalEmojis = ['👦', '👧', '🧒', '👦', '👧'];
+            for (let i = 0; i < 5; i++) {
+                const student = {
+                    name: studentNames[i],
+                    type: 'normal',
+                    participationTime: 2000 + Math.random() * 1000,
+                    emoji: normalEmojis[i]
+                };
+                students.push(student);
+            }
+
+            // Agregar estudiante especial según el escenario
+            if (scenario === 'tea') {
+                students.push({
+                    name: "Alex",
+                    type: 'tea',
+                    participationTime: 4000 + Math.random() * 2000,
+                    emoji: '🧩'
+                });
+            } else if (scenario === 'mobility') {
+                students.push({
+                    name: "Emma",
+                    type: 'mobility',
+                    participationTime: 3000 + Math.random() * 1000,
+                    emoji: '♿'
+                });
+            }
+
+            // Crear elementos visuales de estudiantes
+            students.forEach((student, index) => {
+                const studentDiv = document.createElement('div');
+                studentDiv.className = `student ${student.type}`;
+                studentDiv.innerHTML = `
+                    ${student.emoji}
+                    <div class="student-name">${student.name}</div>
+                    <div class="speech-bubble ${student.type}" id="bubble-${index}"></div>
+                `;
+                studentDiv.id = `student-${index}`;
+                container.appendChild(studentDiv);
+            });
+        }
+
+        function updateScenarioInfo(scenario) {
+            const info = document.getElementById('scenarioInfo');
+            let text = '';
+            
+            switch(scenario) {
+                case 'normal':
+                    text = '<strong>Escenario Normal:</strong> 5 estudiantes típicos trabajando en equipo. Observa cómo colaboran y se expresan emocionalmente.';
+                    break;
+                case 'tea':
+                    text = '<strong>Escenario TEA:</strong> Incluye a Alex, un estudiante con TEA. Se les brinda más tiempo para expresarse, apoyo visual y respeto por su ritmo.';
+                    break;
+                case 'mobility':
+                    text = '<strong>Escenario Movilidad Reducida:</strong> Incluye a Emma, con movilidad reducida. El grupo se adapta a su ritmo y la apoya en el recorrido.';
+                    break;
+            }
+            info.innerHTML = text;
+        }
+
+        function addLogEntry(message, type = 'normal') {
+            const logEntries = document.getElementById('logEntries');
+            const entry = document.createElement('div');
+            entry.className = `log-entry ${type}`;
+            entry.innerHTML = `<strong>${new Date().toLocaleTimeString()}:</strong> ${message}`;
+            logEntries.appendChild(entry);
+            logEntries.scrollTop = logEntries.scrollHeight;
+        }
+
+        function showSystemMessage(message) {
+            return new Promise((resolve) => {
+                const systemBubble = document.getElementById('systemBubble');
+                const systemMessage = document.getElementById('systemMessage');
+                const pauseOverlay = document.getElementById('pauseOverlay');
+                
+                systemMessage.innerHTML = message;
+                systemBubble.classList.add('show');
+                pauseOverlay.classList.add('show');
+                
+                isPaused = true;
+                pauseResolve = resolve;
+            });
+        }
+
+        function continueSimulation() {
+            const systemBubble = document.getElementById('systemBubble');
+            const pauseOverlay = document.getElementById('pauseOverlay');
+            
+            systemBubble.classList.remove('show');
+            pauseOverlay.classList.remove('show');
+            
+            isPaused = false;
+            if (pauseResolve) {
+                pauseResolve();
+                pauseResolve = null;
+            }
+        }
+
+        function updateProgress() {
+            const progress = (currentStation / 4) * 100;
+            document.getElementById('progressBar').style.width = `${progress}%`;
+        }
+
+        function updateStats() {
+            if (startTime) {
+                const elapsed = Math.floor((Date.now() - startTime) / 1000);
+                document.getElementById('timeElapsed').textContent = elapsed;
+            }
+            document.getElementById('emotionsCompleted').textContent = emotionsCompleted;
+        }
+
+        function showSpeechBubble(studentIndex, message, duration = 3000) {
+            const bubble = document.getElementById(`bubble-${studentIndex}`);
+            bubble.textContent = message;
+            bubble.classList.add('show');
+            
+            setTimeout(() => {
+                bubble.classList.remove('show');
+            }, duration);
+        }
+
+        // Rastrear mensajes usados para evitar repeticiones
+        let usedMessages = {
+            normal: { "Alegría": [], "Tristeza": [], "Miedo": [], "Enojo": [] },
+            tea: { "Alegría": [], "Tristeza": [], "Miedo": [], "Enojo": [] },
+            mobility: { "Alegría": [], "Tristeza": [], "Miedo": [], "Enojo": [] }
+        };
+
+        function getStudentAction(student, emotion) {
+            const actions = {
+                normal: {
+                    "Alegría": [
+                        `"Mi perro me lame la cara y me río mucho"`,
+                        `"Cuando mi abuela me visita me pongo feliz"`,
+                        `"Me gusta cuando jugamos en el recreo"`,
+                        `"Mi cumpleaños fue súper divertido"`,
+                        `"Cuando saco buenas notas me emociono"`,
+                        `"Me encanta cuando comemos pizza en familia"`,
+                        `"Saltar en los charcos me hace reír"`,
+                        `"Me divierte mucho andar en bicicleta"`
+                    ],
+                    "Tristeza": [
+                        `"Cuando mi mascota se enfermó lloré"`,
+                        `"Me pongo triste si mis amigos no juegan conmigo"`,
+                        `"Lloré cuando se rompió mi juguete favorito"`,
+                        `"Me da tristeza cuando llueve mucho"`,
+                        `"Extraño a mi primo que vive lejos"`,
+                        `"Me entristece ver a alguien llorar"`,
+                        `"Cuando papá viaja me pongo triste"`,
+                        `"Me da pena cuando termina el recreo"`
+                    ],
+                    "Miedo": [
+                        `"Le tengo miedo a los truenos"`,
+                        `"Me asusto con las películas de monstruos"`,
+                        `"No me gusta la oscuridad de mi cuarto"`,
+                        `"Me da miedo hablar frente a todos"`,
+                        `"Los perros grandes me dan un poco de miedo"`,
+                        `"Me asustan las arañas"`,
+                        `"Tengo miedo de perderme"`,
+                        `"Me da miedo la primera vez en lugares nuevos"`
+                    ],
+                    "Enojo": [
+                        `"Me enojo cuando mi hermano toma mis cosas"`,
+                        `"Me molesta cuando no me dejan jugar"`,
+                        `"Me da rabia perder en los videojuegos"`,
+                        `"Me enojo si alguien me empuja"`,
+                        `"No me gusta cuando gritan en casa"`,
+                        `"Me molesta cuando no me escuchan"`,
+                        `"Me enojo si rompen mis dibujos"`,
+                        `"Me da rabia cuando hay mucho ruido"`
+                    ]
+                },
+                tea: {
+                    "Alegría": [
+                        `Señala su tarjeta de "feliz" y sonríe`,
+                        `"Me gusta... me gusta mucho"`,
+                        `Aplaude suavemente y dice "bien"`,
+                        `Muestra su dibujo de una cara sonriente`,
+                        `"Contento" dice mientras se balancea`,
+                        `Toca su corazón y dice "feliz aquí"`,
+                        `Abraza su peluche favorito`,
+                        `Repite "sí, sí" moviendo la cabeza`
+                    ],
+                    "Tristeza": [
+                        `Toca la imagen de lágrimas en su tarjeta`,
+                        `"Triste... como lluvia" susurra`,
+                        `Se abraza a sí mismo y dice "triste"`,
+                        `Señala hacia abajo con su dedo`,
+                        `"No me gusta estar triste"`,
+                        `Busca consuelo en su maestro`,
+                        `Hace gestos de limpiar lágrimas`,
+                        `"Ojos con agua" dice tocando sus ojos`
+                    ],
+                    "Miedo": [
+                        `Se cubre los ojos y dice "miedo"`,
+                        `"Ruido fuerte... no me gusta"`,
+                        `Busca la mano del maestro`,
+                        `"Miedo aquí" señala su pecho`,
+                        `Se acerca más al grupo`,
+                        `Se tapa los oídos suavemente`,
+                        `"No quiero, no quiero" susurra`,
+                        `Se esconde detrás de su silla`
+                    ],
+                    "Enojo": [
+                        `Frunce el ceño y cruza los brazos`,
+                        `"No... no me gusta"`,
+                        `Golpea suavemente la mesa`,
+                        `"Enojado" dice con voz firme`,
+                        `Respira profundo como le enseñaron`,
+                        `Aprieta los puños y cuenta hasta tres`,
+                        `"Molesto, muy molesto"`,
+                        `Se aleja un poco y vuelve cuando se calma`
+                    ]
+                },
+                mobility: {
+                    "Alegría": [
+                        `"Desde mi silla también siento alegría"`,
+                        `"Me encanta cuando jugamos todos juntos"`,
+                        `"Mi silla me ayuda a llegar a lugares divertidos"`,
+                        `"Me pongo feliz cuando me incluyen"`,
+                        `"Sonrío cuando mis amigos me visitan"`,
+                        `"Me gusta cuando adaptamos los juegos para todos"`,
+                        `"Mi silla y yo somos un gran equipo"`,
+                        `"Me divierte competir desde aquí"`
+                    ],
+                    "Tristeza": [
+                        `"A veces me pongo triste si no puedo ir a lugares"`,
+                        `"Me da tristeza cuando no puedo jugar algo"`,
+                        `"Lloro cuando veo que otros corren y yo no"`,
+                        `"Me entristece estar solo"`,
+                        `"A veces extraño caminar"`,
+                        `"Me pone triste cuando no hay rampa"`,
+                        `"Me da pena cuando me dejan atrás"`,
+                        `"Lloro si mi silla se daña"`
+                    ],
+                    "Miedo": [
+                        `"Me da miedo caerme de mi silla"`,
+                        `"Tengo miedo de las escaleras"`,
+                        `"Me asusto si van muy rápido conmigo"`,
+                        `"Le tengo miedo a los lugares muy altos"`,
+                        `"Me da miedo quedarme atrás"`,
+                        `"Me asustan los bordillos altos"`,
+                        `"Tengo miedo de que no me entiendan"`,
+                        `"Me da miedo estar en lugares sin acceso"`
+                    ],
+                    "Enojo": [
+                        `"Me enojo cuando no puedo alcanzar cosas"`,
+                        `"Me molesta si no me esperan"`,
+                        `"Me da rabia cuando me miran raro"`,
+                        `"Me enojo si no adaptan los juegos"`,
+                        `"No me gusta que me traten diferente"`,
+                        `"Me molesta cuando hablan por encima de mí"`,
+                        `"Me enojo si no puedo participar"`,
+                        `"Me da rabia la falta de accesibilidad"`
+                    ]
+                }
+            };
+            
+            const emotionActions = actions[student.type][emotion.name];
+            const usedForThisEmotion = usedMessages[student.type][emotion.name];
+            
+            // Filtrar mensajes no usados
+            const availableActions = emotionActions.filter(action => !usedForThisEmotion.includes(action));
+            
+            // Si no hay mensajes disponibles, resetear la lista
+            if (availableActions.length === 0) {
+                usedMessages[student.type][emotion.name] = [];
+                return emotionActions[Math.floor(Math.random() * emotionActions.length)];
+            }
+            
+            // Seleccionar mensaje aleatorio de los disponibles
+            const selectedAction = availableActions[Math.floor(Math.random() * availableActions.length)];
+            
+            // Marcar como usado
+            usedMessages[student.type][emotion.name].push(selectedAction);
+            
+            return selectedAction;
+        }
+
+        async function processEmotionStation(stationIndex) {
+            const emotion = emotions[stationIndex];
+            const station = document.getElementById(`station${stationIndex + 1}`);
+            const emotionStation = station.querySelector('.emotion-station');
+            
+            // Mostrar mensaje del sistema
+            await showSystemMessage(`🎭 <strong>Estación de ${emotion.name}</strong><br><br>Los estudiantes deben compartir experiencias sobre esta emoción ${emotion.emoji}`);
+            
+            // Mostrar la emoción
+            emotionStation.style.display = 'block';
+            emotionStation.style.backgroundColor = emotion.color;
+            
+            // Actualizar display de emoción actual
+            const currentEmotionDiv = document.getElementById('currentEmotion');
+            const emotionText = document.getElementById('emotionText');
+            emotionText.textContent = `${emotion.emoji} ${emotion.name}`;
+            currentEmotionDiv.style.display = 'block';
+
+            addLogEntry(`🎭 Estación de ${emotion.name}: Los estudiantes deben compartir experiencias sobre esta emoción`);
+
+            // Procesar participación de cada estudiante
+            for (let i = 0; i < students.length; i++) {
+                const student = students[i];
+                const studentDiv = document.getElementById(`student-${i}`);
+                
+                // Destacar estudiante actual
+                studentDiv.style.transform = 'scale(1.2)';
+                studentDiv.style.boxShadow = '0 0 20px rgba(255, 215, 0, 0.8)';
+
+                // Participación diferenciada según el tipo de estudiante
+                if (student.type === 'tea') {
+                    // Estudiante TEA: necesita más tiempo y apoyo
+                    addLogEntry(`${student.name} necesita un momento para procesar la emoción...`, student.type);
+                    await new Promise(resolve => setTimeout(resolve, 1500)); // Pausa inicial
+                    
+                    const bubbleMessage = getStudentAction(student, emotion);
+                    showSpeechBubble(i, bubbleMessage, student.participationTime);
+                    
+                    await new Promise(resolve => {
+                        setTimeout(() => {
+                            addLogEntry(`${student.name}: ${bubbleMessage}`, student.type);
+                            addLogEntry(`El maestro apoya a ${student.name} y valida su participación`, student.type);
+                            
+                            studentDiv.style.transform = 'scale(1)';
+                            studentDiv.style.boxShadow = 'none';
+                            resolve();
+                        }, student.participationTime + 3000); // Más tiempo para TEA
+                    });
+                    
+                } else if (student.type === 'mobility') {
+                    // Estudiante con movilidad reducida: el grupo se adapta
+                    addLogEntry(`El grupo se acerca a ${student.name} para escuchar mejor`, student.type);
+                    
+                    const bubbleMessage = getStudentAction(student, emotion);
+                    showSpeechBubble(i, bubbleMessage, student.participationTime);
+                    
+                    await new Promise(resolve => {
+                        setTimeout(() => {
+                            addLogEntry(`${student.name}: ${bubbleMessage}`, student.type);
+                            addLogEntry(`Los compañeros aplauden y apoyan a ${student.name}`, student.type);
+                            
+                            studentDiv.style.transform = 'scale(1)';
+                            studentDiv.style.boxShadow = 'none';
+                            resolve();
+                        }, student.participationTime + 2500); // Tiempo intermedio
+                    });
+                    
+                } else {
+                    // Estudiante normal: participación estándar
+                    const bubbleMessage = getStudentAction(student, emotion);
+                    showSpeechBubble(i, bubbleMessage, student.participationTime);
+
+                    await new Promise(resolve => {
+                        setTimeout(() => {
+                            addLogEntry(`${student.name}: ${bubbleMessage}`, student.type);
+                            
+                            studentDiv.style.transform = 'scale(1)';
+                            studentDiv.style.boxShadow = 'none';
+                            resolve();
+                        }, student.participationTime + 2000); // Tiempo estándar
+                    });
+                }
+            }
+
+            emotionsCompleted++;
+            addLogEntry(`✅ ¡Todos completaron la estación de ${emotion.name}! El grupo avanza unido al siguiente tramo.`);
+            
+            // Ocultar emoción actual después de completar
+            setTimeout(() => {
+                currentEmotionDiv.style.display = 'none';
+            }, 1000);
+        }
+
+        async function runSimulation() {
+            // Mostrar mensaje de inicio
+            await showSystemMessage(`🚀 <strong>¡Comienza el juego!</strong><br><br>${students.length} estudiantes inician el recorrido por el puente de las emociones`);
+            
+            startTime = Date.now();
+            document.getElementById('stats').style.display = 'grid';
+            
+            addLogEntry(`🚀 ¡Comienza el juego! ${students.length} estudiantes inician el recorrido por el puente de las emociones.`);
+            
+            // Actualizar stats cada segundo
+            gameInterval = setInterval(updateStats, 1000);
+
+            // Procesar cada estación emocional
+            for (let i = 0; i < 4; i++) {
+                currentStation = i + 1;
+                updateProgress();
+                await processEmotionStation(i);
+                
+                // Pausa entre estaciones
+                await new Promise(resolve => setTimeout(resolve, 1000));
+            }
+
+            // Completar el juego
+            currentStation = 4;
+            updateProgress();
+            clearInterval(gameInterval);
+            
+            const totalTime = Math.floor((Date.now() - startTime) / 1000);
+            
+            // Mostrar mensaje de finalización
+            await showSystemMessage(`🎉 <strong>¡JUEGO COMPLETADO!</strong><br><br>Todos los estudiantes cruzaron el puente juntos en ${totalTime} segundos.<br><br>¡Excelente trabajo en equipo! 👏`);
+            
+            addLogEntry(`🎉 ¡JUEGO COMPLETADO! Todos los estudiantes cruzaron el puente juntos en ${totalTime} segundos. ¡Excelente trabajo en equipo!`);
+            
+            // Celebración visual
+            const studentsContainer = document.getElementById('studentsContainer');
+            studentsContainer.style.animation = 'fadeIn 1s ease';
+        }
+
+        function startNormalScenario() {
+            resetSimulation();
+            currentScenario = 'normal';
+            updateScenarioInfo('normal');
+            createStudents('normal');
+            setTimeout(runSimulation, 1000);
+        }
+
+        function startTEAScenario() {
+            resetSimulation();
+            currentScenario = 'tea';
+            updateScenarioInfo('tea');
+            createStudents('tea');
+            setTimeout(runSimulation, 1000);
+        }
+
+        function startMobilityScenario() {
+            resetSimulation();
+            currentScenario = 'mobility';
+            updateScenarioInfo('mobility');
+            createStudents('mobility');
+            setTimeout(runSimulation, 1000);
+        }
+
+        function resetSimulation() {
+            if (gameInterval) {
+                clearInterval(gameInterval);
+            }
+            
+            currentStation = 0;
+            emotionsCompleted = 0;
+            startTime = null;
+            isPaused = false;
+            pauseResolve = null;
+            
+            // Resetear mensajes usados
+            usedMessages = {
+                normal: { "Alegría": [], "Tristeza": [], "Miedo": [], "Enojo": [] },
+                tea: { "Alegría": [], "Tristeza": [], "Miedo": [], "Enojo": [] },
+                mobility: { "Alegría": [], "Tristeza": [], "Miedo": [], "Enojo": [] }
+            };
+            
+            // Resetear UI
+            document.getElementById('progressBar').style.width = '0%';
+            document.getElementById('currentEmotion').style.display = 'none';
+            document.getElementById('stats').style.display = 'none';
+            document.getElementById('logEntries').innerHTML = '<p>Listo para nueva simulación...</p>';
+            
+            // Ocultar sistema de pausa
+            document.getElementById('systemBubble').classList.remove('show');
+            document.getElementById('pauseOverlay').classList.remove('show');
+            
+            // Ocultar todas las estaciones emocionales
+            for (let i = 1; i <= 4; i++) {
+                const station = document.getElementById(`station${i}`);
+                const emotionStation = station.querySelector('.emotion-station');
+                emotionStation.style.display = 'none';
+            }
+            
+            // Limpiar estudiantes
+            document.getElementById('studentsContainer').innerHTML = '';
+        }
+
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', function() {
+            addLogEntry('🎮 Simulación lista. Selecciona un escenario para comenzar.');
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9921fbf507d56d61',t:'MTc2MTA2MjU5OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
