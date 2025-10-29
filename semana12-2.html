@@ -1,0 +1,633 @@
+<!doctype html>
+<html lang="es">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Actividades Lúdicas y Motrices</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+        body {
+            box-sizing: border-box;
+        }
+
+        .portada {
+            background: white;
+            border: 2px solid black;
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 1240px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+            background: #1e40af;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        .info-institucional {
+            flex: 1;
+        }
+
+        .info-institucional h2 {
+            margin: 0 0 10px 0;
+            color: #333;
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+        .info-institucional p {
+            margin: 5px 0;
+            color: #666;
+            font-size: 19px;
+            line-height: 1.4;
+        }
+
+        .info-estudiante {
+            text-align: right;
+            flex-shrink: 0;
+        }
+
+        .info-estudiante p {
+            margin: 5px 0;
+            color: #333;
+            font-size: 19px;
+            line-height: 1.4;
+        }
+
+        .info-estudiante p strong {
+            color: black;
+        }
+
+        @media (max-width: 768px) {
+            .portada {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+                gap: 20px;
+            }
+            
+            .info-estudiante {
+                text-align: center;
+            }
+            
+            .info-institucional h2 {
+                font-size: 20px;
+            }
+            
+            .info-institucional p,
+            .info-estudiante p {
+                font-size: 14px;
+            }
+            
+            .logo {
+                width: 80px;
+                height: 80px;
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .portada {
+                padding: 15px;
+            }
+            
+            .info-institucional h2 {
+                font-size: 18px;
+            }
+            
+            .info-institucional p,
+            .info-estudiante p {
+                font-size: 12px;
+            }
+        }
+        
+        .card {
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-2px);
+        }
+        
+        .activity-card {
+            border-left: 4px solid #3B82F6;
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.6s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="min-h-full">
+  <div class="min-h-full bg-gradient-to-br from-blue-50 to-green-50 p-4 sm:p-6 lg:p-8"><!-- Portada Universitaria -->
+   <section class="mb-8 sm:mb-12 fade-in">
+    <div class="portada"><img src="https://www.carreras.pe/userfiles/images/Logos%20y%20fachadas/Logo%20UTP%202.png" alt="Logo UTP" onerror="this.outerHTML='<div class=\'logo\'>UTP</div>';" style="width: 100px; height: 100px; object-fit: contain; background: transparent; flex-shrink: 0;">
+     <div class="info-institucional">
+      <h2>Universidad Tecnológica del Perú</h2>
+      <p>Facultad de Educación</p>
+      <p>Práctica Educativa I: Psicomotricidad para Educación Primaria</p>
+      <p>Sección 31960</p>
+     </div>
+     <div class="info-estudiante">
+      <p><strong>Aaron Sixto Callupe Llallico</strong></p>
+      <p>Estudiante de Educación Primaria</p>
+      <p>Semana 12 - AVANCE DE PORTAFOLIO 2</p>
+     </div>
+    </div>
+   </section><!-- Header -->
+   <header class="text-center mb-6 sm:mb-8 fade-in">
+    <h1 id="main-title" class="text-2xl sm:text-3xl lg:text-4xl font-bold text-blue-800 mb-4 px-2">Diseño de actividades lúdicas y motrices</h1>
+    <div class="w-16 sm:w-24 h-1 bg-blue-600 mx-auto rounded-full"></div>
+   </header><!-- Secciones 1 y 2 en la misma fila -->
+   <section class="mb-6 sm:mb-8 fade-in">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6"><!-- 1. Contexto del grupo -->
+     <div class="card bg-white rounded-xl shadow-lg p-4 sm:p-6 lg:p-8">
+      <h2 id="group-title" class="text-xl sm:text-2xl font-bold text-green-700 mb-4 sm:mb-6 flex items-center flex-wrap"><span class="bg-green-100 text-green-700 rounded-full w-8 h-8 flex items-center justify-center text-lg font-bold mr-3 mb-2 sm:mb-0">1</span> <span class="break-words">Contexto del grupo</span></h2>
+      <div class="bg-green-50 rounded-lg p-4 sm:p-6 border-l-4 border-green-500">
+       <p class="text-gray-700 leading-relaxed text-base sm:text-lg">El grupo está conformado por <strong>niños y niñas de 1.º de primaria</strong> con una <strong>edad promedio de 6 años</strong>. Se encuentran en una etapa de transición entre el juego libre de la educación inicial y las primeras experiencias escolares estructuradas. Muestran <strong>curiosidad, energía, necesidad de movimiento</strong> y fuerte motivación por el juego grupal. En el aula existe diversidad de ritmos de aprendizaje, por lo que las actividades deben promover la <strong>inclusión, la cooperación y la participación activa</strong> de todos.</p>
+      </div>
+     </div><!-- 2. Objetivos psicomotrices -->
+     <div class="card bg-white rounded-xl shadow-lg p-4 sm:p-6 lg:p-8">
+      <h2 id="objectives-title" class="text-xl sm:text-2xl font-bold text-purple-700 mb-4 sm:mb-6 flex items-center flex-wrap"><span class="bg-purple-100 text-purple-700 rounded-full w-8 h-8 flex items-center justify-center text-lg font-bold mr-3 mb-2 sm:mb-0">2</span> <span class="break-words">Objetivos psicomotrices</span></h2>
+      <div class="grid grid-cols-1 gap-4 sm:gap-6">
+       <div class="bg-purple-50 rounded-lg p-4 sm:p-6 border-l-4 border-purple-500">
+        <div class="flex items-start"><span class="bg-purple-200 text-purple-800 rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3 mt-1 flex-shrink-0">1</span>
+         <p class="text-gray-700 leading-relaxed text-sm sm:text-base">Favorecer el desarrollo del <strong>equilibrio, la coordinación y la lateralidad</strong> mediante experiencias lúdicas y motrices.</p>
+        </div>
+       </div>
+       <div class="bg-purple-50 rounded-lg p-4 sm:p-6 border-l-4 border-purple-500">
+        <div class="flex items-start"><span class="bg-purple-200 text-purple-800 rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3 mt-1 flex-shrink-0">2</span>
+         <p class="text-gray-700 leading-relaxed text-sm sm:text-base">Potenciar la <strong>expresión corporal, la imaginación y la socialización</strong> a través del juego simbólico y cooperativo.</p>
+        </div>
+       </div>
+       <div class="bg-purple-50 rounded-lg p-4 sm:p-6 border-l-4 border-purple-500">
+        <div class="flex items-start"><span class="bg-purple-200 text-purple-800 rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3 mt-1 flex-shrink-0">3</span>
+         <p class="text-gray-700 leading-relaxed text-sm sm:text-base">Fomentar la <strong>participación equitativa y el trabajo en equipo</strong>, fortaleciendo habilidades socioemocionales.</p>
+        </div>
+       </div>
+       <div class="bg-purple-50 rounded-lg p-4 sm:p-6 border-l-4 border-purple-500">
+        <div class="flex items-start"><span class="bg-purple-200 text-purple-800 rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3 mt-1 flex-shrink-0">4</span>
+         <p class="text-gray-700 leading-relaxed text-sm sm:text-base">Desarrollar la <strong>conciencia corporal y el control postural</strong> en diferentes situaciones de movimiento.</p>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- 3. Actividades Lúdicas -->
+   <section class="mb-6 sm:mb-8 fade-in">
+    <div class="card bg-white rounded-xl shadow-lg p-4 sm:p-6 lg:p-8">
+     <h2 id="activities-title" class="text-xl sm:text-2xl font-bold text-blue-700 mb-4 sm:mb-6 flex items-center flex-wrap"><span class="bg-blue-100 text-blue-700 rounded-full w-8 h-8 flex items-center justify-center text-lg font-bold mr-3 mb-2 sm:mb-0">3</span> <span class="break-words">Actividades Lúdicas</span></h2><!-- Actividades 1 y 2 en la misma fila -->
+     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6"><!-- Actividad 1: Los animales del bosque -->
+      <div class="activity-card bg-blue-50 rounded-lg p-4 sm:p-6 shadow-md">
+       <div class="flex items-start sm:items-center mb-4"><span class="text-2xl sm:text-3xl mr-3 flex-shrink-0">🦁</span>
+        <div class="min-w-0 flex-1">
+         <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-2 break-words">Actividad 1: "Los animales del bosque"</h3><span class="bg-orange-100 text-orange-800 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium">Juego simbólico</span>
+        </div>
+       </div>
+       <div class="space-y-3 sm:space-y-4">
+        <div>
+         <h4 class="font-semibold text-gray-700 mb-2 text-sm sm:text-base">🎯 Objetivo:</h4>
+         <p class="text-gray-600 text-sm sm:text-base">Expresar corporalmente diferentes animales, desarrollando imaginación y control motor.</p>
+        </div>
+        <div>
+         <h4 class="font-semibold text-gray-700 mb-2 text-sm sm:text-base">📝 Descripción:</h4>
+         <p class="text-gray-600 text-sm sm:text-base">Los niños se desplazan por el espacio imitando animales (saltan como ranas, caminan como elefantes, vuelan como aves). Luego, deben detenerse y adoptar una postura fija cuando el docente diga "¡Selva quieta!".</p>
+        </div>
+        <div>
+         <h4 class="font-semibold text-gray-700 mb-2 text-sm sm:text-base">🧰 Materiales:</h4>
+         <p class="text-gray-600 text-sm sm:text-base">Música ambiental, tarjetas con imágenes de animales.</p>
+        </div>
+        <div>
+         <h4 class="font-semibold text-gray-700 mb-2 text-sm sm:text-base">🔄 Variantes/Adaptaciones:</h4>
+         <ul class="text-gray-600 list-disc list-inside space-y-1 text-sm sm:text-base">
+          <li>Para mayor inclusión, los niños pueden elegir animales según su capacidad motora.</li>
+          <li>Reducir el espacio o el tiempo según necesidad.</li>
+         </ul>
+        </div>
+        <div class="bg-blue-100 rounded-lg p-3 sm:p-4">
+         <h4 class="font-semibold text-blue-800 mb-2 text-sm sm:text-base">💡 Intención pedagógica:</h4>
+         <p class="text-blue-700 text-sm sm:text-base">Desarrollar la creatividad, la conciencia corporal y la autorregulación a través del juego expresivo.</p>
+        </div>
+       </div>
+      </div><!-- Actividad 2: El puente de la amistad -->
+      <div class="activity-card bg-green-50 rounded-lg p-4 sm:p-6 shadow-md">
+       <div class="flex items-start sm:items-center mb-4"><span class="text-2xl sm:text-3xl mr-3 flex-shrink-0">🤝</span>
+        <div class="min-w-0 flex-1">
+         <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-2 break-words">Actividad 2: "El puente de la amistad"</h3><span class="bg-green-100 text-green-800 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium">Juego cooperativo</span>
+        </div>
+       </div>
+       <div class="space-y-3 sm:space-y-4">
+        <div>
+         <h4 class="font-semibold text-gray-700 mb-2 text-sm sm:text-base">🎯 Objetivo:</h4>
+         <p class="text-gray-600 text-sm sm:text-base">Promover el trabajo en equipo y el equilibrio.</p>
+        </div>
+        <div>
+         <h4 class="font-semibold text-gray-700 mb-2 text-sm sm:text-base">📝 Descripción:</h4>
+         <p class="text-gray-600 text-sm sm:text-base">En parejas, los niños forman "puentes" con sus cuerpos para que otro compañero pase por debajo sin derrumbarlo.</p>
+        </div>
+        <div>
+         <h4 class="font-semibold text-gray-700 mb-2 text-sm sm:text-base">🧰 Materiales:</h4>
+         <p class="text-gray-600 text-sm sm:text-base">Colchonetas o piso de goma.</p>
+        </div>
+        <div>
+         <h4 class="font-semibold text-gray-700 mb-2 text-sm sm:text-base">🔄 Variantes/Adaptaciones:</h4>
+         <ul class="text-gray-600 list-disc list-inside space-y-1 text-sm sm:text-base">
+          <li>Se puede formar tríos si un niño necesita apoyo.</li>
+          <li>Ajustar la altura del puente según la estatura.</li>
+         </ul>
+        </div>
+        <div class="bg-green-100 rounded-lg p-3 sm:p-4">
+         <h4 class="font-semibold text-green-800 mb-2 text-sm sm:text-base">💡 Intención pedagógica:</h4>
+         <p class="text-green-700 text-sm sm:text-base">Fortalecer la cooperación, el respeto y la empatía mediante el movimiento compartido.</p>
+        </div>
+       </div>
+      </div>
+     </div><!-- Actividades 3 y 4 en la misma fila -->
+     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6"><!-- Actividad 3: Atrapa el color -->
+      <div class="activity-card bg-yellow-50 rounded-lg p-4 sm:p-6 shadow-md">
+       <div class="flex items-start sm:items-center mb-4"><span class="text-2xl sm:text-3xl mr-3 flex-shrink-0">🌈</span>
+        <div class="min-w-0 flex-1">
+         <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-2 break-words">Actividad 3: "Atrapa el color"</h3><span class="bg-red-100 text-red-800 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium">Juego reglado</span>
+        </div>
+       </div>
+       <div class="space-y-3 sm:space-y-4">
+        <div>
+         <h4 class="font-semibold text-gray-700 mb-2 text-sm sm:text-base">🎯 Objetivo:</h4>
+         <p class="text-gray-600 text-sm sm:text-base">Estimular la atención y la velocidad de reacción.</p>
+        </div>
+        <div>
+         <h4 class="font-semibold text-gray-700 mb-2 text-sm sm:text-base">📝 Descripción:</h4>
+         <p class="text-gray-600 text-sm sm:text-base">El docente muestra una tarjeta de color; los niños deben correr y tocar un objeto del mismo color dentro del aula o patio.</p>
+        </div>
+        <div>
+         <h4 class="font-semibold text-gray-700 mb-2 text-sm sm:text-base">🧰 Materiales:</h4>
+         <p class="text-gray-600 text-sm sm:text-base">Tarjetas de colores, objetos variados.</p>
+        </div>
+        <div>
+         <h4 class="font-semibold text-gray-700 mb-2 text-sm sm:text-base">🔄 Variantes/Adaptaciones:</h4>
+         <ul class="text-gray-600 list-disc list-inside space-y-1 text-sm sm:text-base">
+          <li>Para niños con movilidad reducida, se permite señalar en lugar de correr.</li>
+          <li>Se puede limitar el espacio o jugar por turnos.</li>
+         </ul>
+        </div>
+        <div class="bg-yellow-100 rounded-lg p-3 sm:p-4">
+         <h4 class="font-semibold text-yellow-800 mb-2 text-sm sm:text-base">💡 Intención pedagógica:</h4>
+         <p class="text-yellow-700 text-sm sm:text-base">Favorecer la percepción visual, la atención y el autocontrol.</p>
+        </div>
+       </div>
+      </div><!-- Actividad 4: Burbujas mágicas -->
+      <div class="activity-card bg-purple-50 rounded-lg p-4 sm:p-6 shadow-md">
+       <div class="flex items-start sm:items-center mb-4"><span class="text-2xl sm:text-3xl mr-3 flex-shrink-0">🫧</span>
+        <div class="min-w-0 flex-1">
+         <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-2 break-words">Actividad 4: "Burbujas mágicas"</h3><span class="bg-purple-100 text-purple-800 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium">Juego libre</span>
+        </div>
+       </div>
+       <div class="space-y-3 sm:space-y-4">
+        <div>
+         <h4 class="font-semibold text-gray-700 mb-2 text-sm sm:text-base">🎯 Objetivo:</h4>
+         <p class="text-gray-600 text-sm sm:text-base">Desarrollar la coordinación visomotriz y la expresión corporal libre.</p>
+        </div>
+        <div>
+         <h4 class="font-semibold text-gray-700 mb-2 text-sm sm:text-base">📝 Descripción:</h4>
+         <p class="text-gray-600 text-sm sm:text-base">Los niños persiguen y explotan burbujas que el docente sopla. Pueden saltar, girar o moverse libremente según el ritmo de la música.</p>
+        </div>
+        <div>
+         <h4 class="font-semibold text-gray-700 mb-2 text-sm sm:text-base">🧰 Materiales:</h4>
+         <p class="text-gray-600 text-sm sm:text-base">Pompas de jabón, música suave.</p>
+        </div>
+        <div>
+         <h4 class="font-semibold text-gray-700 mb-2 text-sm sm:text-base">🔄 Variantes/Adaptaciones:</h4>
+         <ul class="text-gray-600 list-disc list-inside space-y-1 text-sm sm:text-base">
+          <li>Permitir que los niños con menos movilidad soplen burbujas en lugar de perseguirlas.</li>
+         </ul>
+        </div>
+        <div class="bg-purple-100 rounded-lg p-3 sm:p-4">
+         <h4 class="font-semibold text-purple-800 mb-2 text-sm sm:text-base">💡 Intención pedagógica:</h4>
+         <p class="text-purple-700 text-sm sm:text-base">Estimular la libertad de movimiento, la alegría y la coordinación ojo-mano.</p>
+        </div>
+       </div>
+      </div>
+     </div><!-- Actividad 5 sola -->
+     <div class="activity-card bg-pink-50 rounded-lg p-4 sm:p-6 mb-4 sm:mb-6 shadow-md">
+      <div class="flex items-start sm:items-center mb-4"><span class="text-2xl sm:text-3xl mr-3 flex-shrink-0">🎵</span>
+       <div class="min-w-0 flex-1">
+        <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-2 break-words">Actividad 5: "Las estatuas musicales"</h3><span class="bg-red-100 text-red-800 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium">Juego reglado</span>
+       </div>
+      </div>
+      <div class="space-y-3 sm:space-y-4">
+       <div>
+        <h4 class="font-semibold text-gray-700 mb-2 text-sm sm:text-base">🎯 Objetivo:</h4>
+        <p class="text-gray-600 text-sm sm:text-base">Mejorar el control corporal y la atención auditiva.</p>
+       </div>
+       <div>
+        <h4 class="font-semibold text-gray-700 mb-2 text-sm sm:text-base">📝 Descripción:</h4>
+        <p class="text-gray-600 text-sm sm:text-base">Con música, los niños bailan libremente; cuando esta se detiene, deben quedarse inmóviles como "estatuas".</p>
+       </div>
+       <div>
+        <h4 class="font-semibold text-gray-700 mb-2 text-sm sm:text-base">🧰 Materiales:</h4>
+        <p class="text-gray-600 text-sm sm:text-base">Reproductor de música.</p>
+       </div>
+       <div>
+        <h4 class="font-semibold text-gray-700 mb-2 text-sm sm:text-base">🔄 Variantes/Adaptaciones:</h4>
+        <ul class="text-gray-600 list-disc list-inside space-y-1 text-sm sm:text-base">
+         <li>Reducir el tiempo de quietud para niños con menor control postural.</li>
+        </ul>
+       </div>
+       <div class="bg-pink-100 rounded-lg p-3 sm:p-4">
+        <h4 class="font-semibold text-pink-800 mb-2 text-sm sm:text-base">💡 Intención pedagógica:</h4>
+        <p class="text-pink-700 text-sm sm:text-base">Desarrollar la autorregulación y la escucha activa mediante el juego musical.</p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- 4. Actividades Motrices -->
+   <section class="mb-6 sm:mb-8 fade-in">
+    <div class="card bg-white rounded-xl shadow-lg p-4 sm:p-6 lg:p-8">
+     <h2 class="text-xl sm:text-2xl font-bold text-orange-700 mb-4 sm:mb-6 flex items-center flex-wrap"><span class="bg-orange-100 text-orange-700 rounded-full w-8 h-8 flex items-center justify-center text-lg font-bold mr-3 mb-2 sm:mb-0">4</span> <span class="break-words">Actividades Motrices</span></h2><!-- Actividades 6 y 7 en la misma fila -->
+     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6"><!-- Actividad 6: Camino de equilibrio -->
+      <div class="activity-card bg-orange-50 rounded-lg p-4 sm:p-6 shadow-md">
+       <div class="flex items-start sm:items-center mb-4"><span class="text-2xl sm:text-3xl mr-3 flex-shrink-0">⚖️</span>
+        <div class="min-w-0 flex-1">
+         <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-2 break-words">Actividad 6: "Camino de equilibrio"</h3><span class="bg-blue-100 text-blue-800 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium">Habilidad: equilibrio</span>
+        </div>
+       </div>
+       <div class="space-y-3 sm:space-y-4">
+        <div>
+         <h4 class="font-semibold text-gray-700 mb-2 text-sm sm:text-base">🎯 Objetivo:</h4>
+         <p class="text-gray-600 text-sm sm:text-base">Fortalecer el equilibrio dinámico.</p>
+        </div>
+        <div>
+         <h4 class="font-semibold text-gray-700 mb-2 text-sm sm:text-base">📝 Descripción:</h4>
+         <p class="text-gray-600 text-sm sm:text-base">Los niños caminan sobre una cuerda extendida en el piso sin perder el equilibrio.</p>
+        </div>
+        <div>
+         <h4 class="font-semibold text-gray-700 mb-2 text-sm sm:text-base">🧰 Materiales:</h4>
+         <p class="text-gray-600 text-sm sm:text-base">Cuerda gruesa o cinta adhesiva de colores.</p>
+        </div>
+        <div>
+         <h4 class="font-semibold text-gray-700 mb-2 text-sm sm:text-base">🔄 Variantes/Adaptaciones:</h4>
+         <ul class="text-gray-600 list-disc list-inside space-y-1 text-sm sm:text-base">
+          <li>Aumentar o disminuir la distancia según el nivel del grupo.</li>
+          <li>Permitir apoyo con brazos abiertos o de un compañero.</li>
+         </ul>
+        </div>
+        <div class="bg-orange-100 rounded-lg p-3 sm:p-4">
+         <h4 class="font-semibold text-orange-800 mb-2 text-sm sm:text-base">💡 Intención pedagógica:</h4>
+         <p class="text-orange-700 text-sm sm:text-base">Desarrollar estabilidad corporal y confianza motriz.</p>
+        </div>
+       </div>
+      </div><!-- Actividad 7: Corre y salta -->
+      <div class="activity-card bg-teal-50 rounded-lg p-4 sm:p-6 shadow-md">
+       <div class="flex items-start sm:items-center mb-4"><span class="text-2xl sm:text-3xl mr-3 flex-shrink-0">🏃‍♂️</span>
+        <div class="min-w-0 flex-1">
+         <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-2 break-words">Actividad 7: "Corre y salta"</h3><span class="bg-teal-100 text-teal-800 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium">Habilidad: coordinación y ritmo</span>
+        </div>
+       </div>
+       <div class="space-y-3 sm:space-y-4">
+        <div>
+         <h4 class="font-semibold text-gray-700 mb-2 text-sm sm:text-base">🎯 Objetivo:</h4>
+         <p class="text-gray-600 text-sm sm:text-base">Estimular la coordinación general a través de movimientos rítmicos.</p>
+        </div>
+        <div>
+         <h4 class="font-semibold text-gray-700 mb-2 text-sm sm:text-base">📝 Descripción:</h4>
+         <p class="text-gray-600 text-sm sm:text-base">Los niños corren y saltan siguiendo el ritmo de una canción marcada por el docente con palmas.</p>
+        </div>
+        <div>
+         <h4 class="font-semibold text-gray-700 mb-2 text-sm sm:text-base">🧰 Materiales:</h4>
+         <p class="text-gray-600 text-sm sm:text-base">Música rítmica, aros.</p>
+        </div>
+        <div>
+         <h4 class="font-semibold text-gray-700 mb-2 text-sm sm:text-base">🔄 Variantes/Adaptaciones:</h4>
+         <ul class="text-gray-600 list-disc list-inside space-y-1 text-sm sm:text-base">
+          <li>Usar movimientos más lentos para quienes necesiten más tiempo.</li>
+         </ul>
+        </div>
+        <div class="bg-teal-100 rounded-lg p-3 sm:p-4">
+         <h4 class="font-semibold text-teal-800 mb-2 text-sm sm:text-base">💡 Intención pedagógica:</h4>
+         <p class="text-teal-700 text-sm sm:text-base">Mejorar la sincronización corporal y el sentido del ritmo.</p>
+        </div>
+       </div>
+      </div>
+     </div><!-- Actividades 8 y 9 en la misma fila -->
+     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6"><!-- Actividad 8: Carrera de pelotas -->
+      <div class="activity-card bg-red-50 rounded-lg p-4 sm:p-6 shadow-md">
+       <div class="flex items-start sm:items-center mb-4"><span class="text-2xl sm:text-3xl mr-3 flex-shrink-0">⚽</span>
+        <div class="min-w-0 flex-1">
+         <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-2 break-words">Actividad 8: "Carrera de pelotas"</h3><span class="bg-red-100 text-red-800 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium">Capacidad: velocidad</span>
+        </div>
+       </div>
+       <div class="space-y-3 sm:space-y-4">
+        <div>
+         <h4 class="font-semibold text-gray-700 mb-2 text-sm sm:text-base">🎯 Objetivo:</h4>
+         <p class="text-gray-600 text-sm sm:text-base">Desarrollar la velocidad de desplazamiento y la cooperación.</p>
+        </div>
+        <div>
+         <h4 class="font-semibold text-gray-700 mb-2 text-sm sm:text-base">📝 Descripción:</h4>
+         <p class="text-gray-600 text-sm sm:text-base">En equipos, los niños deben llevar una pelota hasta la meta y regresar sin dejarla caer.</p>
+        </div>
+        <div>
+         <h4 class="font-semibold text-gray-700 mb-2 text-sm sm:text-base">🧰 Materiales:</h4>
+         <p class="text-gray-600 text-sm sm:text-base">Pelotas pequeñas.</p>
+        </div>
+        <div>
+         <h4 class="font-semibold text-gray-700 mb-2 text-sm sm:text-base">🔄 Variantes/Adaptaciones:</h4>
+         <ul class="text-gray-600 list-disc list-inside space-y-1 text-sm sm:text-base">
+          <li>Sustituir correr por caminar rápido si es necesario.</li>
+         </ul>
+        </div>
+        <div class="bg-red-100 rounded-lg p-3 sm:p-4">
+         <h4 class="font-semibold text-red-800 mb-2 text-sm sm:text-base">💡 Intención pedagógica:</h4>
+         <p class="text-red-700 text-sm sm:text-base">Promover la agilidad, la cooperación y el respeto por las reglas.</p>
+        </div>
+       </div>
+      </div><!-- Actividad 9: El túnel humano -->
+      <div class="activity-card bg-indigo-50 rounded-lg p-4 sm:p-6 shadow-md">
+       <div class="flex items-start sm:items-center mb-4"><span class="text-2xl sm:text-3xl mr-3 flex-shrink-0">🚇</span>
+        <div class="min-w-0 flex-1">
+         <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-2 break-words">Actividad 9: "El túnel humano"</h3><span class="bg-indigo-100 text-indigo-800 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium">Habilidad: lateralidad y coordinación</span>
+        </div>
+       </div>
+       <div class="space-y-3 sm:space-y-4">
+        <div>
+         <h4 class="font-semibold text-gray-700 mb-2 text-sm sm:text-base">🎯 Objetivo:</h4>
+         <p class="text-gray-600 text-sm sm:text-base">Favorecer la orientación espacial y la cooperación grupal.</p>
+        </div>
+        <div>
+         <h4 class="font-semibold text-gray-700 mb-2 text-sm sm:text-base">📝 Descripción:</h4>
+         <p class="text-gray-600 text-sm sm:text-base">Los niños forman un túnel con sus piernas separadas; uno por uno pasa gateando hasta el final.</p>
+        </div>
+        <div>
+         <h4 class="font-semibold text-gray-700 mb-2 text-sm sm:text-base">🧰 Materiales:</h4>
+         <p class="text-gray-600 text-sm sm:text-base">Colchonetas.</p>
+        </div>
+        <div>
+         <h4 class="font-semibold text-gray-700 mb-2 text-sm sm:text-base">🔄 Variantes/Adaptaciones:</h4>
+         <ul class="text-gray-600 list-disc list-inside space-y-1 text-sm sm:text-base">
+          <li>Reducir el número de niños por túnel si se necesita más espacio.</li>
+         </ul>
+        </div>
+        <div class="bg-indigo-100 rounded-lg p-3 sm:p-4">
+         <h4 class="font-semibold text-indigo-800 mb-2 text-sm sm:text-base">💡 Intención pedagógica:</h4>
+         <p class="text-indigo-700 text-sm sm:text-base">Fortalecer la noción corporal, el trabajo en grupo y la coordinación.</p>
+        </div>
+       </div>
+      </div>
+     </div><!-- Actividad 10 sola -->
+     <div class="activity-card bg-emerald-50 rounded-lg p-4 sm:p-6 mb-4 sm:mb-6 shadow-md">
+      <div class="flex items-start sm:items-center mb-4"><span class="text-2xl sm:text-3xl mr-3 flex-shrink-0">🧘‍♂️</span>
+       <div class="min-w-0 flex-1">
+        <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-2 break-words">Actividad 10: "Estira y alcanza"</h3><span class="bg-emerald-100 text-emerald-800 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium">Capacidad: flexibilidad y fuerza</span>
+       </div>
+      </div>
+      <div class="space-y-3 sm:space-y-4">
+       <div>
+        <h4 class="font-semibold text-gray-700 mb-2 text-sm sm:text-base">🎯 Objetivo:</h4>
+        <p class="text-gray-600 text-sm sm:text-base">Mejorar la flexibilidad muscular y la conciencia corporal.</p>
+       </div>
+       <div>
+        <h4 class="font-semibold text-gray-700 mb-2 text-sm sm:text-base">📝 Descripción:</h4>
+        <p class="text-gray-600 text-sm sm:text-base">En el suelo, los niños realizan estiramientos imitando movimientos de animales (gato, perro, serpiente).</p>
+       </div>
+       <div>
+        <h4 class="font-semibold text-gray-700 mb-2 text-sm sm:text-base">🧰 Materiales:</h4>
+        <p class="text-gray-600 text-sm sm:text-base">Colchonetas, música relajante.</p>
+       </div>
+       <div>
+        <h4 class="font-semibold text-gray-700 mb-2 text-sm sm:text-base">🔄 Variantes/Adaptaciones:</h4>
+        <ul class="text-gray-600 list-disc list-inside space-y-1 text-sm sm:text-base">
+         <li>Adaptar la duración de los estiramientos según las posibilidades del grupo.</li>
+        </ul>
+       </div>
+       <div class="bg-emerald-100 rounded-lg p-3 sm:p-4">
+        <h4 class="font-semibold text-emerald-800 mb-2 text-sm sm:text-base">💡 Intención pedagógica:</h4>
+        <p class="text-emerald-700 text-sm sm:text-base">Desarrollar la flexibilidad y el control corporal de manera lúdica.</p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- 5. Reflexión crítica -->
+   <section class="mb-6 sm:mb-8 fade-in">
+    <div class="card bg-white rounded-xl shadow-lg p-4 sm:p-6 lg:p-8">
+     <h2 class="text-xl sm:text-2xl font-bold text-gray-700 mb-4 sm:mb-6 flex items-center flex-wrap"><span class="bg-gray-100 text-gray-700 rounded-full w-8 h-8 flex items-center justify-center text-lg font-bold mr-3 mb-2 sm:mb-0">5</span> <span class="break-words">Reflexión crítica</span></h2>
+     <div class="bg-gray-50 rounded-lg p-4 sm:p-6 border-l-4 border-gray-500">
+      <div class="space-y-3 sm:space-y-4 text-gray-700 leading-relaxed text-sm sm:text-base">
+       <p>El proceso de diseñar y aplicar estas actividades lúdicas y motrices me permitió comprender la <strong>importancia de la psicomotricidad como herramienta educativa integral</strong>. Aprendí a observar las características del grupo, adaptar materiales y tiempos, y sobre todo, garantizar la participación activa e inclusiva de todos los niños.</p>
+       <p>Uno de los principales retos fue lograr que las actividades sean a la vez <strong>divertidas y formativas</strong>, equilibrando el juego libre con los objetivos pedagógicos. También fue un desafío considerar las diferencias individuales dentro del grupo, buscando que nadie quede excluido.</p>
+       <p>Como futuro docente, esta experiencia me ayudó a fortalecer mi capacidad de <strong>planificar con intención educativa</strong>, reflexionar sobre mi práctica y reconocer el valor del movimiento en el aprendizaje infantil. La psicomotricidad, más que una técnica, es una forma de entender al niño en su totalidad, integrando <strong>cuerpo, emoción y pensamiento</strong>.</p>
+      </div>
+     </div>
+    </div>
+   </section>
+  </div>
+  <script>
+        // Configuration object
+        const defaultConfig = {
+            main_title: "Diseño de actividades lúdicas y motrices",
+            group_title: "1. Contexto del grupo",
+            objectives_title: "2. Objetivos psicomotrices",
+            activities_title: "3. Actividades Lúdicas"
+        };
+
+        // Element SDK configuration
+        async function onConfigChange(config) {
+            const mainTitle = config.main_title || defaultConfig.main_title;
+            const groupTitle = config.group_title || defaultConfig.group_title;
+            const objectivesTitle = config.objectives_title || defaultConfig.objectives_title;
+            const activitiesTitle = config.activities_title || defaultConfig.activities_title;
+
+            document.getElementById('main-title').textContent = mainTitle;
+            document.getElementById('group-title').textContent = groupTitle;
+            document.getElementById('objectives-title').textContent = objectivesTitle;
+            document.getElementById('activities-title').textContent = activitiesTitle;
+        }
+
+        function mapToCapabilities(config) {
+            return {
+                recolorables: [
+                    {
+                        get: () => config.primary_color || "#1E40AF",
+                        set: (value) => {
+                            config.primary_color = value;
+                            window.elementSdk.setConfig({ primary_color: value });
+                        }
+                    },
+                    {
+                        get: () => config.secondary_color || "#059669",
+                        set: (value) => {
+                            config.secondary_color = value;
+                            window.elementSdk.setConfig({ secondary_color: value });
+                        }
+                    },
+                    {
+                        get: () => config.background_color || "#EFF6FF",
+                        set: (value) => {
+                            config.background_color = value;
+                            window.elementSdk.setConfig({ background_color: value });
+                        }
+                    }
+                ],
+                borderables: [],
+                fontEditable: {
+                    get: () => config.font_family || "Inter",
+                    set: (value) => {
+                        config.font_family = value;
+                        window.elementSdk.setConfig({ font_family: value });
+                    }
+                },
+                fontSizeable: {
+                    get: () => config.font_size || 16,
+                    set: (value) => {
+                        config.font_size = value;
+                        window.elementSdk.setConfig({ font_size: value });
+                    }
+                }
+            };
+        }
+
+        function mapToEditPanelValues(config) {
+            return new Map([
+                ["main_title", config.main_title || defaultConfig.main_title],
+                ["group_title", config.group_title || defaultConfig.group_title],
+                ["objectives_title", config.objectives_title || defaultConfig.objectives_title],
+                ["activities_title", config.activities_title || defaultConfig.activities_title]
+            ]);
+        }
+
+        // Initialize Element SDK
+        async function initApp() {
+            if (window.elementSdk) {
+                await window.elementSdk.init({
+                    defaultConfig,
+                    onConfigChange,
+                    mapToCapabilities,
+                    mapToEditPanelValues
+                });
+            }
+        }
+
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', initApp);
+    </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9964720327b76dfb',t:'MTc2MTc1OTQ5My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
