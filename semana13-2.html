@@ -1,0 +1,787 @@
+<!doctype html>
+<html lang="es" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Circuito con Estaciones Motrices</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+        body {
+            box-sizing: border-box;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .station-card {
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+        
+        .station-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        .station-1 { border-left-color: #ef4444; }
+        .station-2 { border-left-color: #f59e0b; }
+        .station-3 { border-left-color: #10b981; }
+        .station-4 { border-left-color: #8b5cf6; }
+        
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .stagger-1 { animation-delay: 0.1s; }
+        .stagger-2 { animation-delay: 0.2s; }
+        .stagger-3 { animation-delay: 0.3s; }
+        .stagger-4 { animation-delay: 0.4s; }
+        
+        .value-badge {
+            background: linear-gradient(45deg, #10b981, #059669);
+            transform: rotate(-2deg);
+            transition: transform 0.3s ease;
+        }
+        
+        .value-badge:hover {
+            transform: rotate(0deg) scale(1.05);
+        }
+        
+        .section-divider {
+            background: linear-gradient(90deg, transparent, #e5e7eb, transparent);
+        }
+        
+        .scroll-smooth {
+            scroll-behavior: smooth;
+        }
+    </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full bg-gray-50 scroll-smooth"><!-- Portada Institucional -->
+  <section class="bg-white py-8 sm:py-12">
+   <div class="max-w-7xl mx-auto px-4">
+    <div class="bg-white border-2 border-gray-800 rounded-2xl p-6 sm:p-8 shadow-lg">
+     <div class="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8"><!-- Logo -->
+      <div class="flex-shrink-0"><img src="https://www.carreras.pe/userfiles/images/Logos%20y%20fachadas/Logo%20UTP%202.png" alt="Logo UTP" onerror="this.outerHTML='<div class=\'w-24 h-24 sm:w-28 sm:h-28 bg-blue-800 text-white flex items-center justify-center font-bold text-xl sm:text-2xl rounded-xl\'>UTP</div>';" style="width: 100px; height: 100px; object-fit: contain;" class="w-20 h-20 sm:w-24 sm:h-24">
+      </div><!-- Información Institucional -->
+      <div class="flex-1 text-center md:text-left">
+       <h2 class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-800 mb-2 sm:mb-3">Universidad Tecnológica del Perú</h2>
+       <p class="text-sm sm:text-base text-gray-600 mb-1">Facultad de Educación</p>
+       <p class="text-sm sm:text-base text-gray-600 mb-1">Práctica Educativa I: Psicomotricidad para Educación Primaria</p>
+       <p class="text-sm sm:text-base text-gray-600">Sección 31960</p>
+      </div><!-- Información del Estudiante -->
+      <div class="flex-shrink-0 text-center md:text-right">
+       <p class="text-sm sm:text-base font-bold text-gray-800 mb-1">Aaron Sixto Callupe Llallico</p>
+       <p class="text-sm sm:text-base text-gray-600 mb-1">Estudiante de Educación Primaria</p>
+       <p class="text-sm sm:text-base text-gray-600">Semana 13 - Actividad 2</p>
+      </div>
+     </div>
+    </div>
+   </div>
+  </section><!-- Header Hero Section -->
+  <header class="hero-gradient text-white relative overflow-hidden"><!-- Decorative elements -->
+   <div class="absolute inset-0 opacity-10">
+    <div class="absolute top-10 left-10 w-32 h-32 bg-white rounded-full blur-3xl"></div>
+    <div class="absolute top-32 right-20 w-24 h-24 bg-white rounded-full blur-2xl"></div>
+    <div class="absolute bottom-20 left-1/4 w-40 h-40 bg-white rounded-full blur-3xl"></div>
+   </div>
+   <div class="max-w-7xl mx-auto px-4 py-12 sm:py-16 relative z-10">
+    <div class="text-center">
+     <div class="inline-flex items-center bg-white bg-opacity-20 rounded-full px-6 py-2 mb-6 fade-in-up"><span class="text-sm font-medium">🎯 Actividad Educativa</span>
+     </div>
+     <h1 id="main-title" class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3 fade-in-up stagger-1 bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">Circuito con Estaciones Motrices</h1>
+     <p id="subtitle" class="text-lg sm:text-xl font-light mb-6 opacity-90 fade-in-up stagger-2">Aplicando lo aprendido</p>
+     <div class="flex justify-center items-center mb-6 fade-in-up stagger-3">
+      <div class="w-16 h-px bg-white opacity-50"></div>
+      <div class="w-3 h-3 bg-white rounded-full mx-4"></div>
+      <div class="w-16 h-px bg-white opacity-50"></div>
+     </div>
+     <p id="intro-text" class="text-base max-w-3xl mx-auto leading-relaxed opacity-95 fade-in-up stagger-4">Durante esta actividad denominada "Circuito con estaciones motrices", los estudiantes participaron en equipos para analizar y transformar diferentes situaciones problemáticas que suelen presentarse en los juegos escolares. Cada estación representó una injusticia o conflicto, y el objetivo fue reorganizar el circuito para hacerlo más justo, equitativo y participativo, aplicando los valores de respeto, cooperación, inclusión e igualdad.</p>
+    </div>
+   </div><!-- Modern wave divider -->
+   <div class="relative">
+    <svg class="w-full h-12 text-gray-50" viewbox="0 0 1200 120" preserveaspectratio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" fill="currentColor"></path>
+    </svg>
+   </div>
+  </header>
+  <main class="max-w-7xl mx-auto px-4 py-12"><!-- Estaciones Grid -->
+   <section class="mb-20">
+    <div class="text-center mb-16">
+     <h2 class="text-3xl sm:text-4xl font-bold text-gray-800 mb-4">Las Cuatro Estaciones</h2>
+     <p class="text-lg text-gray-600 max-w-2xl mx-auto">Cada estación abordó un problema específico y desarrolló soluciones basadas en valores fundamentales</p>
+    </div>
+    <div class="grid lg:grid-cols-2 gap-8"><!-- Estación 1 -->
+     <article class="station-card station-1 bg-white rounded-2xl shadow-lg p-6 fade-in-up relative overflow-hidden"><!-- Decorative gradient -->
+      <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-red-100 to-transparent rounded-bl-full opacity-50"></div>
+      <div class="relative z-10">
+       <div class="flex items-start mb-6">
+        <div class="w-14 h-14 bg-gradient-to-br from-red-400 to-red-600 rounded-xl flex items-center justify-center mr-4 flex-shrink-0 shadow-lg"><span class="text-xl text-white">👥</span>
+        </div>
+        <div>
+         <div class="flex items-center mb-2"><span class="bg-red-100 text-red-800 text-xs font-semibold px-2 py-1 rounded-full mr-2">01</span>
+          <h3 class="text-xl font-bold text-gray-800">Estación 1</h3>
+         </div>
+         <p class="text-red-600 font-semibold">La exclusión de algunos participantes</p>
+        </div>
+       </div>
+       <div class="space-y-4">
+        <div class="bg-gradient-to-r from-red-50 to-red-25 rounded-xl p-4 border-l-4 border-red-400">
+         <h4 class="font-semibold text-red-800 mb-2 flex items-center text-sm"><span class="mr-2">⚠️</span> Problema identificado</h4>
+         <p class="text-gray-700 text-sm leading-relaxed mb-3">Al inicio, solo algunos estudiantes podían participar mientras otros observaban sin intervenir. El grupo identificó que este comportamiento reflejaba falta de inclusión y escasa igualdad de oportunidades.</p><!-- Simulación del problema -->
+         <div class="bg-white rounded-lg p-3 border border-red-200">
+          <div class="text-xs font-medium text-red-700 mb-2">
+           Simulación del problema:
+          </div>
+          <div class="flex items-center justify-between">
+           <div class="flex space-x-1">
+            <div class="w-6 h-6 bg-green-400 rounded-full flex items-center justify-center text-xs text-white font-bold animate-bounce">
+             1
+            </div>
+            <div class="w-6 h-6 bg-green-400 rounded-full flex items-center justify-center text-xs text-white font-bold animate-bounce" style="animation-delay: 0.2s">
+             2
+            </div>
+            <div class="w-6 h-6 bg-green-400 rounded-full flex items-center justify-center text-xs text-white font-bold animate-bounce" style="animation-delay: 0.4s">
+             3
+            </div>
+           </div>
+           <div class="text-xs text-green-600 font-medium">
+            Participando
+           </div>
+           <div class="w-px h-8 bg-red-300"></div>
+           <div class="text-xs text-gray-500 font-medium">
+            Observando
+           </div>
+           <div class="flex space-x-1">
+            <div class="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center text-xs text-gray-600">
+             4
+            </div>
+            <div class="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center text-xs text-gray-600">
+             5
+            </div>
+            <div class="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center text-xs text-gray-600">
+             6
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+        <div class="bg-gradient-to-r from-blue-50 to-blue-25 rounded-xl p-4 border-l-4 border-blue-400">
+         <h4 class="font-semibold text-blue-800 mb-2 flex items-center text-sm"><span class="mr-2">💡</span> Solución aplicada</h4>
+         <p class="text-gray-700 text-sm leading-relaxed mb-3">Decidieron que todos los miembros del equipo participarían por turnos, de modo que nadie quedara fuera de la dinámica. Además, implementaron un sistema rotativo para que cada estudiante tuviera la posibilidad de realizar las mismas acciones motrices.</p><!-- Simulación de la solución -->
+         <div class="bg-white rounded-lg p-3 border border-blue-200">
+          <div class="text-xs font-medium text-blue-700 mb-2">
+           Simulación de la solución:
+          </div>
+          <div class="space-y-2">
+           <div class="flex items-center justify-center space-x-1">
+            <div class="text-xs text-blue-600 font-medium mr-2">
+             Turno 1:
+            </div>
+            <div class="w-5 h-5 bg-blue-400 rounded-full flex items-center justify-center text-xs text-white font-bold">
+             1
+            </div>
+            <div class="w-5 h-5 bg-blue-400 rounded-full flex items-center justify-center text-xs text-white font-bold">
+             2
+            </div>
+            <div class="w-5 h-5 bg-blue-200 rounded-full flex items-center justify-center text-xs text-blue-600">
+             3
+            </div>
+            <div class="w-5 h-5 bg-blue-200 rounded-full flex items-center justify-center text-xs text-blue-600">
+             4
+            </div>
+            <div class="w-5 h-5 bg-blue-200 rounded-full flex items-center justify-center text-xs text-blue-600">
+             5
+            </div>
+            <div class="w-5 h-5 bg-blue-200 rounded-full flex items-center justify-center text-xs text-blue-600">
+             6
+            </div>
+           </div>
+           <div class="flex items-center justify-center space-x-1">
+            <div class="text-xs text-blue-600 font-medium mr-2">
+             Turno 2:
+            </div>
+            <div class="w-5 h-5 bg-blue-200 rounded-full flex items-center justify-center text-xs text-blue-600">
+             1
+            </div>
+            <div class="w-5 h-5 bg-blue-200 rounded-full flex items-center justify-center text-xs text-blue-600">
+             2
+            </div>
+            <div class="w-5 h-5 bg-blue-400 rounded-full flex items-center justify-center text-xs text-white font-bold">
+             3
+            </div>
+            <div class="w-5 h-5 bg-blue-400 rounded-full flex items-center justify-center text-xs text-white font-bold">
+             4
+            </div>
+            <div class="w-5 h-5 bg-blue-200 rounded-full flex items-center justify-center text-xs text-blue-600">
+             5
+            </div>
+            <div class="w-5 h-5 bg-blue-200 rounded-full flex items-center justify-center text-xs text-blue-600">
+             6
+            </div>
+           </div>
+           <div class="text-center">
+            <div class="text-xs text-blue-600">
+             🔄 Rotación continua - Todos participan
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+        <div class="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-4 py-3 rounded-xl shadow-md">
+         <div class="flex items-center"><span class="mr-2">🌟</span> <span class="font-semibold text-sm">Igualdad de oportunidades y respeto por las diferencias</span>
+         </div>
+        </div>
+       </div>
+      </div>
+     </article><!-- Estación 2 -->
+     <article class="station-card station-2 bg-white rounded-2xl shadow-lg p-6 fade-in-up stagger-1 relative overflow-hidden"><!-- Decorative gradient -->
+      <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-yellow-100 to-transparent rounded-bl-full opacity-50"></div>
+      <div class="relative z-10">
+       <div class="flex items-start mb-6">
+        <div class="w-14 h-14 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-xl flex items-center justify-center mr-4 flex-shrink-0 shadow-lg"><span class="text-xl text-white">📋</span>
+        </div>
+        <div>
+         <div class="flex items-center mb-2"><span class="bg-yellow-100 text-yellow-800 text-xs font-semibold px-2 py-1 rounded-full mr-2">02</span>
+          <h3 class="text-xl font-bold text-gray-800">Estación 2</h3>
+         </div>
+         <p class="text-yellow-600 font-semibold">Reglas poco claras</p>
+        </div>
+       </div>
+       <div class="space-y-4">
+        <div class="bg-gradient-to-r from-red-50 to-red-25 rounded-xl p-4 border-l-4 border-red-400">
+         <h4 class="font-semibold text-red-800 mb-2 flex items-center text-sm"><span class="mr-2">⚠️</span> Problema identificado</h4>
+         <p class="text-gray-700 text-sm leading-relaxed mb-3">Los estudiantes notaron que las normas del juego no eran entendidas por todos, lo que generaba discusiones y confusiones. El grupo reflexionó que la falta de comunicación y claridad en las reglas afectaba la convivencia.</p><!-- Simulación del problema -->
+         <div class="bg-white rounded-lg p-3 border border-red-200">
+          <div class="text-xs font-medium text-red-700 mb-2">
+           Simulación del problema:
+          </div>
+          <div class="space-y-2">
+           <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+             <div class="w-6 h-6 bg-red-400 rounded-full flex items-center justify-center text-xs text-white">
+              👤
+             </div>
+             <div class="text-xs bg-red-100 px-2 py-1 rounded animate-pulse">
+              "¿Cuáles son las reglas?"
+             </div>
+            </div>
+           </div>
+           <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+             <div class="w-6 h-6 bg-orange-400 rounded-full flex items-center justify-center text-xs text-white">
+              👤
+             </div>
+             <div class="text-xs bg-orange-100 px-2 py-1 rounded animate-pulse">
+              "Yo entendí otra cosa..."
+             </div>
+            </div>
+           </div>
+           <div class="text-center">
+            <div class="text-xs text-red-600 font-medium">
+             ❌ Confusión y conflictos
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+        <div class="bg-gradient-to-r from-blue-50 to-blue-25 rounded-xl p-4 border-l-4 border-blue-400">
+         <h4 class="font-semibold text-blue-800 mb-2 flex items-center text-sm"><span class="mr-2">💡</span> Solución aplicada</h4>
+         <p class="text-gray-700 text-sm leading-relaxed mb-3">Elaboraron carteles visibles con las reglas antes de empezar y designaron un responsable por turno para recordarlas. De esta manera, todos comprendieron las normas y se evitó cualquier tipo de conflicto.</p><!-- Simulación de la solución -->
+         <div class="bg-white rounded-lg p-3 border border-blue-200">
+          <div class="text-xs font-medium text-blue-700 mb-2">
+           Simulación de la solución:
+          </div>
+          <div class="space-y-2">
+           <div class="bg-blue-50 p-2 rounded border-l-2 border-blue-300">
+            <div class="text-xs font-medium text-blue-800">
+             📋 REGLAS CLARAS:
+            </div>
+            <div class="text-xs text-blue-700">
+             • Todos participan por turnos
+            </div>
+            <div class="text-xs text-blue-700">
+             • Respeto mutuo
+            </div>
+            <div class="text-xs text-blue-700">
+             • Ayuda entre compañeros
+            </div>
+           </div>
+           <div class="flex items-center justify-center space-x-2">
+            <div class="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-xs text-white">
+             👨‍🏫
+            </div>
+            <div class="text-xs bg-blue-100 px-2 py-1 rounded">
+             Responsable explica las reglas
+            </div>
+           </div>
+           <div class="text-center">
+            <div class="text-xs text-blue-600 font-medium">
+             ✅ Todos entienden - Sin conflictos
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+        <div class="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-4 py-3 rounded-xl shadow-md">
+         <div class="flex items-center"><span class="mr-2">🌟</span> <span class="font-semibold text-sm">Responsabilidad y participación activa</span>
+         </div>
+        </div>
+       </div>
+      </div>
+     </article><!-- Estación 3 -->
+     <article class="station-card station-3 bg-white rounded-2xl shadow-lg p-6 fade-in-up stagger-2 relative overflow-hidden"><!-- Decorative gradient -->
+      <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-green-100 to-transparent rounded-bl-full opacity-50"></div>
+      <div class="relative z-10">
+       <div class="flex items-start mb-6">
+        <div class="w-14 h-14 bg-gradient-to-br from-green-400 to-emerald-600 rounded-xl flex items-center justify-center mr-4 flex-shrink-0 shadow-lg"><span class="text-xl text-white">⚖️</span>
+        </div>
+        <div>
+         <div class="flex items-center mb-2"><span class="bg-green-100 text-green-800 text-xs font-semibold px-2 py-1 rounded-full mr-2">03</span>
+          <h3 class="text-xl font-bold text-gray-800">Estación 3</h3>
+         </div>
+         <p class="text-green-600 font-semibold">Distribución desigual de roles</p>
+        </div>
+       </div>
+       <div class="space-y-4">
+        <div class="bg-gradient-to-r from-red-50 to-red-25 rounded-xl p-4 border-l-4 border-red-400">
+         <h4 class="font-semibold text-red-800 mb-2 flex items-center text-sm"><span class="mr-2">⚠️</span> Problema identificado</h4>
+         <p class="text-gray-700 text-sm leading-relaxed mb-3">Algunos estudiantes asumían siempre los roles principales, mientras que otros quedaban con tareas secundarias. El grupo analizó que esto generaba inequidad y desmotivación.</p><!-- Simulación del problema -->
+         <div class="bg-white rounded-lg p-3 border border-red-200">
+          <div class="text-xs font-medium text-red-700 mb-2">
+           Simulación del problema:
+          </div>
+          <div class="space-y-2">
+           <div class="flex items-center justify-between">
+            <div class="text-xs text-red-600 font-medium">
+             Roles fijos:
+            </div>
+           </div>
+           <div class="flex items-center space-x-2">
+            <div class="w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center text-xs font-bold">
+             👑
+            </div>
+            <div class="text-xs">
+             Líder (siempre el mismo)
+            </div>
+           </div>
+           <div class="flex items-center space-x-2">
+            <div class="w-8 h-8 bg-gray-400 rounded-full flex items-center justify-center text-xs">
+             👤
+            </div>
+            <div class="text-xs text-gray-600">
+             Seguidor (sin oportunidades)
+            </div>
+           </div>
+           <div class="flex items-center space-x-2">
+            <div class="w-8 h-8 bg-gray-400 rounded-full flex items-center justify-center text-xs">
+             👤
+            </div>
+            <div class="text-xs text-gray-600">
+             Seguidor (sin oportunidades)
+            </div>
+           </div>
+           <div class="text-center">
+            <div class="text-xs text-red-600 font-medium">
+             ❌ Inequidad y desmotivación
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+        <div class="bg-gradient-to-r from-blue-50 to-blue-25 rounded-xl p-4 border-l-4 border-blue-400">
+         <h4 class="font-semibold text-blue-800 mb-2 flex items-center text-sm"><span class="mr-2">💡</span> Solución aplicada</h4>
+         <p class="text-gray-700 text-sm leading-relaxed mb-3">Propusieron rotar los roles en cada ronda, de modo que todos pudieran experimentar distintas funciones, tanto de liderazgo como de apoyo. Así, se promovió la confianza y la valoración del aporte de cada integrante.</p><!-- Simulación de la solución -->
+         <div class="bg-white rounded-lg p-3 border border-blue-200">
+          <div class="text-xs font-medium text-blue-700 mb-2">
+           Simulación de la solución:
+          </div>
+          <div class="space-y-2">
+           <div class="text-xs text-blue-600 font-medium text-center">
+            🔄 Rotación de roles:
+           </div>
+           <div class="grid grid-cols-3 gap-2 text-xs">
+            <div class="text-center">
+             <div class="text-blue-600 font-medium">
+              Ronda 1
+             </div>
+             <div class="w-6 h-6 bg-yellow-400 rounded-full mx-auto mb-1 flex items-center justify-center text-xs">
+              👑
+             </div>
+             <div class="w-6 h-6 bg-blue-300 rounded-full mx-auto mb-1 flex items-center justify-center text-xs">
+              🤝
+             </div>
+             <div class="w-6 h-6 bg-blue-300 rounded-full mx-auto flex items-center justify-center text-xs">
+              🤝
+             </div>
+            </div>
+            <div class="text-center">
+             <div class="text-blue-600 font-medium">
+              Ronda 2
+             </div>
+             <div class="w-6 h-6 bg-blue-300 rounded-full mx-auto mb-1 flex items-center justify-center text-xs">
+              🤝
+             </div>
+             <div class="w-6 h-6 bg-yellow-400 rounded-full mx-auto mb-1 flex items-center justify-center text-xs">
+              👑
+             </div>
+             <div class="w-6 h-6 bg-blue-300 rounded-full mx-auto flex items-center justify-center text-xs">
+              🤝
+             </div>
+            </div>
+            <div class="text-center">
+             <div class="text-blue-600 font-medium">
+              Ronda 3
+             </div>
+             <div class="w-6 h-6 bg-blue-300 rounded-full mx-auto mb-1 flex items-center justify-center text-xs">
+              🤝
+             </div>
+             <div class="w-6 h-6 bg-blue-300 rounded-full mx-auto mb-1 flex items-center justify-center text-xs">
+              🤝
+             </div>
+             <div class="w-6 h-6 bg-yellow-400 rounded-full mx-auto flex items-center justify-center text-xs">
+              👑
+             </div>
+            </div>
+           </div>
+           <div class="text-center">
+            <div class="text-xs text-blue-600 font-medium">
+             ✅ Todos lideran - Equidad total
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+        <div class="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-4 py-3 rounded-xl shadow-md">
+         <div class="flex items-center"><span class="mr-2">🌟</span> <span class="font-semibold text-sm">Cooperación y equidad</span>
+         </div>
+        </div>
+       </div>
+      </div>
+     </article><!-- Estación 4 -->
+     <article class="station-card station-4 bg-white rounded-2xl shadow-lg p-6 fade-in-up stagger-3 relative overflow-hidden"><!-- Decorative gradient -->
+      <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-purple-100 to-transparent rounded-bl-full opacity-50"></div>
+      <div class="relative z-10">
+       <div class="flex items-start mb-6">
+        <div class="w-14 h-14 bg-gradient-to-br from-purple-400 to-indigo-600 rounded-xl flex items-center justify-center mr-4 flex-shrink-0 shadow-lg"><span class="text-xl text-white">🏆</span>
+        </div>
+        <div>
+         <div class="flex items-center mb-2"><span class="bg-purple-100 text-purple-800 text-xs font-semibold px-2 py-1 rounded-full mr-2">04</span>
+          <h3 class="text-xl font-bold text-gray-800">Estación 4</h3>
+         </div>
+         <p class="text-purple-600 font-semibold">Competencia excesiva</p>
+        </div>
+       </div>
+       <div class="space-y-4">
+        <div class="bg-gradient-to-r from-red-50 to-red-25 rounded-xl p-4 border-l-4 border-red-400">
+         <h4 class="font-semibold text-red-800 mb-2 flex items-center text-sm"><span class="mr-2">⚠️</span> Problema identificado</h4>
+         <p class="text-gray-700 text-sm leading-relaxed mb-3">Aunque no estaba en el guion original, el grupo decidió incluir una cuarta estación para reflexionar sobre los conflictos generados por la competencia desmedida. Identificaron que algunos se enfocaban solo en ganar, dejando de lado el compañerismo.</p><!-- Simulación del problema -->
+         <div class="bg-white rounded-lg p-3 border border-red-200">
+          <div class="text-xs font-medium text-red-700 mb-2">
+           Simulación del problema:
+          </div>
+          <div class="space-y-2">
+           <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+             <div class="w-6 h-6 bg-red-500 rounded-full flex items-center justify-center text-xs text-white font-bold">
+              🏃
+             </div>
+             <div class="text-xs bg-red-100 px-2 py-1 rounded">
+              "¡Yo primero!"
+             </div>
+            </div>
+            <div class="flex items-center space-x-2">
+             <div class="w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center text-xs text-white font-bold">
+              🏃
+             </div>
+             <div class="text-xs bg-orange-100 px-2 py-1 rounded">
+              "¡Tengo que ganar!"
+             </div>
+            </div>
+           </div>
+           <div class="flex items-center justify-center">
+            <div class="w-6 h-6 bg-gray-400 rounded-full flex items-center justify-center text-xs text-white">
+             😢
+            </div>
+            <div class="text-xs text-gray-600 ml-2">
+             Compañero quedó atrás
+            </div>
+           </div>
+           <div class="text-center">
+            <div class="text-xs text-red-600 font-medium">
+             ❌ Competencia individual - Sin compañerismo
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+        <div class="bg-gradient-to-r from-blue-50 to-blue-25 rounded-xl p-4 border-l-4 border-blue-400">
+         <h4 class="font-semibold text-blue-800 mb-2 flex items-center text-sm"><span class="mr-2">💡</span> Solución aplicada</h4>
+         <p class="text-gray-700 text-sm leading-relaxed mb-3">Convirtieron el reto en una meta colectiva, donde todos debían coordinarse para lograr un objetivo común (por ejemplo, completar el circuito en equipo sin dejar a nadie atrás).</p><!-- Simulación de la solución -->
+         <div class="bg-white rounded-lg p-3 border border-blue-200">
+          <div class="text-xs font-medium text-blue-700 mb-2">
+           Simulación de la solución:
+          </div>
+          <div class="space-y-2">
+           <div class="bg-blue-50 p-2 rounded border-l-2 border-blue-300">
+            <div class="text-xs font-medium text-blue-800">
+             🎯 META COLECTIVA:
+            </div>
+            <div class="text-xs text-blue-700">
+             "Completar el circuito TODOS juntos"
+            </div>
+           </div>
+           <div class="flex items-center justify-center space-x-1">
+            <div class="w-6 h-6 bg-blue-400 rounded-full flex items-center justify-center text-xs text-white">
+             🤝
+            </div>
+            <div class="w-6 h-6 bg-blue-400 rounded-full flex items-center justify-center text-xs text-white">
+             🤝
+            </div>
+            <div class="w-6 h-6 bg-blue-400 rounded-full flex items-center justify-center text-xs text-white">
+             🤝
+            </div>
+            <div class="text-xs text-blue-600 ml-2">
+             Avanzando juntos
+            </div>
+           </div>
+           <div class="flex items-center justify-center">
+            <div class="text-xs bg-green-100 px-2 py-1 rounded text-green-700">
+             "¡Esperemos a todos!"
+            </div>
+           </div>
+           <div class="text-center">
+            <div class="text-xs text-blue-600 font-medium">
+             ✅ Objetivo común - Trabajo en equipo
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+        <div class="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-4 py-3 rounded-xl shadow-md">
+         <div class="flex items-center"><span class="mr-2">🌟</span> <span class="font-semibold text-sm">Trabajo en equipo y ayuda mutua</span>
+         </div>
+        </div>
+       </div>
+      </div>
+     </article>
+    </div>
+   </section><!-- Divider -->
+   <div class="section-divider h-px w-full mb-20"></div><!-- Valores Fundamentales -->
+   <section class="mb-20">
+    <div class="text-center mb-12">
+     <h2 class="text-3xl sm:text-4xl font-bold text-gray-800 mb-4">Valores Fundamentales</h2>
+     <p class="text-lg text-gray-600">Los pilares que guiaron la transformación del circuito</p>
+     <div class="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto mt-4 rounded-full"></div>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+     <div class="bg-white rounded-2xl p-6 shadow-lg text-center hover:shadow-2xl hover:scale-105 transition-all duration-300 border border-gray-100">
+      <div class="w-16 h-16 bg-gradient-to-br from-blue-400 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg"><span class="text-2xl text-white">🤝</span>
+      </div>
+      <h3 class="text-lg font-bold text-gray-800 mb-3">Respeto</h3>
+      <p class="text-gray-600 text-sm leading-relaxed">Valoración de cada participante y sus diferencias individuales</p>
+      <div class="w-12 h-1 bg-blue-200 mx-auto mt-4 rounded-full"></div>
+     </div>
+     <div class="bg-white rounded-2xl p-6 shadow-lg text-center hover:shadow-2xl hover:scale-105 transition-all duration-300 border border-gray-100">
+      <div class="w-16 h-16 bg-gradient-to-br from-green-400 to-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg"><span class="text-2xl text-white">🤲</span>
+      </div>
+      <h3 class="text-lg font-bold text-gray-800 mb-3">Cooperación</h3>
+      <p class="text-gray-600 text-sm leading-relaxed">Trabajo conjunto hacia objetivos comunes y compartidos</p>
+      <div class="w-12 h-1 bg-green-200 mx-auto mt-4 rounded-full"></div>
+     </div>
+     <div class="bg-white rounded-2xl p-6 shadow-lg text-center hover:shadow-2xl hover:scale-105 transition-all duration-300 border border-gray-100">
+      <div class="w-16 h-16 bg-gradient-to-br from-purple-400 to-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg"><span class="text-2xl text-white">🌍</span>
+      </div>
+      <h3 class="text-lg font-bold text-gray-800 mb-3">Inclusión</h3>
+      <p class="text-gray-600 text-sm leading-relaxed">Participación activa de todos sin excepción alguna</p>
+      <div class="w-12 h-1 bg-purple-200 mx-auto mt-4 rounded-full"></div>
+     </div>
+     <div class="bg-white rounded-2xl p-6 shadow-lg text-center hover:shadow-2xl hover:scale-105 transition-all duration-300 border border-gray-100">
+      <div class="w-16 h-16 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg"><span class="text-2xl text-white">⚖️</span>
+      </div>
+      <h3 class="text-lg font-bold text-gray-800 mb-3">Igualdad</h3>
+      <p class="text-gray-600 text-sm leading-relaxed">Oportunidades equitativas para todos los participantes</p>
+      <div class="w-12 h-1 bg-yellow-200 mx-auto mt-4 rounded-full"></div>
+     </div>
+    </div>
+   </section><!-- Conclusión -->
+   <section class="bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 rounded-3xl shadow-2xl p-8 sm:p-12 text-white relative overflow-hidden"><!-- Decorative elements -->
+    <div class="absolute inset-0 opacity-10">
+     <div class="absolute top-0 right-0 w-64 h-64 bg-white rounded-full blur-3xl"></div>
+     <div class="absolute bottom-0 left-0 w-48 h-48 bg-white rounded-full blur-2xl"></div>
+    </div>
+    <div class="relative z-10">
+     <div class="text-center mb-8">
+      <div class="inline-flex items-center bg-white bg-opacity-20 rounded-full px-6 py-2 mb-4"><span class="text-sm font-medium">🎯 Resultados</span>
+      </div>
+      <h2 id="conclusion-title" class="text-3xl sm:text-4xl font-bold mb-4">Conclusión del circuito</h2>
+      <div class="w-24 h-1 bg-white mx-auto rounded-full"></div>
+     </div>
+     <div class="max-w-4xl mx-auto space-y-6 text-base sm:text-lg leading-relaxed">
+      <div class="bg-white bg-opacity-15 rounded-2xl p-6 backdrop-blur-sm">
+       <p class="text-center">Al finalizar, cada grupo presentó los cambios que aplicó y explicó los valores reforzados en su estación. La actividad permitió comprender que la disciplina y los valores deportivos son esenciales para garantizar un ambiente sano, participativo e inclusivo en las actividades psicomotrices.</p>
+      </div>
+      <div class="bg-white bg-opacity-15 rounded-2xl p-6 backdrop-blur-sm">
+       <p class="text-center">Los estudiantes demostraron que, con diálogo, empatía y cooperación, es posible transformar conflictos en oportunidades de aprendizaje y convivencia positiva.</p>
+      </div>
+     </div>
+    </div>
+   </section>
+  </main><!-- Footer -->
+  <footer class="bg-gray-800 text-white py-8 mt-20">
+   <div class="max-w-7xl mx-auto px-4 text-center">
+    <p class="text-gray-400">© 2024 Circuito con Estaciones Motrices - Transformando conflictos en oportunidades de aprendizaje</p>
+   </div>
+  </footer>
+  <script>
+        // Configuración por defecto
+        const defaultConfig = {
+            main_title: "Circuito con Estaciones Motrices",
+            subtitle: "Aplicando lo aprendido",
+            intro_text: "Durante esta actividad denominada \"Circuito con estaciones motrices\", los estudiantes participaron en equipos para analizar y transformar diferentes situaciones problemáticas que suelen presentarse en los juegos escolares. Cada estación representó una injusticia o conflicto, y el objetivo fue reorganizar el circuito para hacerlo más justo, equitativo y participativo, aplicando los valores de respeto, cooperación, inclusión e igualdad.",
+            conclusion_title: "Conclusión del circuito",
+            primary_color: "#667eea",
+            secondary_color: "#764ba2",
+            font_family: "Inter",
+            font_size: 16
+        };
+
+        // Función para actualizar el contenido basado en la configuración
+        async function onConfigChange(config) {
+            const mainTitle = document.getElementById('main-title');
+            const subtitle = document.getElementById('subtitle');
+            const introText = document.getElementById('intro-text');
+            const conclusionTitle = document.getElementById('conclusion-title');
+
+            if (mainTitle) {
+                mainTitle.textContent = config.main_title || defaultConfig.main_title;
+            }
+            if (subtitle) {
+                subtitle.textContent = config.subtitle || defaultConfig.subtitle;
+            }
+            if (introText) {
+                introText.textContent = config.intro_text || defaultConfig.intro_text;
+            }
+            if (conclusionTitle) {
+                conclusionTitle.textContent = config.conclusion_title || defaultConfig.conclusion_title;
+            }
+
+            // Aplicar colores personalizados
+            const primaryColor = config.primary_color || defaultConfig.primary_color;
+            const secondaryColor = config.secondary_color || defaultConfig.secondary_color;
+            
+            // Actualizar gradientes
+            const heroSection = document.querySelector('.hero-gradient');
+            if (heroSection) {
+                heroSection.style.background = `linear-gradient(135deg, ${primaryColor} 0%, ${secondaryColor} 100%)`;
+            }
+
+            // Aplicar fuente personalizada
+            const customFont = config.font_family || defaultConfig.font_family;
+            const baseSize = config.font_size || defaultConfig.font_size;
+            
+            document.body.style.fontFamily = `${customFont}, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif`;
+            document.body.style.fontSize = `${baseSize}px`;
+        }
+
+        // Configuración de capacidades para edición
+        function mapToCapabilities(config) {
+            return {
+                recolorables: [
+                    {
+                        get: () => config.primary_color || defaultConfig.primary_color,
+                        set: (value) => {
+                            if (window.elementSdk) {
+                                window.elementSdk.setConfig({ primary_color: value });
+                            }
+                        }
+                    },
+                    {
+                        get: () => config.secondary_color || defaultConfig.secondary_color,
+                        set: (value) => {
+                            if (window.elementSdk) {
+                                window.elementSdk.setConfig({ secondary_color: value });
+                            }
+                        }
+                    }
+                ],
+                borderables: [],
+                fontEditable: {
+                    get: () => config.font_family || defaultConfig.font_family,
+                    set: (value) => {
+                        if (window.elementSdk) {
+                            window.elementSdk.setConfig({ font_family: value });
+                        }
+                    }
+                },
+                fontSizeable: {
+                    get: () => config.font_size || defaultConfig.font_size,
+                    set: (value) => {
+                        if (window.elementSdk) {
+                            window.elementSdk.setConfig({ font_size: value });
+                        }
+                    }
+                }
+            };
+        }
+
+        // Mapeo de valores del panel de edición
+        function mapToEditPanelValues(config) {
+            return new Map([
+                ["main_title", config.main_title || defaultConfig.main_title],
+                ["subtitle", config.subtitle || defaultConfig.subtitle],
+                ["intro_text", config.intro_text || defaultConfig.intro_text],
+                ["conclusion_title", config.conclusion_title || defaultConfig.conclusion_title]
+            ]);
+        }
+
+        // Animaciones de scroll
+        function handleScrollAnimations() {
+            const elements = document.querySelectorAll('.fade-in-up');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            elements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
+                observer.observe(el);
+            });
+        }
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', () => {
+            handleScrollAnimations();
+            
+            // Inicializar SDK si está disponible
+            if (window.elementSdk) {
+                window.elementSdk.init({
+                    defaultConfig,
+                    onConfigChange,
+                    mapToCapabilities,
+                    mapToEditPanelValues
+                });
+            }
+        });
+    </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'99c9749d2458c2df',t:'MTc2MjgxODY2Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

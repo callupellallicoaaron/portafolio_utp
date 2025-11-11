@@ -1,0 +1,763 @@
+<!doctype html>
+<html lang="es">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Actividades Psicomotrices</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #2d3748;
+      overflow-x: hidden;
+    }
+
+    .portada-wrapper {
+      background: white;
+      padding: 2rem 1rem;
+      margin-bottom: 0;
+    }
+
+    .portada {
+      background: white;
+      border: 2px solid #2d3748;
+      border-radius: 15px;
+      padding: 30px;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .logo-img {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      background: transparent;
+      flex-shrink: 0;
+    }
+
+    .logo-fallback {
+      width: 100px;
+      height: 100px;
+      background: #1e40af;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 20px;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+
+    .info-institucional {
+      flex: 1;
+    }
+
+    .info-institucional h2 {
+      margin: 0 0 10px 0;
+      color: #333;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .info-institucional p {
+      margin: 5px 0;
+      color: #666;
+      font-size: 16px;
+      line-height: 1.4;
+    }
+
+    .info-estudiante {
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    .info-estudiante p {
+      margin: 5px 0;
+      color: #333;
+      font-size: 16px;
+      line-height: 1.4;
+    }
+
+    .info-estudiante p strong {
+      color: black;
+      font-weight: 700;
+    }
+
+    .container {
+      min-height: 100%;
+      padding: 2rem 1rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
+      animation: fadeInDown 0.8s ease;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: white;
+      margin-bottom: 0.5rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+      color: #f0f4ff;
+      font-weight: 300;
+    }
+
+    .competencias-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .competencia-card {
+      background: white;
+      border-radius: 20px;
+      padding: 1.5rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: fadeInUp 0.8s ease;
+    }
+
+    .competencia-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    }
+
+    .competencia-card.verde {
+      border-top: 6px solid #48bb78;
+    }
+
+    .competencia-card.amarilla {
+      border-top: 6px solid #ecc94b;
+    }
+
+    .competencia-card.azul {
+      border-top: 6px solid #4299e1;
+    }
+
+    .card-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .card-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: #2d3748;
+      line-height: 1.4;
+    }
+
+    .card-description {
+      font-size: 0.95rem;
+      color: #4a5568;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    .btn-ver-mas {
+      display: inline-block;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      text-align: center;
+      font-size: 1rem;
+    }
+
+    .btn-ver-mas:hover {
+      transform: scale(1.05);
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.7);
+      z-index: 1000;
+      overflow-y: auto;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .modal.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .modal-content {
+      background: white;
+      border-radius: 20px;
+      padding: 2.5rem;
+      max-width: 800px;
+      width: 100%;
+      max-height: 90%;
+      overflow-y: auto;
+      position: relative;
+      animation: slideIn 0.4s ease;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: #e53e3e;
+      color: white;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 1.5rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .modal-close:hover {
+      transform: rotate(90deg);
+      background: #c53030;
+    }
+
+    .modal-header {
+      border-left: 6px solid #667eea;
+      padding-left: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .modal-header.verde {
+      border-left-color: #48bb78;
+    }
+
+    .modal-header.amarilla {
+      border-left-color: #ecc94b;
+    }
+
+    .modal-header.azul {
+      border-left-color: #4299e1;
+    }
+
+    .modal-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #2d3748;
+      margin-bottom: 0.5rem;
+    }
+
+    .modal-activity {
+      font-size: 1.3rem;
+      color: #4a5568;
+      font-weight: 600;
+      font-style: italic;
+    }
+
+    .section {
+      margin-bottom: 2rem;
+    }
+
+    .section-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #667eea;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .section-content {
+      font-size: 1rem;
+      color: #4a5568;
+      line-height: 1.8;
+    }
+
+    .section-content ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .section-content li {
+      padding-left: 1.5rem;
+      position: relative;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-content li:before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #48bb78;
+      font-weight: bold;
+    }
+
+    .conclusion-box {
+      background: linear-gradient(135deg, #f0f4ff 0%, #e6f0ff 100%);
+      border-radius: 15px;
+      padding: 2rem;
+      margin-top: 3rem;
+      text-align: center;
+      animation: fadeInUp 0.8s ease;
+    }
+
+    .conclusion-box h2 {
+      font-size: 1.8rem;
+      color: #2d3748;
+      margin-bottom: 1rem;
+    }
+
+    .conclusion-box p {
+      font-size: 1.1rem;
+      color: #4a5568;
+      line-height: 1.8;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: scale(0.9);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .portada {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+        gap: 20px;
+      }
+
+      .info-estudiante {
+        text-align: center;
+      }
+
+      .info-institucional h2 {
+        font-size: 20px;
+      }
+
+      .info-institucional p,
+      .info-estudiante p {
+        font-size: 14px;
+      }
+
+      .logo-img,
+      .logo-fallback {
+        width: 80px;
+        height: 80px;
+        font-size: 18px;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      .subtitle {
+        font-size: 1rem;
+      }
+
+      .competencias-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .modal-content {
+        padding: 1.5rem;
+        margin: 1rem;
+      }
+
+      .modal-title {
+        font-size: 1.5rem;
+      }
+
+      .conclusion-box {
+        padding: 1.5rem;
+      }
+
+      .conclusion-box h2 {
+        font-size: 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .portada {
+        padding: 15px;
+      }
+
+      .info-institucional h2 {
+        font-size: 18px;
+      }
+
+      .info-institucional p,
+      .info-estudiante p {
+        font-size: 12px;
+      }
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
+ </head>
+ <body>
+  <div class="portada-wrapper">
+   <div class="portada"><img src="https://www.carreras.pe/userfiles/images/Logos%20y%20fachadas/Logo%20UTP%202.png" alt="Logo UTP" onerror="this.outerHTML='<div class=\'logo-fallback\'>UTP</div>';" class="logo-img">
+    <div class="info-institucional">
+     <h2>Universidad Tecnológica del Perú</h2>
+     <p>Facultad de Educación</p>
+     <p>Práctica Educativa I: Psicomotricidad para Educación Primaria</p>
+     <p>Sección 31960</p>
+    </div>
+    <div class="info-estudiante">
+     <p><strong>Aaron Sixto Callupe Llallico</strong></p>
+     <p>Estudiante de Educación Primaria</p>
+     <p>Semana 14 - Actividad 1</p>
+    </div>
+   </div>
+  </div>
+  <div class="container">
+   <header>
+    <h1 id="main-title">APLICANDO LO APRENDIDO</h1>
+    <p class="subtitle" id="subtitle">Actividades Psicomotrices según Competencias</p>
+   </header>
+   <div class="competencias-grid">
+    <div class="competencia-card verde" onclick="abrirModal('modal1')">
+     <div class="card-icon">
+      🟩
+     </div>
+     <h2 class="card-title">Se desenvuelve de manera autónoma a través de su motricidad</h2>
+     <p class="card-description">Circuito de estaciones motrices donde los estudiantes toman conciencia de su cuerpo en acción.</p><button class="btn-ver-mas">Ver Actividad Completa</button>
+    </div>
+    <div class="competencia-card amarilla" onclick="abrirModal('modal2')">
+     <div class="card-icon">
+      🟨
+     </div>
+     <h2 class="card-title">Asume una vida saludable</h2>
+     <p class="card-description">Rutina de movimientos y reflexión sobre alimentación saludable para el bienestar integral.</p><button class="btn-ver-mas">Ver Actividad Completa</button>
+    </div>
+    <div class="competencia-card azul" onclick="abrirModal('modal3')">
+     <div class="card-icon">
+      🟦
+     </div>
+     <h2 class="card-title">Interactúa a través de sus habilidades sociomotrices</h2>
+     <p class="card-description">Juego cooperativo donde los equipos transportan una pelota trabajando en conjunto.</p><button class="btn-ver-mas">Ver Actividad Completa</button>
+    </div>
+   </div>
+   <div class="conclusion-box">
+    <h2>Conclusión General</h2>
+    <p>Estas actividades permiten que los estudiantes vivan la corporeidad como una experiencia integral motriz, emocional y social, promoviendo el desarrollo de la autonomía, el bienestar y la convivencia a través del movimiento.</p>
+   </div>
+  </div><!-- Modal 1 -->
+  <div id="modal1" class="modal">
+   <div class="modal-content"><button class="modal-close" onclick="cerrarModal('modal1')">×</button>
+    <div class="modal-header verde">
+     <h2 class="modal-title">🟩 Competencia 1</h2>
+     <p class="modal-activity">"El circuito del cuerpo consciente"</p>
+    </div>
+    <div class="section">
+     <h3 class="section-title">📋 Descripción</h3>
+     <p class="section-content">Los estudiantes participan en un circuito de estaciones motrices (saltar aros, gatear por túneles, lanzar pelotas a un blanco y mantener equilibrio sobre una línea). En cada estación deben identificar qué parte del cuerpo usan y cómo la controlan. Al finalizar, comparten cómo se sintieron al moverse y qué descubrieron sobre su cuerpo.</p>
+    </div>
+    <div class="section">
+     <h3 class="section-title">🎯 Enfoque de Corporeidad</h3>
+     <p class="section-content">Permite que los niños tomen conciencia de su cuerpo en acción, reconociendo sus posibilidades, límites y emociones al moverse de manera intencionada y reflexiva.</p>
+    </div>
+    <div class="section">
+     <h3 class="section-title">💡 Capacidades Estimuladas</h3>
+     <div class="section-content">
+      <ul>
+       <li>Comprende su cuerpo</li>
+       <li>Se expresa corporalmente</li>
+      </ul>
+     </div>
+    </div>
+    <div class="section">
+     <h3 class="section-title">✅ Criterio de Evaluación</h3>
+     <p class="section-content">"Explora de manera autónoma las posibilidades de su cuerpo en diferentes acciones para mejorar sus movimientos (saltar, correr, lanzar) y se orienta en el espacio con relación a sí mismo y a otros puntos de referencia." (Ciclo III)</p>
+    </div>
+   </div>
+  </div><!-- Modal 2 -->
+  <div id="modal2" class="modal">
+   <div class="modal-content"><button class="modal-close" onclick="cerrarModal('modal2')">×</button>
+    <div class="modal-header amarilla">
+     <h2 class="modal-title">🟨 Competencia 2</h2>
+     <p class="modal-activity">"Mi cuerpo activo y saludable"</p>
+    </div>
+    <div class="section">
+     <h3 class="section-title">📋 Descripción</h3>
+     <p class="section-content">Se realiza una rutina de movimientos simples (saltos, estiramientos, respiraciones y relajación). Luego, los niños ordenan imágenes de alimentos saludables y no saludables en dos zonas del aula (bienestar y riesgo). Se reflexiona sobre cómo el movimiento y la alimentación ayudan a sentirse mejor.</p>
+    </div>
+    <div class="section">
+     <h3 class="section-title">🎯 Enfoque de Corporeidad</h3>
+     <p class="section-content">Promueve el autoconocimiento corporal desde el movimiento consciente y la toma de decisiones saludables para el bienestar físico y emocional.</p>
+    </div>
+    <div class="section">
+     <h3 class="section-title">💡 Capacidades Estimuladas</h3>
+     <div class="section-content">
+      <ul>
+       <li>Comprende las relaciones entre la actividad física, alimentación, postura e higiene personal y del ambiente, y la salud</li>
+       <li>Incorpora prácticas que mejoran su calidad de vida</li>
+      </ul>
+     </div>
+    </div>
+    <div class="section">
+     <h3 class="section-title">✅ Criterio de Evaluación</h3>
+     <p class="section-content">"Explica la importancia de la activación corporal y psicológica antes de la actividad lúdica; diferencia los alimentos saludables y los momentos adecuados para ingerirlos." (Ciclo III)</p>
+    </div>
+   </div>
+  </div><!-- Modal 3 -->
+  <div id="modal3" class="modal">
+   <div class="modal-content"><button class="modal-close" onclick="cerrarModal('modal3')">×</button>
+    <div class="modal-header azul">
+     <h2 class="modal-title">🟦 Competencia 3</h2>
+     <p class="modal-activity">"La red de la cooperación"</p>
+    </div>
+    <div class="section">
+     <h3 class="section-title">📋 Descripción</h3>
+     <p class="section-content">Los estudiantes forman equipos para transportar una pelota grande sostenida con una tela o cuerda elástica entre todos. Deben moverla sin dejarla caer hasta llegar a la meta. Ganan todos si cooperan. Luego reflexionan sobre cómo se comunicaron y qué estrategias usaron.</p>
+    </div>
+    <div class="section">
+     <h3 class="section-title">🎯 Enfoque de Corporeidad</h3>
+     <p class="section-content">Promueve la expresión y comunicación corporal en interacción con otros, reconociendo la importancia del cuerpo como medio para convivir y cooperar.</p>
+    </div>
+    <div class="section">
+     <h3 class="section-title">💡 Capacidades Estimuladas</h3>
+     <div class="section-content">
+      <ul>
+       <li>Se relaciona utilizando sus habilidades sociomotrices</li>
+       <li>Crea y aplica estrategias y tácticas de juego</li>
+      </ul>
+     </div>
+    </div>
+    <div class="section">
+     <h3 class="section-title">✅ Criterio de Evaluación</h3>
+     <p class="section-content">"Participa en juegos cooperativos y de oposición en parejas o grupos; acepta al oponente como compañero de juego y llega a consensos sobre la manera de jugar." (Ciclo III)</p>
+    </div>
+   </div>
+  </div>
+  <script>
+    const defaultConfig = {
+      main_title: "APLICANDO LO APRENDIDO",
+      subtitle: "Actividades Psicomotrices según Competencias",
+      background_color: "#667eea",
+      card_color: "#ffffff",
+      text_color: "#2d3748",
+      primary_action: "#667eea",
+      accent_color: "#48bb78",
+      font_family: "Segoe UI",
+      font_size: 16
+    };
+
+    async function onConfigChange(config) {
+      const mainTitle = document.getElementById('main-title');
+      const subtitle = document.getElementById('subtitle');
+      const customFont = config.font_family || defaultConfig.font_family;
+      const baseFontStack = 'Tahoma, Geneva, Verdana, sans-serif';
+      const baseSize = config.font_size || defaultConfig.font_size;
+
+      if (mainTitle) {
+        mainTitle.textContent = config.main_title || defaultConfig.main_title;
+        mainTitle.style.fontFamily = `${customFont}, ${baseFontStack}`;
+        mainTitle.style.fontSize = `${baseSize * 2.5}px`;
+      }
+
+      if (subtitle) {
+        subtitle.textContent = config.subtitle || defaultConfig.subtitle;
+        subtitle.style.fontFamily = `${customFont}, ${baseFontStack}`;
+        subtitle.style.fontSize = `${baseSize * 1.2}px`;
+      }
+
+      document.body.style.background = `linear-gradient(135deg, ${config.background_color || defaultConfig.background_color} 0%, #764ba2 100%)`;
+      document.body.style.color = config.text_color || defaultConfig.text_color;
+      document.body.style.fontSize = `${baseSize}px`;
+      document.body.style.fontFamily = `${customFont}, ${baseFontStack}`;
+
+      const cards = document.querySelectorAll('.competencia-card');
+      cards.forEach(card => {
+        card.style.backgroundColor = config.card_color || defaultConfig.card_color;
+        card.style.fontFamily = `${customFont}, ${baseFontStack}`;
+      });
+
+      const buttons = document.querySelectorAll('.btn-ver-mas');
+      buttons.forEach(btn => {
+        btn.style.background = `linear-gradient(135deg, ${config.primary_action || defaultConfig.primary_action} 0%, #764ba2 100%)`;
+        btn.style.fontFamily = `${customFont}, ${baseFontStack}`;
+        btn.style.fontSize = `${baseSize}px`;
+      });
+
+      const modalContents = document.querySelectorAll('.modal-content');
+      modalContents.forEach(content => {
+        content.style.backgroundColor = config.card_color || defaultConfig.card_color;
+        content.style.fontFamily = `${customFont}, ${baseFontStack}`;
+      });
+
+      const sectionTitles = document.querySelectorAll('.section-title');
+      sectionTitles.forEach(title => {
+        title.style.color = config.primary_action || defaultConfig.primary_action;
+        title.style.fontFamily = `${customFont}, ${baseFontStack}`;
+        title.style.fontSize = `${baseSize * 1.2}px`;
+      });
+    }
+
+    function abrirModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function cerrarModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+      }
+    }
+
+    document.querySelectorAll('.modal').forEach(modal => {
+      modal.addEventListener('click', function(e) {
+        if (e.target === this) {
+          cerrarModal(this.id);
+        }
+      });
+    });
+
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities: (config) => ({
+          recolorables: [
+            {
+              get: () => config.background_color || defaultConfig.background_color,
+              set: (value) => {
+                config.background_color = value;
+                window.elementSdk.setConfig({ background_color: value });
+              }
+            },
+            {
+              get: () => config.card_color || defaultConfig.card_color,
+              set: (value) => {
+                config.card_color = value;
+                window.elementSdk.setConfig({ card_color: value });
+              }
+            },
+            {
+              get: () => config.text_color || defaultConfig.text_color,
+              set: (value) => {
+                config.text_color = value;
+                window.elementSdk.setConfig({ text_color: value });
+              }
+            },
+            {
+              get: () => config.primary_action || defaultConfig.primary_action,
+              set: (value) => {
+                config.primary_action = value;
+                window.elementSdk.setConfig({ primary_action: value });
+              }
+            },
+            {
+              get: () => config.accent_color || defaultConfig.accent_color,
+              set: (value) => {
+                config.accent_color = value;
+                window.elementSdk.setConfig({ accent_color: value });
+              }
+            }
+          ],
+          borderables: [],
+          fontEditable: {
+            get: () => config.font_family || defaultConfig.font_family,
+            set: (value) => {
+              config.font_family = value;
+              window.elementSdk.setConfig({ font_family: value });
+            }
+          },
+          fontSizeable: {
+            get: () => config.font_size || defaultConfig.font_size,
+            set: (value) => {
+              config.font_size = value;
+              window.elementSdk.setConfig({ font_size: value });
+            }
+          }
+        }),
+        mapToEditPanelValues: (config) => new Map([
+          ["main_title", config.main_title || defaultConfig.main_title],
+          ["subtitle", config.subtitle || defaultConfig.subtitle]
+        ])
+      });
+    }
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'99c98d2f1076c2df',t:'MTc2MjgxOTY2OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
