@@ -1,0 +1,899 @@
+<!doctype html>
+<html lang="es">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portada Universitaria</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <style>
+        body {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+            background: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+            min-height: 100%;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        .portada {
+            background: white;
+            border: 2px solid black;
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 1200px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin: 0 auto 40px;
+        }
+
+        .contenido-trabajo {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .titulo-actividad {
+            text-align: center;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            padding: 35px 25px;
+            border-radius: 20px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 15px 50px rgba(102, 126, 234, 0.5), 
+                        0 5px 15px rgba(118, 75, 162, 0.3),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .titulo-actividad::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.15), 
+                transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+
+        .titulo-actividad::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+            animation: glow 4s ease-in-out infinite;
+        }
+
+        @keyframes shine {
+            0% {
+                transform: translateX(-100%) translateY(-100%) rotate(45deg);
+            }
+            100% {
+                transform: translateX(100%) translateY(100%) rotate(45deg);
+            }
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                opacity: 0.5;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        .titulo-actividad .icono {
+            font-size: 56px;
+            display: inline-block;
+            margin-right: 15px;
+            animation: float 3s ease-in-out infinite, pulse 2s ease-in-out infinite, rotate 6s linear infinite;
+            filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.4));
+            position: relative;
+            z-index: 1;
+            vertical-align: middle;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.4));
+            }
+            50% {
+                filter: drop-shadow(0 12px 30px rgba(255, 255, 255, 0.6));
+            }
+        }
+
+        @keyframes rotate {
+            0%, 100% {
+                transform: rotate(0deg) translateY(0px);
+            }
+            25% {
+                transform: rotate(-5deg) translateY(-5px);
+            }
+            75% {
+                transform: rotate(5deg) translateY(-5px);
+            }
+        }
+
+        .titulo-actividad h1 {
+            margin: 0;
+            font-size: 36px;
+            font-weight: bold;
+            position: relative;
+            z-index: 1;
+            text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.4),
+                         0 0 30px rgba(255, 255, 255, 0.3);
+            animation: fadeInUp 1s ease-out, textGlow 3s ease-in-out infinite;
+            letter-spacing: 2px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes textGlow {
+            0%, 100% {
+                text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.4),
+                             0 0 30px rgba(255, 255, 255, 0.3);
+            }
+            50% {
+                text-shadow: 3px 3px 20px rgba(0, 0, 0, 0.5),
+                             0 0 50px rgba(255, 255, 255, 0.5),
+                             0 0 80px rgba(255, 255, 255, 0.2);
+            }
+        }
+
+        .titulo-actividad .sparkles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: white;
+            border-radius: 50%;
+            animation: sparkle 2s infinite;
+            opacity: 0;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+
+        @keyframes sparkle {
+            0%, 100% {
+                opacity: 0;
+                transform: scale(0) rotate(0deg);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.5) rotate(180deg);
+            }
+        }
+
+        .sparkle:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+        .sparkle:nth-child(2) { top: 40%; left: 80%; animation-delay: 0.5s; }
+        .sparkle:nth-child(3) { top: 60%; left: 20%; animation-delay: 1s; }
+        .sparkle:nth-child(4) { top: 80%; left: 70%; animation-delay: 1.5s; }
+        .sparkle:nth-child(5) { top: 30%; left: 50%; animation-delay: 0.3s; }
+        .sparkle:nth-child(6) { top: 70%; left: 40%; animation-delay: 0.8s; }
+        .sparkle:nth-child(7) { top: 25%; left: 90%; animation-delay: 1.2s; }
+        .sparkle:nth-child(8) { top: 55%; left: 15%; animation-delay: 0.6s; }
+        .sparkle:nth-child(9) { top: 15%; left: 60%; animation-delay: 0.2s; }
+        .sparkle:nth-child(10) { top: 65%; left: 85%; animation-delay: 1.3s; }
+        .sparkle:nth-child(11) { top: 45%; left: 25%; animation-delay: 0.7s; }
+        .sparkle:nth-child(12) { top: 75%; left: 55%; animation-delay: 1.1s; }
+
+        .info-actividad {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .info-actividad h2 {
+            margin: 0 0 15px 0;
+            color: #333;
+            font-size: 24px;
+        }
+
+        .detalles {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .detalles span {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .grupos-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .grupo-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .grupo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .grupo-header {
+            padding: 20px;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .grupo-escuela .grupo-header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .grupo-docente .grupo-header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .grupo-estudiante .grupo-header {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        .grupo-icono {
+            font-size: 36px;
+        }
+
+        .grupo-header h3 {
+            margin: 0;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .grupo-contenido {
+            padding: 25px;
+        }
+
+        .seccion {
+            margin-bottom: 20px;
+        }
+
+        .seccion h4 {
+            margin: 0 0 10px 0;
+            color: #333;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .seccion p {
+            margin: 0;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .metodo-estilo {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .badge {
+            background: #f0f0f0;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .badge strong {
+            color: #000;
+        }
+
+        .microsecuencia {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .microsecuencia h4 {
+            margin: 0 0 15px 0;
+            color: #667eea;
+            font-size: 18px;
+        }
+
+        .microsecuencia p {
+            margin: 10px 0;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .microsecuencia ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        .microsecuencia li {
+            margin: 8px 0;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .reflexion-final {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 30px;
+            border-radius: 15px;
+            color: #333;
+        }
+
+        .reflexion-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .reflexion-header .icono {
+            font-size: 36px;
+        }
+
+        .reflexion-header h2 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .reflexion-final p {
+            margin: 0 0 15px 0;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .reflexion-final ul {
+            margin: 0;
+            padding-left: 25px;
+        }
+
+        .reflexion-final li {
+            margin: 10px 0;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+            background: #1e40af;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        .info-institucional {
+            flex: 1;
+        }
+
+        .info-institucional h2 {
+            margin: 0 0 10px 0;
+            color: #333;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .info-institucional p {
+            margin: 5px 0;
+            color: #666;
+            font-size: 16px;
+            line-height: 1.4;
+        }
+
+        .info-estudiante {
+            text-align: right;
+            flex-shrink: 0;
+        }
+
+        .info-estudiante p {
+            margin: 5px 0;
+            color: #333;
+            font-size: 16px;
+            line-height: 1.4;
+        }
+
+        .info-estudiante p strong {
+            color: black;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+
+            .portada {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+                gap: 20px;
+            }
+            
+            .info-estudiante {
+                text-align: center;
+            }
+            
+            .info-institucional h2 {
+                font-size: 20px;
+            }
+            
+            .info-institucional p,
+            .info-estudiante p {
+                font-size: 14px;
+            }
+            
+            .logo {
+                width: 80px;
+                height: 80px;
+                font-size: 18px;
+            }
+
+            .titulo-actividad {
+                padding: 20px;
+            }
+
+            .titulo-actividad .icono {
+                font-size: 36px;
+            }
+
+            .titulo-actividad h1 {
+                font-size: 24px;
+            }
+
+            .info-actividad {
+                padding: 20px;
+            }
+
+            .info-actividad h2 {
+                font-size: 20px;
+            }
+
+            .detalles {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .grupos-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .grupo-header h3 {
+                font-size: 20px;
+            }
+
+            .grupo-contenido {
+                padding: 20px;
+            }
+
+            .reflexion-final {
+                padding: 20px;
+            }
+
+            .reflexion-header h2 {
+                font-size: 24px;
+            }
+
+            .reflexion-final p {
+                font-size: 16px;
+            }
+
+            .reflexion-final li {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .portada {
+                padding: 15px;
+            }
+            
+            .info-institucional h2 {
+                font-size: 18px;
+            }
+            
+            .info-institucional p,
+            .info-estudiante p {
+                font-size: 12px;
+            }
+
+            .titulo-actividad {
+                padding: 15px;
+            }
+
+            .titulo-actividad .icono {
+                font-size: 32px;
+            }
+
+            .titulo-actividad h1 {
+                font-size: 20px;
+            }
+
+            .info-actividad {
+                padding: 15px;
+            }
+
+            .info-actividad h2 {
+                font-size: 18px;
+            }
+
+            .detalles span {
+                font-size: 14px;
+            }
+
+            .grupo-header {
+                padding: 15px;
+            }
+
+            .grupo-icono {
+                font-size: 28px;
+            }
+
+            .grupo-header h3 {
+                font-size: 18px;
+            }
+
+            .grupo-contenido {
+                padding: 15px;
+            }
+
+            .microsecuencia {
+                padding: 15px;
+            }
+
+            .reflexion-final {
+                padding: 15px;
+            }
+
+            .reflexion-header .icono {
+                font-size: 28px;
+            }
+
+            .reflexion-header h2 {
+                font-size: 20px;
+            }
+        }
+    </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
+ </head>
+ <body>
+  <div class="portada"><img src="https://www.carreras.pe/userfiles/images/Logos%20y%20fachadas/Logo%20UTP%202.png" alt="Logo UTP" onerror="this.outerHTML='<div class=\'logo\'>UTP</div>';" style="width: 100px; height: 100px; object-fit: contain; background: transparent; flex-shrink: 0;">
+   <div class="info-institucional">
+    <h2 id="university-name">Universidad Tecnológica del Perú</h2>
+    <p id="faculty-name">Facultad de Educación</p>
+    <p id="course-name">Práctica Educativa I: Psicomotricidad para Educación Primaria</p>
+    <p id="section-number">Sección 31960</p>
+   </div>
+   <div class="info-estudiante">
+    <p><strong id="student-name">Aaron Sixto Callupe Llallico</strong></p>
+    <p id="student-program">Estudiante de Educación Primaria</p>
+    <p id="assignment-info">Semana 2 - Actividad 1</p>
+   </div>
+  </div>
+  <div class="contenido-trabajo">
+   <div class="titulo-actividad">
+    <div class="sparkles"><span class="sparkle"></span> <span class="sparkle"></span> <span class="sparkle"></span> <span class="sparkle"></span> <span class="sparkle"></span> <span class="sparkle"></span> <span class="sparkle"></span> <span class="sparkle"></span> <span class="sparkle"></span> <span class="sparkle"></span> <span class="sparkle"></span> <span class="sparkle"></span>
+    </div><span class="icono">🧠</span>
+    <h1 id="main-title">Practicando lo aprendido</h1>
+   </div>
+   <div class="info-actividad">
+    <h2 id="activity-name">Actividad: "Ficha de agente educativo"</h2>
+    <div class="detalles"><span id="level">📚 Nivel: Educación Primaria (6 a 11 años)</span>
+    </div>
+   </div>
+   <div class="grupos-container"><!-- Grupo 1: Escuela -->
+    <div class="grupo-card grupo-escuela">
+     <div class="grupo-header"><span class="grupo-icono">🏫</span>
+      <h3 id="group1-title">Grupo 1: Escuela</h3>
+     </div>
+     <div class="grupo-contenido">
+      <div class="seccion">
+       <h4>Función:</h4>
+       <p id="group1-function">Proporcionar el espacio y las condiciones adecuadas para el desarrollo integral del estudiante a través de la motricidad.</p>
+      </div>
+      <div class="metodo-estilo">
+       <div class="badge"><strong>Método:</strong> <span id="group1-method">Inductivo</span>
+       </div>
+       <div class="badge"><strong>Estilo:</strong> <span id="group1-style">Socializador</span>
+       </div>
+      </div>
+      <div class="microsecuencia">
+       <h4>Microsecuencia (10 minutos):</h4>
+       <p><strong>Objetivo:</strong> <span id="group1-objective">Favorecer la cooperación y la conciencia corporal mediante dinámicas grupales.</span></p>
+       <p><strong>Actividad:</strong> <span id="group1-activity-name">"El puente humano"</span></p>
+       <ul id="group1-steps">
+        <li>Los niños forman grupos de cinco.</li>
+        <li>Cuatro se colocan en posición de puente (en el suelo, apoyando manos y pies).</li>
+        <li>El quinto pasa por debajo y luego toma el lugar de otro compañero.</li>
+       </ul>
+       <p><strong>Recursos:</strong> <span id="group1-resources">Colchonetas, silbato.</span></p>
+       <p><strong>Observación:</strong> <span id="group1-observation">Se evalúa la participación, la colaboración y el control postural.</span></p>
+      </div>
+     </div>
+    </div><!-- Grupo 2: Docente -->
+    <div class="grupo-card grupo-docente">
+     <div class="grupo-header"><span class="grupo-icono">👩‍🏫</span>
+      <h3 id="group2-title">Grupo 2: Docente</h3>
+     </div>
+     <div class="grupo-contenido">
+      <div class="seccion">
+       <h4>Función:</h4>
+       <p id="group2-function">Guiar, observar y facilitar el aprendizaje psicomotor respetando el ritmo individual.</p>
+      </div>
+      <div class="metodo-estilo">
+       <div class="badge"><strong>Método:</strong> <span id="group2-method">Descubrimiento guiado</span>
+       </div>
+       <div class="badge"><strong>Estilo:</strong> <span id="group2-style">Cognitivo</span>
+       </div>
+      </div>
+      <div class="microsecuencia">
+       <h4>Microsecuencia (10 minutos):</h4>
+       <p><strong>Objetivo:</strong> <span id="group2-objective">Desarrollar la coordinación óculo-manual y la precisión en el movimiento.</span></p>
+       <p><strong>Actividad:</strong> <span id="group2-activity-name">"Atrapa y descubre"</span></p>
+       <ul id="group2-steps">
+        <li>El docente plantea el reto: "¿De cuántas formas diferentes puedes atrapar una pelota sin que caiga al suelo?"</li>
+        <li>Los estudiantes prueban distintas posiciones y estrategias (de pie, de rodillas, con una mano, en movimiento).</li>
+        <li>El docente solo orienta con preguntas: "¿Qué pasa si cambias la velocidad?" o "¿Qué parte del cuerpo te ayuda más?".</li>
+       </ul>
+       <p><strong>Recursos:</strong> <span id="group2-resources">Pelotas pequeñas o de trapo, espacio amplio.</span></p>
+       <p><strong>Observación:</strong> <span id="group2-observation">Se valora la creatividad, la coordinación y la capacidad de ajuste del movimiento ante distintos retos.</span></p>
+      </div>
+     </div>
+    </div><!-- Grupo 3: Estudiante -->
+    <div class="grupo-card grupo-estudiante">
+     <div class="grupo-header"><span class="grupo-icono">👧</span>
+      <h3 id="group3-title">Grupo 3: Estudiante</h3>
+     </div>
+     <div class="grupo-contenido">
+      <div class="seccion">
+       <h4>Función:</h4>
+       <p id="group3-function">Participar activamente en la exploración del movimiento, demostrando autonomía y respeto por los demás.</p>
+      </div>
+      <div class="metodo-estilo">
+       <div class="badge"><strong>Método:</strong> <span id="group3-method">Aprendizaje ensayo-error</span>
+       </div>
+       <div class="badge"><strong>Estilo:</strong> <span id="group3-style">Creativo</span>
+       </div>
+      </div>
+      <div class="microsecuencia">
+       <h4>Microsecuencia (10 minutos):</h4>
+       <p><strong>Objetivo:</strong> <span id="group3-objective">Estimular la expresión corporal y la resolución motriz de problemas.</span></p>
+       <p><strong>Actividad:</strong> <span id="group3-activity-name">"Crea tu propio movimiento"</span></p>
+       <ul id="group3-steps">
+        <li>Cada estudiante inventa una secuencia de tres movimientos (por ejemplo: saltar – girar – tocar el suelo).</li>
+        <li>Luego la comparte con el grupo para que todos la repliquen.</li>
+       </ul>
+       <p><strong>Recursos:</strong> <span id="group3-resources">Música y espacio amplio.</span></p>
+       <p><strong>Observación:</strong> <span id="group3-observation">Se observa la iniciativa, la expresión y la capacidad de imitación.</span></p>
+      </div>
+     </div>
+    </div>
+   </div><!-- Conclusión -->
+   <div class="reflexion-final">
+    <div class="reflexion-header"><span class="icono">🎯</span>
+     <h2 id="reflection-title">Conclusión</h2>
+    </div>
+    <p id="reflection-intro">Las tres fichas de agentes educativos demuestran cómo la escuela, el docente y el estudiante se complementan en el desarrollo psicomotor:</p>
+    <ul id="reflection-points">
+     <li><strong>La escuela</strong> proporciona el entorno físico y social necesario, promoviendo el trabajo colaborativo a través del método inductivo y estilo socializador.</li>
+     <li><strong>El docente</strong> actúa como facilitador del aprendizaje, guiando el descubrimiento y la reflexión mediante estrategias cognitivas que respetan el ritmo individual.</li>
+     <li><strong>El estudiante</strong> es el protagonista activo de su aprendizaje, desarrollando autonomía y creatividad mediante la experimentación libre y el ensayo-error.</li>
+    </ul>
+    <p style="margin-top: 20px; font-weight: bold; font-size: 18px;">En conjunto, estos tres agentes conforman un ecosistema educativo integral donde la psicomotricidad se convierte en un puente entre el cuerpo, la mente y las relaciones sociales, favoreciendo un desarrollo completo y armónico en los estudiantes de educación primaria.</p>
+   </div>
+  </div>
+  <script>
+        const defaultConfig = {
+            background_color: "#ffffff",
+            border_color: "#000000",
+            primary_text_color: "#333333",
+            secondary_text_color: "#666666",
+            accent_color: "#1e40af",
+            university_name: "Universidad Tecnológica del Perú",
+            faculty_name: "Facultad de Educación",
+            course_name: "Práctica Educativa I: Psicomotricidad para Educación Primaria",
+            section_number: "Sección 31960",
+            student_name: "Aaron Sixto Callupe Llallico",
+            student_program: "Estudiante de Educación Primaria",
+            assignment_info: "Semana 14 - Actividad 2",
+            font_family: "Arial",
+            font_size: 16
+        };
+
+        async function onConfigChange(config) {
+            const universityName = document.getElementById('university-name');
+            const facultyName = document.getElementById('faculty-name');
+            const courseName = document.getElementById('course-name');
+            const sectionNumber = document.getElementById('section-number');
+            const studentName = document.getElementById('student-name');
+            const studentProgram = document.getElementById('student-program');
+            const assignmentInfo = document.getElementById('assignment-info');
+            const portada = document.querySelector('.portada');
+
+            universityName.textContent = config.university_name || defaultConfig.university_name;
+            facultyName.textContent = config.faculty_name || defaultConfig.faculty_name;
+            courseName.textContent = config.course_name || defaultConfig.course_name;
+            sectionNumber.textContent = config.section_number || defaultConfig.section_number;
+            studentName.textContent = config.student_name || defaultConfig.student_name;
+            studentProgram.textContent = config.student_program || defaultConfig.student_program;
+            assignmentInfo.textContent = config.assignment_info || defaultConfig.assignment_info;
+
+            const backgroundColor = config.background_color || defaultConfig.background_color;
+            const borderColor = config.border_color || defaultConfig.border_color;
+            const primaryTextColor = config.primary_text_color || defaultConfig.primary_text_color;
+            const secondaryTextColor = config.secondary_text_color || defaultConfig.secondary_text_color;
+            const accentColor = config.accent_color || defaultConfig.accent_color;
+
+            document.body.style.background = backgroundColor;
+            portada.style.background = backgroundColor;
+            portada.style.borderColor = borderColor;
+            universityName.style.color = primaryTextColor;
+            facultyName.style.color = secondaryTextColor;
+            courseName.style.color = secondaryTextColor;
+            sectionNumber.style.color = secondaryTextColor;
+            studentName.style.color = primaryTextColor;
+            studentProgram.style.color = primaryTextColor;
+            assignmentInfo.style.color = primaryTextColor;
+
+            const logo = document.querySelector('.logo');
+            if (logo) {
+                logo.style.background = accentColor;
+            }
+
+            const customFont = config.font_family || defaultConfig.font_family;
+            const baseFontStack = 'Arial, sans-serif';
+            const fontSize = config.font_size || defaultConfig.font_size;
+
+            document.body.style.fontFamily = `${customFont}, ${baseFontStack}`;
+            universityName.style.fontSize = `${fontSize * 1.5}px`;
+            facultyName.style.fontSize = `${fontSize}px`;
+            courseName.style.fontSize = `${fontSize}px`;
+            sectionNumber.style.fontSize = `${fontSize}px`;
+            studentName.style.fontSize = `${fontSize}px`;
+            studentProgram.style.fontSize = `${fontSize}px`;
+            assignmentInfo.style.fontSize = `${fontSize}px`;
+        }
+
+        function mapToCapabilities(config) {
+            return {
+                recolorables: [
+                    {
+                        get: () => config.background_color || defaultConfig.background_color,
+                        set: (value) => {
+                            config.background_color = value;
+                            window.elementSdk.setConfig({ background_color: value });
+                        }
+                    },
+                    {
+                        get: () => config.border_color || defaultConfig.border_color,
+                        set: (value) => {
+                            config.border_color = value;
+                            window.elementSdk.setConfig({ border_color: value });
+                        }
+                    },
+                    {
+                        get: () => config.primary_text_color || defaultConfig.primary_text_color,
+                        set: (value) => {
+                            config.primary_text_color = value;
+                            window.elementSdk.setConfig({ primary_text_color: value });
+                        }
+                    },
+                    {
+                        get: () => config.secondary_text_color || defaultConfig.secondary_text_color,
+                        set: (value) => {
+                            config.secondary_text_color = value;
+                            window.elementSdk.setConfig({ secondary_text_color: value });
+                        }
+                    },
+                    {
+                        get: () => config.accent_color || defaultConfig.accent_color,
+                        set: (value) => {
+                            config.accent_color = value;
+                            window.elementSdk.setConfig({ accent_color: value });
+                        }
+                    }
+                ],
+                borderables: [],
+                fontEditable: {
+                    get: () => config.font_family || defaultConfig.font_family,
+                    set: (value) => {
+                        config.font_family = value;
+                        window.elementSdk.setConfig({ font_family: value });
+                    }
+                },
+                fontSizeable: {
+                    get: () => config.font_size || defaultConfig.font_size,
+                    set: (value) => {
+                        config.font_size = value;
+                        window.elementSdk.setConfig({ font_size: value });
+                    }
+                }
+            };
+        }
+
+        function mapToEditPanelValues(config) {
+            return new Map([
+                ["university_name", config.university_name || defaultConfig.university_name],
+                ["faculty_name", config.faculty_name || defaultConfig.faculty_name],
+                ["course_name", config.course_name || defaultConfig.course_name],
+                ["section_number", config.section_number || defaultConfig.section_number],
+                ["student_name", config.student_name || defaultConfig.student_name],
+                ["student_program", config.student_program || defaultConfig.student_program],
+                ["assignment_info", config.assignment_info || defaultConfig.assignment_info]
+            ]);
+        }
+
+        if (window.elementSdk) {
+            window.elementSdk.init({
+                defaultConfig,
+                onConfigChange,
+                mapToCapabilities,
+                mapToEditPanelValues
+            });
+        }
+    </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'99d1de83a36cc2ae',t:'MTc2MjkwNjg4Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
