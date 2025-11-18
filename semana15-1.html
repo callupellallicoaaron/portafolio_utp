@@ -20,14 +20,19 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #E63946;
             overflow-x: hidden;
+            width: 100%;
+            max-width: 100%;
         }
 
         .container {
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
             padding: 20px;
             width: 100%;
+            margin: 0 auto;
+            box-sizing: border-box;
         }
 
         .portada {
@@ -36,9 +41,10 @@
             border-radius: 15px;
             padding: 30px;
             max-width: 1200px;
-            width: 100%;
+            width: 95%;
+            margin: 0 auto;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 30px;
         }
 
@@ -80,7 +86,8 @@
         .info-estudiante {
             text-align: right;
             flex-shrink: 0;
-            min-width: 0;
+            min-width: 200px;
+            width: auto;
         }
 
         .info-estudiante p {
@@ -97,8 +104,8 @@
 
         .contenido-actividad {
             max-width: 1200px;
-            width: 100%;
-            margin-top: 40px;
+            width: 95%;
+            margin: 40px auto 0 auto;
             padding: 40px;
             background: white;
             border-radius: 15px;
@@ -308,6 +315,41 @@
 
         .tabla-evaluacion input[type="radio"] {
             margin: 0 4px;
+        }
+
+        #btn-generar-ficha:hover {
+            background: #d32f3a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(230, 57, 70, 0.4);
+        }
+
+        #btn-generar-ficha:active {
+            transform: translateY(0);
+        }
+
+        #btn-limpiar-ficha:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(108, 117, 125, 0.4);
+        }
+
+        #btn-limpiar-ficha:active {
+            transform: translateY(0);
+        }
+
+        #ficha-generada {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Responsive Styles */
@@ -530,6 +572,11 @@
                 padding: 8px 10px;
                 font-size: 13px;
             }
+
+            #btn-generar-ficha {
+                padding: 12px 20px;
+                font-size: 14px;
+            }
         }
 
         @media (max-width: 360px) {
@@ -570,6 +617,16 @@
                 min-height: 40px;
                 padding: 3px;
                 font-size: 10px;
+            }
+
+            #btn-generar-ficha {
+                padding: 10px 15px;
+                font-size: 13px;
+                width: 100%;
+            }
+
+            #ficha-generada h4 {
+                font-size: 16px;
             }
         }
     </style>
@@ -760,7 +817,7 @@
      <div class="seccion">
       <h4>Instrumento</h4>
       <div class="tabla-container">
-       <table class="tabla-evaluacion">
+       <table class="tabla-evaluacion" id="tabla-registro-input">
         <thead>
          <tr>
           <th>Fecha</th>
@@ -772,26 +829,46 @@
         </thead>
         <tbody>
          <tr>
-          <td><input type="date"></td>
-          <td><input type="text" placeholder="Nombre del estudiante"></td>
-          <td><textarea placeholder="Comportamiento relevante y contexto"></textarea></td>
-          <td><textarea placeholder="Interpretación del desempeño"></textarea></td>
-          <td><textarea placeholder="Refuerzo, acompañamiento o adaptación"></textarea></td>
+          <td><input type="date" class="input-fecha"></td>
+          <td><input type="text" class="input-estudiante" placeholder="Nombre del estudiante"></td>
+          <td><textarea class="input-descripcion" placeholder="Comportamiento relevante y contexto"></textarea></td>
+          <td><textarea class="input-analisis" placeholder="Interpretación del desempeño"></textarea></td>
+          <td><textarea class="input-acciones" placeholder="Refuerzo, acompañamiento o adaptación"></textarea></td>
          </tr>
          <tr>
-          <td><input type="date"></td>
-          <td><input type="text" placeholder="Nombre del estudiante"></td>
-          <td><textarea placeholder="Comportamiento relevante y contexto"></textarea></td>
-          <td><textarea placeholder="Interpretación del desempeño"></textarea></td>
-          <td><textarea placeholder="Refuerzo, acompañamiento o adaptación"></textarea></td>
+          <td><input type="date" class="input-fecha"></td>
+          <td><input type="text" class="input-estudiante" placeholder="Nombre del estudiante"></td>
+          <td><textarea class="input-descripcion" placeholder="Comportamiento relevante y contexto"></textarea></td>
+          <td><textarea class="input-analisis" placeholder="Interpretaci��n del desempeño"></textarea></td>
+          <td><textarea class="input-acciones" placeholder="Refuerzo, acompañamiento o adaptación"></textarea></td>
          </tr>
          <tr>
-          <td><input type="date"></td>
-          <td><input type="text" placeholder="Nombre del estudiante"></td>
-          <td><textarea placeholder="Comportamiento relevante y contexto"></textarea></td>
-          <td><textarea placeholder="Interpretación del desempeño"></textarea></td>
-          <td><textarea placeholder="Refuerzo, acompañamiento o adaptación"></textarea></td>
+          <td><input type="date" class="input-fecha"></td>
+          <td><input type="text" class="input-estudiante" placeholder="Nombre del estudiante"></td>
+          <td><textarea class="input-descripcion" placeholder="Comportamiento relevante y contexto"></textarea></td>
+          <td><textarea class="input-analisis" placeholder="Interpretación del desempeño"></textarea></td>
+          <td><textarea class="input-acciones" placeholder="Refuerzo, acompañamiento o adaptación"></textarea></td>
          </tr>
+        </tbody>
+       </table>
+      </div>
+      <div style="text-align: center; margin-top: 20px; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;"><button id="btn-generar-ficha" style="background: #E63946; color: white; padding: 15px 30px; border: none; border-radius: 8px; font-size: 16px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(230, 57, 70, 0.3); transition: all 0.3s;"> 📋 Generar Ficha de Registro Anecdótico </button> <button id="btn-limpiar-ficha" style="background: #6c757d; color: white; padding: 15px 30px; border: none; border-radius: 8px; font-size: 16px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3); transition: all 0.3s; display: none;"> 🗑️ Limpiar Ficha Generada </button>
+      </div>
+     </div>
+     <div id="ficha-generada" style="display: none; margin-top: 30px; padding: 25px; background: #f7fafc; border-radius: 10px; border: 2px solid #E63946;">
+      <h4 style="color: #E63946; font-size: 20px; margin-bottom: 20px; text-align: center;">📋 Ficha de Registro Anecdótico Generada</h4>
+      <div class="tabla-container">
+       <table class="tabla-evaluacion" id="tabla-registro-generada">
+        <thead>
+         <tr>
+          <th>Fecha</th>
+          <th>Estudiante</th>
+          <th>Descripción del hecho</th>
+          <th>Análisis del docente</th>
+          <th>Acciones sugeridas</th>
+         </tr>
+        </thead>
+        <tbody id="tbody-generado">
         </tbody>
        </table>
       </div>
@@ -929,6 +1006,103 @@
                 mapToEditPanelValues
             });
         }
+
+        // Funcionalidad para generar ficha de registro anecdótico
+        document.getElementById('btn-generar-ficha').addEventListener('click', function() {
+            const tablaInput = document.getElementById('tabla-registro-input');
+            const filas = tablaInput.querySelectorAll('tbody tr');
+            const tbodyGenerado = document.getElementById('tbody-generado');
+            const fichaGenerada = document.getElementById('ficha-generada');
+            
+            // Limpiar tabla generada anterior
+            tbodyGenerado.innerHTML = '';
+            
+            let hayDatos = false;
+            
+            // Recorrer cada fila de entrada
+            filas.forEach(fila => {
+                const fecha = fila.querySelector('.input-fecha').value;
+                const estudiante = fila.querySelector('.input-estudiante').value;
+                const descripcion = fila.querySelector('.input-descripcion').value;
+                const analisis = fila.querySelector('.input-analisis').value;
+                const acciones = fila.querySelector('.input-acciones').value;
+                
+                // Solo agregar si al menos un campo tiene datos
+                if (fecha || estudiante || descripcion || analisis || acciones) {
+                    hayDatos = true;
+                    const nuevaFila = document.createElement('tr');
+                    nuevaFila.innerHTML = `
+                        <td>${fecha || '-'}</td>
+                        <td>${estudiante || '-'}</td>
+                        <td>${descripcion || '-'}</td>
+                        <td>${analisis || '-'}</td>
+                        <td>${acciones || '-'}</td>
+                    `;
+                    tbodyGenerado.appendChild(nuevaFila);
+                }
+            });
+            
+            // Mostrar la ficha generada si hay datos
+            if (hayDatos) {
+                fichaGenerada.style.display = 'block';
+                document.getElementById('btn-limpiar-ficha').style.display = 'inline-block';
+                // Scroll suave hacia la ficha generada
+                fichaGenerada.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            } else {
+                // Mostrar mensaje si no hay datos
+                const mensajeVacio = document.createElement('div');
+                mensajeVacio.style.cssText = 'text-align: center; padding: 20px; background: #FFF3F4; border-radius: 8px; color: #E63946; font-weight: 600; margin-top: 10px;';
+                mensajeVacio.textContent = '⚠️ Por favor, completa al menos un registro antes de generar la ficha.';
+                
+                // Remover mensaje anterior si existe
+                const mensajeAnterior = document.querySelector('.mensaje-vacio');
+                if (mensajeAnterior) {
+                    mensajeAnterior.remove();
+                }
+                
+                mensajeVacio.className = 'mensaje-vacio';
+                this.parentElement.appendChild(mensajeVacio);
+                
+                // Remover mensaje después de 3 segundos
+                setTimeout(() => {
+                    mensajeVacio.remove();
+                }, 3000);
+            }
+        });
+
+        // Funcionalidad para limpiar la ficha generada
+        document.getElementById('btn-limpiar-ficha').addEventListener('click', function() {
+            const fichaGenerada = document.getElementById('ficha-generada');
+            const tbodyGenerado = document.getElementById('tbody-generado');
+            
+            // Ocultar la ficha generada
+            fichaGenerada.style.display = 'none';
+            
+            // Limpiar el contenido de la tabla generada
+            tbodyGenerado.innerHTML = '';
+            
+            // Ocultar el botón de limpiar
+            this.style.display = 'none';
+            
+            // Mostrar mensaje de confirmación
+            const mensajeLimpieza = document.createElement('div');
+            mensajeLimpieza.style.cssText = 'text-align: center; padding: 15px; background: #d4edda; border-radius: 8px; color: #155724; font-weight: 600; margin-top: 10px; border: 1px solid #c3e6cb;';
+            mensajeLimpieza.textContent = '✅ Ficha limpiada exitosamente';
+            
+            // Remover mensaje anterior si existe
+            const mensajeAnterior = document.querySelector('.mensaje-limpieza');
+            if (mensajeAnterior) {
+                mensajeAnterior.remove();
+            }
+            
+            mensajeLimpieza.className = 'mensaje-limpieza';
+            this.parentElement.appendChild(mensajeLimpieza);
+            
+            // Remover mensaje después de 2 segundos
+            setTimeout(() => {
+                mensajeLimpieza.remove();
+            }, 2000);
+        });
     </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a03e54c925b56ac',t:'MTc2MzQzMTQ1MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a0949bf53d86d61',t:'MTc2MzQ4Nzk5NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
