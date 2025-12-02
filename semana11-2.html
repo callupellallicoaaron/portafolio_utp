@@ -1,0 +1,674 @@
+<!DOCTYPE ANY HTML ALLOWED>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jugando con Emociones</title>
+    <style>
+        body {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100%;
+            color: #333;
+        }
+
+        html {
+            height: 100%;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 1.5rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .game-section {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .game-title {
+            color: #667eea;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .simulation-container {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            min-height: 350px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0.5rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .game-section {
+                padding: 1rem;
+            }
+            
+            .simulation-container {
+                min-height: 300px;
+                padding: 1rem;
+            }
+
+            .portada {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+                gap: 20px;
+            }
+            
+            .info-estudiante {
+                text-align: center;
+            }
+            
+            .info-institucional h2 {
+                font-size: 20px;
+            }
+            
+            .info-institucional p,
+            .info-estudiante p {
+                font-size: 14px;
+            }
+            
+            .logo {
+                width: 80px;
+                height: 80px;
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .portada {
+                padding: 15px;
+            }
+            
+            .info-institucional h2 {
+                font-size: 18px;
+            }
+            
+            .info-institucional p,
+            .info-estudiante p {
+                font-size: 12px;
+            }
+        }
+
+        .start-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .start-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .start-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .character {
+            width: 60px;
+            height: 60px;
+            background: #ff6b6b;
+            border-radius: 50%;
+            position: absolute;
+            transition: all 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .river {
+            position: absolute;
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0.7;
+        }
+
+        .wave {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"><path d="M0,50 Q300,0 600,50 T1200,50 L1200,120 L0,120 Z" fill="rgba(255,255,255,0.3)"/></svg>');
+            background-size: 1200px 120px;
+            animation: wave 3s linear infinite;
+        }
+
+        @keyframes wave {
+            0% { background-position: 0 0; }
+            100% { background-position: 1200px 0; }
+        }
+
+        .rope {
+            position: absolute;
+            width: 80%;
+            height: 4px;
+            background: #8b4513;
+            top: 50%;
+            left: 10%;
+            transform: translateY(-50%);
+        }
+
+        .obstacle {
+            position: absolute;
+            font-size: 2rem;
+        }
+
+        .emotion-display {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 1rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .treasure-map {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+            z-index: 1;
+        }
+
+        .clue {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: #ffd700;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+            z-index: 10;
+        }
+
+        .clue:hover {
+            transform: scale(1.2);
+        }
+
+        .clue.found {
+            background: #90ee90;
+        }
+
+        .treasure-chest {
+            position: absolute;
+            font-size: 4rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            display: none;
+            z-index: 10;
+        }
+
+        .treasure-chest.visible {
+            display: block;
+            animation: bounce 1s ease infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .message-box {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            display: none;
+            z-index: 100;
+            max-width: 80%;
+        }
+
+        .message-box.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translate(-50%, -60%); }
+            to { opacity: 1; transform: translate(-50%, -50%); }
+        }
+
+        .action-bubble {
+            position: absolute;
+            background: white;
+            padding: 1rem 1.5rem;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #333;
+            max-width: 350px;
+            z-index: 50;
+            display: none;
+            border: 3px solid #667eea;
+            line-height: 1.4;
+        }
+
+        .action-bubble.show {
+            display: block;
+            animation: bubbleIn 0.5s ease;
+        }
+
+        .action-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 10px solid #667eea;
+        }
+
+        @keyframes bubbleIn {
+            from { 
+                opacity: 0; 
+                transform: scale(0.8) translateY(10px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: scale(1) translateY(0); 
+            }
+        }
+
+        .reflection-section {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            border-left: 4px solid #667eea;
+        }
+
+        .reflection-section h3 {
+            color: #667eea;
+            margin-top: 0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .controls {
+            text-align: center;
+            margin-top: 1rem;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .next-button {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+            display: none;
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            z-index: 60;
+        }
+
+        .next-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(40, 167, 69, 0.6);
+        }
+
+        .next-button.show {
+            display: inline-block;
+        }
+
+        .portada {
+            background: white;
+            border: 2px solid black;
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 1140px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin: 0 auto 2rem auto;
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+            background: #1e40af;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        .info-institucional {
+            flex: 1;
+        }
+
+        .info-institucional h2 {
+            margin: 0 0 10px 0;
+            color: #333;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .info-institucional p {
+            margin: 5px 0;
+            color: #666;
+            font-size: 16px;
+            line-height: 1.4;
+        }
+
+        .info-estudiante {
+            text-align: right;
+            flex-shrink: 0;
+        }
+
+        .info-estudiante p {
+            margin: 5px 0;
+            color: #333;
+            font-size: 16px;
+            line-height: 1.4;
+        }
+
+        .info-estudiante p strong {
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <div class="portada">
+        <img src="https://www.carreras.pe/userfiles/images/Logos%20y%20fachadas/Logo%20UTP%202.png" alt="Logo UTP" onerror="this.outerHTML='<div class=\'logo\'>UTP</div>';" style="width: 100px; height: 100px; object-fit: contain; background: transparent; flex-shrink: 0;">
+        
+        <div class="info-institucional">
+            <h2>Universidad Tecnológica del Perú</h2>
+            <p>Facultad de Educación</p>
+            <p>Práctica Educativa I: Psicomotricidad para Educación Primaria</p>
+            <p>Sección 31960</p>
+        </div>
+        
+        <div class="info-estudiante">
+            <p><strong>Aaron Sixto Callupe Llallico</strong></p>
+            <p>Estudiante de Educación Primaria</p>
+            <p>Semana 11 - Actividad 2</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>🎭 Actividad: Jugando con Emociones</h1>
+            <p class="subtitle">Experimenta y reflexiona sobre tus emociones a través del juego</p>
+        </header>
+
+        <main>
+            <section class="game-section">
+                <h2 class="game-title">🌊 Juego 1: Cruzar un Río Peligroso</h2>
+                
+                <div class="reflection-section">
+                    <h3>🔄 1. Actuación Simbólica</h3>
+                    <p>Una compañera me dio las indicaciones para esta actividad. Imaginé que estaba frente a un río caudaloso y lleno de peligros: había piedras resbalosas, troncos flotando, animales salvajes y una cuerda débil para cruzar. Me moví lentamente, con cuidado, extendiendo los brazos para equilibrarme, como si realmente estuviera caminando sobre una cuerda floja.</p>
+                    <p>Mi cuerpo se tensó, sentí el miedo en los hombros y la respiración rápida. En algunos momentos, imaginé que me resbalaba y tenía que sostenerme con fuerza. Con la ayuda y el apoyo de mi compañera, pude cruzar el río superando todos los obstáculos.</p>
+                </div>
+
+                <div class="simulation-container" id="riverGame">
+                    <div class="river">
+                        <div class="wave"></div>
+                    </div>
+                    <div class="rope"></div>
+                    <div class="character" id="riverCharacter" style="left: 5%; top: 50%; transform: translateY(-50%);">🧍</div>
+                    <div class="emotion-display" id="riverEmotion">😰 Miedo</div>
+                    <div class="action-bubble" id="riverActionBubble" style="top: 20%; left: 20%;">
+                        💭 Observa el río caudaloso y respira profundo para prepararte
+                    </div>
+                    <div class="controls">
+                        <button class="start-button" id="startRiver">Comenzar Travesía</button>
+                    </div>
+                    <button class="next-button" id="nextRiver">Siguiente ➡️</button>
+                </div>
+
+                <div class="reflection-section">
+                    <h3>✍️ 2. Reflexión Escrita</h3>
+                    <p><strong>¿Cómo me sentí?</strong><br>
+                    Sentí principalmente miedo y tensión, pero también algo de emoción por el desafío.</p>
+                    <p><strong>¿Qué emoción predominó?</strong><br>
+                    El miedo, porque sentía que podía "caer" en cualquier momento, aunque todo fuera simbólico.</p>
+                    <p><strong>¿Cómo la expresé?</strong><br>
+                    Me moví lentamente, con expresiones de susto en la cara, apreté los puños, respiré profundo como para darme ánimo.</p>
+                </div>
+
+                <div class="reflection-section">
+                    <h3>🤝 3. Análisis</h3>
+                    <p>Reflexionando sobre la actividad, entendí que el miedo no siempre es algo negativo. A veces te ayuda a estar más alerta.</p>
+                    <p>Si hubiese estado en grupo, creo que muchos se habrían sentido igual, y podríamos habernos ayudado mutuamente.</p>
+                    <p>Aprendí que trabajar con el cuerpo también ayuda a reconocer lo que sentimos internamente.</p>
+                </div>
+            </section>
+
+
+
+            <section class="game-section">
+                <h2 class="game-title">🧠 Reflexión Final</h2>
+                <div class="reflection-section">
+                    <p>Esta actividad me permitió reconocer mis emociones en situaciones simbólicas de riesgo y aventura. Me ayudó a entender cómo mi cuerpo y mis pensamientos reaccionan frente al miedo, la curiosidad, la frustración y la alegría.</p>
+                    <p>También aprendí que expresar las emociones, aunque sea a través del juego, es una forma saludable de conocerse mejor y entender a los demás.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        let riverAnimating = false;
+        let riverCurrentStep = 0;
+
+
+        const riverCharacter = document.getElementById('riverCharacter');
+        const riverEmotion = document.getElementById('riverEmotion');
+        const riverActionBubble = document.getElementById('riverActionBubble');
+        const startRiverBtn = document.getElementById('startRiver');
+        const nextRiverBtn = document.getElementById('nextRiver');
+
+
+
+        const emotions = {
+            river: [
+                { 
+                    emoji: '😰', 
+                    text: 'Miedo', 
+                    position: 20,
+                    action: '👩‍🎓 Compañera: "Imagina que estás frente a un río peligroso. Camina lentamente y extiende los brazos para equilibrarte"<br><br>🧍 Tú: Caminas despacio, sintiendo miedo pero decidido a cruzar'
+                },
+                { 
+                    emoji: '😨', 
+                    text: 'Tensión', 
+                    position: 40,
+                    action: '👩‍🎓 Compañera: "¡Cuidado! La cuerda se tambalea. Respira profundo y agárrate fuerte"<br><br>🧍 Tú: Te tensas, sientes el peligro pero mantienes el equilibrio'
+                },
+                { 
+                    emoji: '😅', 
+                    text: 'Alivio', 
+                    position: 60,
+                    action: '👩‍🎓 Compañera: "Muy bien, has superado el momento difícil. Sigue adelante con confianza"<br><br>🧍 Tú: Sientes alivio y continúas más seguro'
+                },
+                { 
+                    emoji: '💪', 
+                    text: 'Valentía', 
+                    position: 80,
+                    action: '👩‍🎓 Compañera: "¡Casi llegas! Mantén la concentración y da pasos firmes hasta el final"<br><br>🧍 Tú: Respiras hondo y avanzas con determinación, sintiéndote valiente'
+                },
+                { 
+                    emoji: '😊', 
+                    text: '¡Lo logré!', 
+                    position: 95,
+                    action: '👩‍🎓 Compañera: "¡Excelente! Has completado la travesía"<br><br>🧍 Tú: Saltas de alegría, orgulloso de haber superado el desafío'
+                }
+            ]
+        };
+
+
+
+        function createObstacles() {
+            const riverGame = document.getElementById('riverGame');
+            const obstacles = ['🪨', '🐊', '🌊', '🪵'];
+            const positions = [
+                { left: '25%', top: '40%' },
+                { left: '45%', top: '60%' },
+                { left: '65%', top: '35%' },
+                { left: '80%', top: '55%' }
+            ];
+
+            positions.forEach((pos, index) => {
+                const obstacle = document.createElement('div');
+                obstacle.className = 'obstacle';
+                obstacle.textContent = obstacles[index];
+                obstacle.style.left = pos.left;
+                obstacle.style.top = pos.top;
+                riverGame.appendChild(obstacle);
+            });
+        }
+
+        createObstacles();
+
+        function updateRiverStep() {
+            if (riverCurrentStep >= emotions.river.length) {
+                riverAnimating = false;
+                startRiverBtn.disabled = false;
+                startRiverBtn.textContent = 'Cruzar de Nuevo';
+                nextRiverBtn.classList.remove('show');
+                riverActionBubble.classList.remove('show');
+                riverCurrentStep = 0;
+                return;
+            }
+            
+            const emotion = emotions.river[riverCurrentStep];
+            const leftPosition = 5 + (emotion.position * 0.85);
+            
+            riverCharacter.style.left = leftPosition + '%';
+            riverEmotion.innerHTML = `${emotion.emoji} ${emotion.text}`;
+            riverActionBubble.innerHTML = emotion.action;
+            
+            riverActionBubble.style.left = Math.min(leftPosition + 5, 50) + '%';
+            riverActionBubble.style.top = '15%';
+            
+            if (riverCurrentStep === 1 || riverCurrentStep === 2) {
+                riverCharacter.style.top = '45%';
+                setTimeout(() => {
+                    riverCharacter.style.top = '50%';
+                }, 300);
+            }
+        }
+
+        startRiverBtn.addEventListener('click', function() {
+            if (riverAnimating) return;
+            
+            riverAnimating = true;
+            riverCurrentStep = 0;
+            startRiverBtn.style.display = 'none';
+            nextRiverBtn.classList.add('show');
+            riverActionBubble.classList.add('show');
+            
+            updateRiverStep();
+        });
+
+        nextRiverBtn.addEventListener('click', function() {
+            riverCurrentStep++;
+            updateRiverStep();
+            
+            if (riverCurrentStep >= emotions.river.length) {
+                startRiverBtn.style.display = 'inline-block';
+            }
+        });
+
+
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'992adb2d53acc650',t:'MTc2MTE1NTYyNy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
