@@ -1,0 +1,537 @@
+<!doctype html>
+<html lang="es">
+ <head>
+  <meta charset="UTF-8">
+  <title>Mural Digital - Lo que aprendimos con el cuerpo y el corazón</title><!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script><!-- Canva SDKs -->
+  <script src="/_sdk/element_sdk.js"></script>
+  <style>
+    body {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Fondo tipo corcho/tablero */
+    .app-wrapper {
+      width: 100%;
+      min-height: 100%;
+      background: linear-gradient(135deg, #d4a574 0%, #c9965f 100%);
+      position: relative;
+    }
+
+    .app-wrapper::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px),
+        repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px);
+      pointer-events: none;
+    }
+
+    /* Tarjetas tipo post-it/notas pegadas con efecto flip */
+    .mural-card {
+      border-radius: 0.25rem;
+      position: relative;
+      perspective: 1000px;
+      cursor: pointer;
+      min-height: 320px;
+    }
+
+    .card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      min-height: 320px;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+    }
+
+    .mural-card.flipped .card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .card-front, .card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 0.25rem;
+      box-shadow: 
+        0 4px 6px rgba(0,0,0,0.1),
+        0 10px 20px rgba(0,0,0,0.15);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .card-back {
+      transform: rotateY(180deg);
+      padding: 2rem 1.5rem;
+      justify-content: flex-start;
+      overflow-y: auto;
+    }
+
+    /* Efecto de chincheta/pin en la parte superior */
+    .mural-card::before {
+      content: '📌';
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1.5rem;
+      z-index: 10;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+    }
+
+    .mural-card:focus-visible {
+      outline: 3px solid #f97316;
+      outline-offset: 3px;
+    }
+
+    .mural-card:hover {
+      transform: translateY(-8px) scale(1.02);
+    }
+
+    /* Rotaciones ligeras para efecto "pegado a mano" */
+    .mural-card:nth-child(1) {
+      transform: rotate(-1.5deg);
+    }
+
+    .mural-card:nth-child(2) {
+      transform: rotate(0.8deg);
+    }
+
+    .mural-card:nth-child(3) {
+      transform: rotate(-1deg);
+    }
+
+    .mural-card:nth-child(1):hover {
+      transform: rotate(-1.5deg) translateY(-8px) scale(1.02);
+    }
+
+    .mural-card:nth-child(2):hover {
+      transform: rotate(0.8deg) translateY(-8px) scale(1.02);
+    }
+
+    .mural-card:nth-child(3):hover {
+      transform: rotate(-1deg) translateY(-8px) scale(1.02);
+    }
+
+    /* Botón de animación */
+    .primary-button {
+      border-radius: 9999px;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+    }
+
+    .primary-button:focus-visible {
+      outline: 3px solid #f97316;
+      outline-offset: 3px;
+    }
+
+    .primary-button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+    }
+
+    /* Animación tipo "video" final (tres escenas) */
+    .animation-container {
+      border-radius: 1.25rem;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .animation-slide {
+      opacity: 0;
+      transform: translateX(8%);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .animation-slide.active {
+      opacity: 1;
+      transform: translateX(0%);
+    }
+
+    .animation-indicator-dot {
+      width: 0.75rem;
+      height: 0.75rem;
+      border-radius: 9999px;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .animation-indicator-dot.active {
+      transform: scale(1.2);
+      opacity: 1;
+    }
+
+    .animation-indicator-dot.inactive {
+      opacity: 0.4;
+    }
+
+    /* Iconos redondos para cada idea */
+    .idea-icon {
+      width: 3.5rem;
+      height: 3.5rem;
+      border-radius: 9999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.75rem;
+      font-weight: bold;
+    }
+
+    /* Asegurar que el layout principal ocupe toda la altura disponible */
+    .main-layout {
+      min-height: 100%;
+    }
+
+    /* Marco del mural */
+    .mural-frame {
+      background: rgba(139, 92, 46, 0.15);
+      border: 12px solid #6b4423;
+      box-shadow: 
+        inset 0 0 30px rgba(0,0,0,0.15),
+        0 12px 32px rgba(0,0,0,0.4);
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body>
+  <div id="app" class="app-wrapper flex items-center justify-center">
+   <div class="main-layout w-full flex items-center justify-center px-4 py-8">
+    <div class="w-full max-w-7xl mural-frame rounded-2xl px-6 py-8 sm:px-10 sm:py-12 flex flex-col gap-8"><!-- HEADER DEL MURAL -->
+     <header class="w-full text-center">
+      <h1 id="main-title" class="text-4xl sm:text-5xl md:text-6xl font-bold text-amber-900 tracking-tight mb-3" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">Lo que aprendimos con el cuerpo y el corazón</h1>
+      <p class="text-amber-800 text-lg sm:text-xl max-w-3xl mx-auto">Tres reflexiones clave de mi experiencia psicomotriz</p>
+     </header><!-- MAIN CONTENT: LAS 3 CARTAS DEL MURAL -->
+     <main class="flex-1 flex flex-col gap-10" aria-label="Mural de aprendizajes"><!-- Tarjetas pegadas al mural -->
+      <section class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8" aria-label="Tarjetas de reflexión"><!-- Tarjeta 1 -->
+       <article tabindex="0" class="mural-card" data-card="1">
+        <div class="card-inner"><!-- Frente de la tarjeta -->
+         <div class="card-front bg-yellow-100 border-2 border-yellow-200">
+          <div class="idea-icon bg-amber-500 text-white shadow-lg" aria-hidden="true">
+           1
+          </div>
+          <h2 id="card1-title" class="text-amber-900 font-bold text-lg leading-tight text-center px-2">Comprendí la importancia de planificar una secuencia clara</h2>
+         </div><!-- Reverso de la tarjeta -->
+         <div class="card-back bg-yellow-100 border-2 border-yellow-200">
+          <div class="flex items-center gap-2 mb-3">
+           <div class="idea-icon bg-amber-500 text-white shadow-lg" style="width: 2.5rem; height: 2.5rem; font-size: 1.25rem;" aria-hidden="true">
+            1
+           </div>
+           <h3 class="text-amber-900 font-bold text-base">Secuencia clara</h3>
+          </div>
+          <p id="card1-body" class="text-amber-900/90 text-sm leading-relaxed">Al aplicar mi sesión, confirmé que una estructura ordenada con un inicio acogedor, un desarrollo progresivo y un cierre significativo permite que los niños se orienten mejor y se involucren con mayor seguridad. Durante la vivencia, pude notar que cuando las actividades están conectadas entre sí y responden a un propósito, el grupo fluye con más naturalidad.</p>
+         </div>
+        </div>
+       </article><!-- Tarjeta 2 -->
+       <article tabindex="0" class="mural-card" data-card="2">
+        <div class="card-inner"><!-- Frente de la tarjeta -->
+         <div class="card-front bg-green-100 border-2 border-green-200">
+          <div class="idea-icon bg-green-600 text-white shadow-lg" aria-hidden="true">
+           2
+          </div>
+          <h2 id="card2-title" class="text-green-900 font-bold text-lg leading-tight text-center px-2">Aprendí a utilizar mi comunicación corporal como herramienta educativa</h2>
+         </div><!-- Reverso de la tarjeta -->
+         <div class="card-back bg-green-100 border-2 border-green-200">
+          <div class="flex items-center gap-2 mb-3">
+           <div class="idea-icon bg-green-600 text-white shadow-lg" style="width: 2.5rem; height: 2.5rem; font-size: 1.25rem;" aria-hidden="true">
+            2
+           </div>
+           <h3 class="text-green-900 font-bold text-base">Comunicación corporal</h3>
+          </div>
+          <p id="card2-body" class="text-green-900/90 text-sm leading-relaxed">Una de las mayores lecciones fue reconocer que mi voz, mis gestos y la forma en que me movía en el espacio influían directamente en la participación del grupo infantil simulado. Noté que, cuando acompañaba mis indicaciones con expresiones claras y movimientos adecuados, la comprensión de las consignas mejoraba notablemente. Esto me hizo consciente de la importancia de mi lenguaje no verbal en la conducción de sesiones psicomotrices.</p>
+         </div>
+        </div>
+       </article><!-- Tarjeta 3 -->
+       <article tabindex="0" class="mural-card" data-card="3">
+        <div class="card-inner"><!-- Frente de la tarjeta -->
+         <div class="card-front bg-blue-100 border-2 border-blue-200">
+          <div class="idea-icon bg-blue-600 text-white shadow-lg" aria-hidden="true">
+           3
+          </div>
+          <h2 id="card3-title" class="text-blue-900 font-bold text-lg leading-tight text-center px-2">Descubrí la necesidad de adaptar las actividades para promover inclusión</h2>
+         </div><!-- Reverso de la tarjeta -->
+         <div class="card-back bg-blue-100 border-2 border-blue-200">
+          <div class="flex items-center gap-2 mb-3">
+           <div class="idea-icon bg-blue-600 text-white shadow-lg" style="width: 2.5rem; height: 2.5rem; font-size: 1.25rem;" aria-hidden="true">
+            3
+           </div>
+           <h3 class="text-blue-900 font-bold text-base">Inclusión y adaptación</h3>
+          </div>
+          <p id="card3-body" class="text-blue-900/90 text-sm leading-relaxed">Durante la experiencia, observé que algunos participantes respondían más rápido que otros, lo cual me ayudó a entender que cada niño puede tener ritmos y estilos de movimiento distintos. A partir de eso, aprendí a ajustar mis indicaciones y a proponer variantes que permitan que todos puedan participar sin dificultades. Este aprendizaje refuerza mi compromiso con una enseñanza inclusiva y flexible.</p>
+         </div>
+        </div>
+       </article>
+      </section><!-- SEPARADOR -->
+      <section aria-hidden="true" class="flex items-center gap-3 text-amber-800">
+       <div class="h-0.5 flex-1 bg-gradient-to-r from-transparent via-amber-700/50 to-transparent"></div><span class="text-xs tracking-[0.2em] uppercase font-semibold"> Síntesis animada </span>
+       <div class="h-0.5 flex-1 bg-gradient-to-r from-transparent via-amber-700/50 to-transparent"></div>
+      </section><!-- "VIDEO" / RESUMEN FINAL -->
+      <section aria-label="Video resumen de los aprendizajes" class="flex flex-col gap-4 bg-white/40 backdrop-blur-sm rounded-2xl px-6 py-6 border-4 border-amber-800/30">
+       <div class="flex flex-col items-start gap-3">
+        <div>
+         <h2 id="summary-title" class="text-amber-900 font-bold text-xl">Lo que me llevo: cuerpo, voz e inclusión</h2>
+         <p class="text-amber-800 text-sm max-w-xl">Video resumen que sintetiza las tres ideas principales de tu vivencia psicomotriz.</p>
+        </div>
+       </div>
+       <div class="animation-container bg-white/80 border-2 border-amber-300 rounded-xl overflow-hidden shadow-inner"><!-- Reproductor de video -->
+        <video id="video-player" class="w-full h-auto" controls preload="metadata"><source src="./sonidos/videofinal.mp4" type="video/mp4"> <source src="./imagenes/videofinal.webm" type="video/webm">
+         <p class="text-amber-900 p-6 text-center">Tu navegador no soporta la reproducción de video. Por favor, actualiza tu navegador o prueba con otro.</p>
+        </video>
+       </div>
+      </section>
+     </main><!-- FOOTER -->
+     <footer class="pt-4 border-t-2 border-amber-800/30 text-xs text-amber-800 flex items-center justify-center flex-wrap gap-2 text-center">
+      <p>🎨 Mural reflexivo: cuerpo, corazón y movimiento · Comparte tu experiencia psicomotriz</p>
+     </footer>
+    </div>
+   </div>
+  </div>
+  <script>
+    // --- CONFIGURACIÓN PARA EDITAR DESDE CANVA (Element SDK) ---
+
+    const defaultConfig = {
+      // Colores (5 máximos, se aplican en onConfigChange)
+      background_color: "#d4a574",    // BACKGROUND (corcho/tablero)
+      surface_color: "#fef3c7",       // SECONDARY_SURFACE (cartas amarillas)
+      text_color: "#78350f",          // TEXT (marrón oscuro)
+      primary_action_color: "#f59e0b",// PRIMARY_ACTION (botón e iconos)
+      secondary_action_color: "#92400e", // SECONDARY_ACTION (bordes)
+
+      // Fuente y tamaño base
+      font_family: "system-ui",
+      font_size: 16,
+
+      // Textos
+      main_title: "Lo que aprendimos con el cuerpo y el corazón",
+
+      card1_title: "Comprendí la importancia de planificar una secuencia clara",
+      card1_body: "Al aplicar mi sesión, confirmé que una estructura ordenada con un inicio acogedor, un desarrollo progresivo y un cierre significativo permite que los niños se orienten mejor y se involucren con mayor seguridad. Durante la vivencia, pude notar que cuando las actividades están conectadas entre sí y responden a un propósito, el grupo fluye con más naturalidad.",
+
+      card2_title: "Aprendí a utilizar mi comunicación corporal como herramienta educativa",
+      card2_body: "Una de las mayores lecciones fue reconocer que mi voz, mis gestos y la forma en que me movía en el espacio influían directamente en la participación del grupo infantil simulado. Noté que, cuando acompañaba mis indicaciones con expresiones claras y movimientos adecuados, la comprensión de las consignas mejoraba notablemente. Esto me hizo consciente de la importancia de mi lenguaje no verbal en la conducción de sesiones psicomotrices.",
+
+      card3_title: "Descubrí la necesidad de adaptar las actividades para promover inclusión",
+      card3_body: "Durante la experiencia, observé que algunos participantes respondían más rápido que otros, lo cual me ayudó a entender que cada niño puede tener ritmos y estilos de movimiento distintos. A partir de eso, aprendí a ajustar mis indicaciones y a proponer variantes que permitan que todos puedan participar sin dificultades. Este aprendizaje refuerza mi compromiso con una enseñanza inclusiva y flexible.",
+
+      summary_title: "Lo que me llevo: cuerpo, voz e inclusión"
+    };
+
+    // Referencias a elementos de texto
+    const elMainTitle = document.getElementById("main-title");
+
+    const elCard1Title = document.getElementById("card1-title");
+    const elCard1Body = document.getElementById("card1-body");
+
+    const elCard2Title = document.getElementById("card2-title");
+    const elCard2Body = document.getElementById("card2-body");
+
+    const elCard3Title = document.getElementById("card3-title");
+    const elCard3Body = document.getElementById("card3-body");
+
+    const elSummaryTitle = document.getElementById("summary-title");
+
+    const elApp = document.getElementById("app");
+
+    // Aplicar cambios visuales según el config
+    async function onConfigChange(config) {
+      const cfg = config || defaultConfig;
+
+      // Colores principales
+      const backgroundColor = cfg.background_color || defaultConfig.background_color;
+      const textColor = cfg.text_color || defaultConfig.text_color;
+      const primaryActionColor = cfg.primary_action_color || defaultConfig.primary_action_color;
+
+      // Fuente y tamaño
+      const fontFamily = cfg.font_family || defaultConfig.font_family;
+      const baseSize = Number(cfg.font_size) || defaultConfig.font_size;
+
+      // Fondo del app (corcho)
+      elApp.style.background = `linear-gradient(135deg, ${backgroundColor} 0%, #c9965f 100%)`;
+
+      // Fuente aplicada a todo el mural
+      const baseFontStack = "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
+      document.body.style.fontFamily = `${fontFamily}, ${baseFontStack}`;
+
+      // Escalar tamaños de fuente principales
+      if (elMainTitle) {
+        elMainTitle.style.fontSize = `${baseSize * 2.5}px`;
+        elMainTitle.style.color = textColor;
+      }
+
+      [elCard1Title, elCard2Title, elCard3Title].forEach(function (el) {
+        if (el) {
+          el.style.fontSize = `${baseSize * 1.1}px`;
+        }
+      });
+
+      [elCard1Body, elCard2Body, elCard3Body].forEach(function (el) {
+        if (el) {
+          el.style.fontSize = `${baseSize * 0.9}px`;
+        }
+      });
+
+      if (elSummaryTitle) {
+        elSummaryTitle.style.fontSize = `${baseSize * 1.25}px`;
+      }
+
+      // Actualizar textos desde config
+      elMainTitle.textContent = cfg.main_title || defaultConfig.main_title;
+
+      elCard1Title.textContent = cfg.card1_title || defaultConfig.card1_title;
+      elCard1Body.textContent  = cfg.card1_body  || defaultConfig.card1_body;
+
+      elCard2Title.textContent = cfg.card2_title || defaultConfig.card2_title;
+      elCard2Body.textContent  = cfg.card2_body  || defaultConfig.card2_body;
+
+      elCard3Title.textContent = cfg.card3_title || defaultConfig.card3_title;
+      elCard3Body.textContent  = cfg.card3_body  || defaultConfig.card3_body;
+
+      elSummaryTitle.textContent = cfg.summary_title || defaultConfig.summary_title;
+    }
+
+    // Capacidades de edición (colores, fuente y tamaño)
+    function mapToCapabilities(config) {
+      const cfg = config || defaultConfig;
+
+      const recolorables = [
+        {
+          get: () => cfg.background_color || defaultConfig.background_color,
+          set: (value) => {
+            if (!window.elementSdk) return;
+            cfg.background_color = value;
+            window.elementSdk.setConfig({ background_color: value });
+          }
+        },
+        {
+          get: () => cfg.surface_color || defaultConfig.surface_color,
+          set: (value) => {
+            if (!window.elementSdk) return;
+            cfg.surface_color = value;
+            window.elementSdk.setConfig({ surface_color: value });
+          }
+        },
+        {
+          get: () => cfg.text_color || defaultConfig.text_color,
+          set: (value) => {
+            if (!window.elementSdk) return;
+            cfg.text_color = value;
+            window.elementSdk.setConfig({ text_color: value });
+          }
+        },
+        {
+          get: () => cfg.primary_action_color || defaultConfig.primary_action_color,
+          set: (value) => {
+            if (!window.elementSdk) return;
+            cfg.primary_action_color = value;
+            window.elementSdk.setConfig({ primary_action_color: value });
+          }
+        },
+        {
+          get: () => cfg.secondary_action_color || defaultConfig.secondary_action_color,
+          set: (value) => {
+            if (!window.elementSdk) return;
+            cfg.secondary_action_color = value;
+            window.elementSdk.setConfig({ secondary_action_color: value });
+          }
+        }
+      ];
+
+      const fontEditable = {
+        get: () => cfg.font_family || defaultConfig.font_family,
+        set: (value) => {
+          if (!window.elementSdk) return;
+          cfg.font_family = value;
+          window.elementSdk.setConfig({ font_family: value });
+        }
+      };
+
+      const fontSizeable = {
+        get: () => cfg.font_size || defaultConfig.font_size,
+        set: (value) => {
+          if (!window.elementSdk) return;
+          cfg.font_size = value;
+          window.elementSdk.setConfig({ font_size: value });
+        }
+      };
+
+      return {
+        recolorables,
+        borderables: [],
+        fontEditable,
+        fontSizeable
+      };
+    }
+
+    // Valores iniciales para el panel de edición de texto
+    function mapToEditPanelValues(config) {
+      const cfg = config || defaultConfig;
+      return new Map([
+        ["main_title", cfg.main_title || defaultConfig.main_title],
+        ["card1_title", cfg.card1_title || defaultConfig.card1_title],
+        ["card1_body", cfg.card1_body || defaultConfig.card1_body],
+        ["card2_title", cfg.card2_title || defaultConfig.card2_title],
+        ["card2_body", cfg.card2_body || defaultConfig.card2_body],
+        ["card3_title", cfg.card3_title || defaultConfig.card3_title],
+        ["card3_body", cfg.card3_body || defaultConfig.card3_body],
+        ["summary_title", cfg.summary_title || defaultConfig.summary_title]
+      ]);
+    }
+
+    // Inicializar Element SDK si está disponible
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig: defaultConfig,
+        onConfigChange: onConfigChange,
+        mapToCapabilities: mapToCapabilities,
+        mapToEditPanelValues: mapToEditPanelValues
+      });
+    } else {
+      // Si el SDK no está disponible (vista previa), aplicar defaults
+      onConfigChange(defaultConfig);
+    }
+
+    // --- LÓGICA DEL REPRODUCTOR DE VIDEO ---
+    
+    const videoPlayer = document.getElementById('video-player');
+    
+    // Manejar errores de carga del video
+    if (videoPlayer) {
+      videoPlayer.addEventListener('error', function(e) {
+        console.error('Error al cargar el video:', e);
+      });
+    }
+
+    // --- LÓGICA DE VOLTEO DE TARJETAS ---
+    const cards = document.querySelectorAll('.mural-card');
+    
+    cards.forEach(function(card) {
+      card.addEventListener('click', function() {
+        this.classList.toggle('flipped');
+      });
+
+      // Soporte para teclado (Enter o Espacio)
+      card.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          this.classList.toggle('flipped');
+        }
+      });
+    });
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9ab7f886f0a9c29c',t:'MTc2NTMxOTY3Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
